@@ -1,18 +1,28 @@
-Title: Leetcode 2. Add Two Numbers
-Tags: [Linked List]
-Date: 2025-04-17
----
-> You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
+# 2. Add Two Numbers
+
+## 題目資訊
+- **題號**: 2
+- **題目名稱**: Add Two Numbers
+- **難度**: Medium
+- **連結**: https://leetcode.com/problems/add-two-numbers/
+- **主題**: LinkedList, Math
+
+## 題目描述
+
+You are given two non-empty linked lists representing two non-negative integers. The digits are stored in reverse order, and each of their nodes contains a single digit. Add the two numbers and return the sum as a linked list.
+
 You may assume the two numbers do not contain any leading zero, except the number 0 itself.
 
-Link：https://leetcode.com/problems/add-two-numbers/description/
+## 解法
 
-花了30分鐘刻出來的笨笨算法，這樣絕對會Overflow。
-（因為題目的範圍>INT_MAX）
-就是把兩個List都先轉為數字，相加後再轉回List，但很顯然地會Overflow
+### 解法一：模擬加法
+**時間複雜度**: O(max(m,n))
+**空間複雜度**: O(max(m,n))
 
-### First Attempt
+#### 思路
+模擬兩數相加的過程，注意進位的處理。
 
+#### 程式碼
 ```cpp
 ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
         //reverse l1 to get thevalue
@@ -69,3 +79,17 @@ ListNode* addTwoNumbers(ListNode* l1, ListNode* l2) {
         
     }
 ```
+
+#### 問題
+這個解法會 Overflow，因為題目的範圍 > INT_MAX。
+是把兩個 List 都先轉為數字，相加後再轉回 List。
+
+## 相關題目
+- 445. Add Two Numbers II
+- 369. Plus One Linked List
+
+## 心得筆記
+LinkedList 的基本操作題，需要注意：
+- 進位的處理
+- 兩個鏈表長度不同的情況
+- 最後一位可能有進位

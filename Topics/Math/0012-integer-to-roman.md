@@ -1,3 +1,29 @@
+# 12. Integer to Roman
+
+## 題目資訊
+- **題號**: 12
+- **題目名稱**: Integer to Roman
+- **難度**: Medium
+- **連結**: https://leetcode.com/problems/integer-to-roman/
+- **主題**: Math, String
+
+## 題目描述
+
+Roman numerals are represented by seven different symbols: I, V, X, L, C, D and M.
+
+Given an integer, convert it to a roman numeral.
+
+## 解法
+
+### 解法一：貪心法
+**時間複雜度**: O(1)
+**空間複雜度**: O(1)
+
+#### 思路
+從大到小處理每個羅馬數字符號，使用貪心策略盡可能使用大的符號。
+
+#### 程式碼
+```cpp
 class Solution {
     public:
         string intToRoman(int num) {
@@ -106,3 +132,14 @@ class Solution {
     
         }
     };
+```
+
+#### 重點
+- 處理特殊情況（4, 9, 40, 90, 400, 900）
+- 從大到小依序處理
+
+## 相關題目
+- 13. Roman to Integer
+
+## 心得筆記
+可以使用陣列儲存符號和對應數值，讓程式碼更簡潔。
