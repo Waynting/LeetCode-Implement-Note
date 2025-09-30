@@ -78,6 +78,7 @@ ShuaShua-Note/
 │
 ├── scripts/                          # Build and maintenance scripts
 │   ├── build-data.js                 # Generate static data files
+│   ├── watch-content.js              # Watch content changes & auto-update
 │   ├── create-problem-note.js        # Create new problem notes
 │   └── create-concept-note.js        # Create new concept notes
 │
@@ -103,12 +104,13 @@ ShuaShua-Note/
 
 ### Core Features
 1. **Multi-Platform Support** - LeetCode, Codeforces, AtCoder, CSES, ZeroJudge
-2. **Light/Dark Theme Toggle**
-3. **Responsive Design**
-4. **Source & Topic Filtering System**
-5. **Search Functionality**
-6. **Composite ID System**
-7. **Static Site Generation (SSG)**
+2. **Responsive Design**
+3. **Source & Topic Filtering System**
+4. **Search Functionality**
+5. **Composite ID System**
+6. **Static Site Generation (SSG)**
+7. **Problem Sorting Options** - Latest, Oldest, Title, Difficulty
+8. **Auto Content Watching** - Automatic index.json generation
 
 ### Supported Platforms
 ```typescript
@@ -251,17 +253,26 @@ npm run create:concept
 
 # Generate static data files
 npm run build:data
+
+# Watch content changes (auto-update index.json)
+npm run watch:content
+
+# Initialize all index.json files
+npm run init:indexes
 ```
 
 ## 🔄 Recent Updates
 
-### Major Changes
+### Major Changes (2025-09-30)
 1. **Multi-Platform Support**: Extended beyond LeetCode
 2. **Composite ID System**: Implemented unique identification
 3. **Source Filtering**: Added platform-based filtering
 4. **Simplified UI**: Removed difficulty filtering for non-LeetCode
 5. **Template Updates**: Added source field to templates
 6. **Website Rebranding**: Changed from "LeetCode Practice Notes" to "ShuaShua Note"
+7. **Added Problem Sorting**: Implemented sorting by Latest, Oldest, Title, Difficulty
+8. **Auto Content Watching**: Added file watcher for automatic index.json updates
+9. **Removed Theme Toggle**: Simplified UI by removing dark/light mode toggle
 
 ### Technical Improvements
 - Updated build scripts to handle multiple sources
@@ -269,6 +280,9 @@ npm run build:data
 - Added source extraction from markdown files
 - Updated routing to handle string IDs
 - Enhanced filtering capabilities
+- Created `watch-content.js` for automatic content updates
+- Added sorting functionality to problems page
+- Cleaned up unused theme-related code
 
 ## 📋 TODO List
 

@@ -9,16 +9,33 @@ export default function ProblemsPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTopic, setSelectedTopic] = useState('');
   const [selectedSource, setSelectedSource] = useState('');
+  const [sortBy, setSortBy] = useState('');
 
-  const filteredProblems = PROBLEMS.filter(problem => {
-    const matchesSearch = problem.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         problem.originalId.toString().includes(searchTerm) ||
-                         problem.id.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesTopic = !selectedTopic || problem.topics.includes(selectedTopic);
-    const matchesSource = !selectedSource || problem.source === selectedSource;
-    
-    return matchesSearch && matchesTopic && matchesSource;
-  });
+  const sortedAndFilteredProblems = (() => {
+    // First filter the problems
+    const filtered = PROBLEMS.filter(problem => {
+      const matchesSearch = problem.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
+                           problem.originalId.toString().includes(searchTerm) ||
+                           problem.id.toLowerCase().includes(searchTerm.toLowerCase());
+      const matchesTopic = !selectedTopic || problem.topics.includes(selectedTopic);
+      const matchesSource = !selectedSource || problem.source === selectedSource;
+      
+      return matchesSearch && matchesTopic && matchesSource;
+    });
+
+    // Then sort the filtered results
+    if (sortBy === 'latest') {
+      return [...filtered].reverse(); // Show latest first (reverse array order)
+    } else if (sortBy === 'oldest') {
+      return filtered; // Show oldest first (original array order)
+    } else if (sortBy === 'title') {
+      return [...filtered].sort((a, b) => a.title.localeCompare(b.title));
+    } else if (sortBy === 'difficulty') {
+      const difficultyOrder = { 'Easy': 1, 'Medium': 2, 'Hard': 3 };
+      return [...filtered].sort((a, b) => difficultyOrder[a.difficulty] - difficultyOrder[b.difficulty]);
+    }
+    return filtered; // Default order
+  })();
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
@@ -30,7 +47,7 @@ export default function ProblemsPage() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Filters */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg dark:shadow-gray-900/20 p-6 mb-8 transition-colors duration-300">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Search Problems
@@ -60,7 +77,6 @@ export default function ProblemsPage() {
               </select>
             </div>
             
-            
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
                 Filter by Source
@@ -76,13 +92,40 @@ export default function ProblemsPage() {
                 ))}
               </select>
             </div>
+
+            <div>
+              <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                Sort by
+              </label>
+              <select
+                value={sortBy}
+                onChange={(e) => setSortBy(e.target.value)}
+                className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-colors duration-200"
+              >
+                <option value="">Default Order</option>
+                <option value="latest">📅 Latest First</option>
+                <option value="oldest">🕐 Oldest First</option>
+                <option value="title">🔤 Title A-Z</option>
+                <option value="difficulty">⚡ Difficulty</option>
+              </select>
+            </div>
           </div>
         </div>
 
         {/* Results Count */}
         <div className="mb-6">
           <p className="text-gray-600 dark:text-gray-300">
-            Showing {filteredProblems.length} / {PROBLEMS.length} problems
+            Showing {sortedAndFilteredProblems.length} / {PROBLEMS.length} problems
+            {sortBy && (
+              <span className="ml-2 text-sm text-blue-600 dark:text-blue-400">
+                • Sorted by: {
+                  sortBy === 'latest' ? 'Latest First' :
+                  sortBy === 'oldest' ? 'Oldest First' :
+                  sortBy === 'title' ? 'Title A-Z' :
+                  sortBy === 'difficulty' ? 'Difficulty' : 'Default'
+                }
+              </span>
+            )}
           </p>
         </div>
 
@@ -110,7 +153,7 @@ export default function ProblemsPage() {
                 </tr>
               </thead>
               <tbody className="bg-white dark:bg-gray-800 divide-y divide-gray-200 dark:divide-gray-700">
-                {filteredProblems.map((problem) => (
+                {sortedAndFilteredProblems.map((problem) => (
                   <tr key={problem.id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
                       {problem.originalId}
@@ -172,7 +215,7 @@ export default function ProblemsPage() {
           </div>
         </div>
 
-        {filteredProblems.length === 0 && (
+        {sortedAndFilteredProblems.length === 0 && (
           <div className="text-center py-12">
             <p className="text-gray-500">No problems found matching the criteria</p>
           </div>
