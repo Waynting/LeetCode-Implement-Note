@@ -1,0 +1,19 @@
+{
+  "category": "algorithms",
+  "displayName": "algorithms",
+  "notes": [
+    {
+      "filename": "binary-search-explained.md",
+      "id": "binary-search-explained"
+    },
+    {
+      "filename": "dfs-bfs-explained.md",
+      "id": "dfs-bfs-explained"
+    },
+    {
+      "filename": "dynamic-programming-intro.md",
+      "id": "dynamic-programming-intro"
+    }
+  ],
+  "lastUpdated": "2025-09-30T08:48:28.913Z"
+}

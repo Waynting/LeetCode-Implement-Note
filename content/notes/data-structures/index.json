@@ -1,0 +1,19 @@
+{
+  "category": "data-structures",
+  "displayName": "data-structures",
+  "notes": [
+    {
+      "filename": "array-basics.md",
+      "id": "array-basics"
+    },
+    {
+      "filename": "hash-table-concepts.md",
+      "id": "hash-table-concepts"
+    },
+    {
+      "filename": "linked-list-intro.md",
+      "id": "linked-list-intro"
+    }
+  ],
+  "lastUpdated": "2025-09-30T08:48:28.913Z"
+}

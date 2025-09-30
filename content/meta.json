@@ -1,0 +1,37 @@
+{
+  "version": "2.0.0",
+  "description": "LeetCode 刷題記錄內容管理",
+  "structure": {
+    "problems": "content/problems/{topic}/{problemId}-{title}.md",
+    "notes": "content/notes/{category}/{noteId}.md"
+  },
+  "topics": [
+    "array",
+    "linkedlist",
+    "tree",
+    "string",
+    "math",
+    "hashtable",
+    "bfs",
+    "dfs",
+    "dynamicprogramming",
+    "greedy",
+    "backtracking",
+    "binarysearch",
+    "tree",
+    "twopointers",
+    "slidingwindow",
+    "sort",
+    "stack",
+    "queue",
+    "graph",
+    "bitmanipulation"
+  ],
+  "noteCategories": [
+    "data-structures",
+    "algorithms",
+    "techniques",
+    "concepts"
+  ],
+  "lastMigration": "2025-09-30T08:48:28.914Z"
+}

@@ -1,0 +1,11 @@
+{
+  "topic": "string",
+  "displayName": "String",
+  "problems": [
+    {
+      "filename": "0005-longest-palindromic-substring.md",
+      "id": null
+    }
+  ],
+  "lastUpdated": "2025-09-30T08:48:28.913Z"
+}

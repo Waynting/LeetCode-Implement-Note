@@ -1,0 +1,15 @@
+{
+  "topic": "linkedlist",
+  "displayName": "LinkedList",
+  "problems": [
+    {
+      "filename": "0002-add-two-numbers.md",
+      "id": null
+    },
+    {
+      "filename": "0141-linked-list-cycle.md",
+      "id": null
+    }
+  ],
+  "lastUpdated": "2025-09-30T08:48:28.912Z"
+}

@@ -1,40 +1,146 @@
-# LeetCode-Implement-Note
+# LeetCode Practice Notes
 
-一個系統化的 LeetCode 刷題筆記系統，採用主題分類方式組織題目，方便學習和複習。
+A systematic LeetCode practice note system organized by topics for efficient learning and review.
 
-## 快速開始
+## 🚀 Quick Start
 
-1. 查看 [使用指南](GUIDE.md) 了解系統使用方法
-2. 瀏覽 [題目總索引](INDEX.md) 查看所有題目
-3. 參考 [題目模板](TEMPLATE.md) 撰寫新題目筆記
+### Development
 
-## 系統特色
+```bash
+# Install dependencies
+cd web && npm install
 
-- 📁 **主題分類**：按照演算法和資料結構主題組織題目
-- 📊 **總覽統計**：快速了解刷題進度和分佈
-- 🔍 **快速查找**：支援按題號、主題、難度查找
-- 📝 **標準模板**：統一的筆記格式，包含完整解題資訊
-- 🔄 **版本管理**：支援多解法記錄和錯誤版本保留
+# Start development server
+npm run dev
 
-## 目錄結構
+# Build static data from content
+npm run build:data
+```
 
-- `INDEX.md` - 題目總索引
-- `GUIDE.md` - 使用指南 
-- `TEMPLATE.md` - 題目筆記模板
-- `Topics/` - 主題分類資料夾
-  - 基礎資料結構：Array, String, LinkedList, Stack, Queue, HashTable
-  - 樹與圖：Tree, BinarySearchTree, Graph
-  - 搜尋與遍歷：DFS, BFS, BinarySearch
-  - 進階演算法：DynamicProgramming, Greedy, Backtracking
-  - 技巧與其他：TwoPointers, SlidingWindow, Sort, Math, BitManipulation
-- `web/` - Next.js 前端網站
+### Creating New Notes
 
-## 線上瀏覽
+```bash
+# Create LeetCode problem solution notes
+cd web && npm run create:problem
 
-📱 **網站**: https://waynting.github.io/LeetCode-Implement-Note/
+# Create DSA concept learning notes  
+cd web && npm run create:concept
 
-🔗 **功能**:
-- 📊 統計總覽與進度追蹤
-- 🏷️ 主題分類瀏覽
-- 🔍 題目搜尋與篩選
-- 📱 響應式設計，支援手機瀏覽
+# Or manually create files in content/
+```
+
+## ✨ Features
+
+- 📁 **Topic Organization**: Problems and notes organized by algorithms and data structures
+- 📊 **Progress Overview**: Quick insights into your learning progress
+- 🔍 **Smart Filtering**: Filter by topic, difficulty, and category
+- 📝 **Standardized Templates**: Consistent note format with complete solution information
+- 🌙 **Dark Mode**: Toggle between light and dark themes
+- 📱 **Responsive Design**: Works on all devices
+
+## 📁 Project Structure
+
+```
+LeetCode-Implement-Note/
+├── content/                    # All content organized by type
+│   ├── problems/              # Problem solutions by topic
+│   ├── notes/                 # Learning notes by category
+│   └── assets/                # Images and resources
+├── web/                       # Next.js frontend
+├── scripts/                   # Build and utility scripts
+├── DEVELOPMENT.md             # Development documentation
+└── README.md                  # This file
+```
+
+## 📝 Creating Notes
+
+### Easy Way (Recommended)
+
+Use the interactive scripts:
+
+**For LeetCode Problem Solutions:**
+```bash
+cd web
+npm run create:problem
+```
+
+This will guide you through:
+- Problem ID and title
+- Difficulty level (Easy/Medium/Hard)
+- Topic assignment (Array, LinkedList, Tree, etc.)
+- Problem description
+
+**For DSA Concept Notes:**
+```bash
+cd web
+npm run create:concept
+```
+
+This will guide you through:
+- Concept title
+- Category selection (Data Structures, Algorithms, Techniques, Concepts)
+- Tags and topics
+
+### Manual Way
+
+1. **For Problem Solutions**: Create in `content/problems/{topic}/`
+   - Use template: `Note_Template/Leetcode_NOTE_TEMPLATE.md`
+   - Example: `content/problems/array/0001-two-sum.md`
+
+2. **For Concept Notes**: Create in `content/notes/{category}/`
+   - Use template: `Note_Template/DSA_Concept_Template_EN.md`
+   - Example: `content/notes/data-structures/binary-tree.md`
+
+3. Copy the appropriate template and fill in your content
+
+4. Regenerate static data:
+   ```bash
+   npm run build:data
+   ```
+
+## 🎯 Topics Covered
+
+### Data Structures
+- Array, String, LinkedList, Stack, Queue, HashTable
+
+### Trees & Graphs  
+- Tree, BinarySearchTree, Graph
+
+### Search & Traversal
+- DFS, BFS, BinarySearch
+
+### Advanced Algorithms
+- DynamicProgramming, Greedy, Backtracking
+
+### Techniques & Others
+- TwoPointers, SlidingWindow, Sort, Math, BitManipulation
+
+## 🚀 Deployment
+
+### Build for Production
+
+```bash
+cd web
+npm run build:data  # Generate static data
+npm run build       # Build Next.js app
+npm run export      # Export static files
+```
+
+### Live Website
+
+📱 **Website**: https://waynting.github.io/LeetCode-Implement-Note/
+
+## 📄 License
+
+MIT License - see [LICENSE](LICENSE) file for details.
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Submit a pull request
+
+---
+
+Happy coding! 🎯

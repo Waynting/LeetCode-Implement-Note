@@ -1,0 +1,15 @@
+{
+  "category": "techniques",
+  "displayName": "techniques",
+  "notes": [
+    {
+      "filename": "sliding-window-pattern.md",
+      "id": "sliding-window-pattern"
+    },
+    {
+      "filename": "two-pointers-technique.md",
+      "id": "two-pointers-technique"
+    }
+  ],
+  "lastUpdated": "2025-09-30T08:48:28.914Z"
+}
