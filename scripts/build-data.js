@@ -6,7 +6,7 @@ const path = require('path');
 // 項目根目錄
 const ROOT_DIR = path.join(__dirname, '..');
 const CONTENT_DIR = path.join(ROOT_DIR, 'content');
-const WEB_LIB_DIR = path.join(ROOT_DIR, 'web', 'src', 'lib');
+const WEB_LIB_DIR = path.join(ROOT_DIR, 'src', 'lib');
 
 // 主題映射
 const TOPIC_MAPPING = {

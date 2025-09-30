@@ -1,5 +1,5 @@
 {
-  "name": "web",
+  "name": "leetcode-practice-notes",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -7,9 +7,10 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "build:data": "node ../scripts/build-data.js",
-    "create:problem": "node ../scripts/create-problem-note.js",
-    "create:concept": "node ../scripts/create-concept-note.js"
+    "build:data": "node scripts/build-data.js",
+    "vercel-build": "npm run build:data && npm run build",
+    "create:problem": "node scripts/create-problem-note.js",
+    "create:concept": "node scripts/create-concept-note.js"
   },
   "dependencies": {
     "@types/react-syntax-highlighter": "^15.5.13",

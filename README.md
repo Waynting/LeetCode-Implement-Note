@@ -8,7 +8,7 @@ A systematic LeetCode practice note system organized by topics for efficient lea
 
 ```bash
 # Install dependencies
-cd web && npm install
+npm install
 
 # Start development server
 npm run dev
@@ -21,10 +21,10 @@ npm run build:data
 
 ```bash
 # Create LeetCode problem solution notes
-cd web && npm run create:problem
+npm run create:problem
 
 # Create DSA concept learning notes  
-cd web && npm run create:concept
+npm run create:concept
 
 # Or manually create files in content/
 ```
@@ -46,8 +46,9 @@ LeetCode-Implement-Note/
 │   ├── problems/              # Problem solutions by topic
 │   ├── notes/                 # Learning notes by category
 │   └── assets/                # Images and resources
-├── web/                       # Next.js frontend
+├── src/                       # Next.js source code
 ├── scripts/                   # Build and utility scripts
+├── Note_Template/             # Note templates
 ├── DEVELOPMENT.md             # Development documentation
 └── README.md                  # This file
 ```
@@ -60,7 +61,6 @@ Use the interactive scripts:
 
 **For LeetCode Problem Solutions:**
 ```bash
-cd web
 npm run create:problem
 ```
 
@@ -72,7 +72,6 @@ This will guide you through:
 
 **For DSA Concept Notes:**
 ```bash
-cd web
 npm run create:concept
 ```
 
@@ -120,7 +119,6 @@ This will guide you through:
 ### Build for Production
 
 ```bash
-cd web
 npm run build:data  # Generate static data
 npm run build       # Build Next.js app
 npm run start       # Start production server
@@ -135,9 +133,8 @@ npm run start       # Start production server
 
 2. **Build Settings** (auto-configured with vercel.json):
    - Framework Preset: Next.js
-   - Build Command: `cd web && npm run build:data && npm run build`
-   - Output Directory: `web/.next`
-   - Install Command: `cd web && npm install`
+   - Build Command: `npm run vercel-build`
+   - Root Directory: Auto-detected
 
 ### Live Website
 
