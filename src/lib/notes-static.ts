@@ -21,44 +21,59 @@ export const NOTE_CATEGORIES = {
 export const NOTES: Note[] = [
   {
     "id": "binary-search-explained",
-    "title": "二分搜尋詳解",
+    "title": "Binary Search Explained",
     "category": "algorithm",
-    "topics": [],
+    "topics": [
+      "BinarySearch",
+      "SearchAlgorithms"
+    ],
     "difficulty": "intermediate",
-    "description": "暫無描述",
+    "description": "A comprehensive guide to binary search algorithm patterns and implementations",
     "contentPath": "/content/notes/algorithms/binary-search-explained.md",
     "createdAt": "2024-01-01",
     "updatedAt": "2025-09-30"
   },
   {
     "id": "dfs-bfs-explained",
-    "title": "深度優先與廣度優先搜尋",
+    "title": "DFS & BFS Explained",
     "category": "algorithm",
-    "topics": [],
+    "topics": [
+      "DFS",
+      "BFS",
+      "GraphTraversal",
+      "TreeTraversal"
+    ],
     "difficulty": "intermediate",
-    "description": "暫無描述",
+    "description": "Comprehensive guide to Depth-First Search and Breadth-First Search algorithms",
     "contentPath": "/content/notes/algorithms/dfs-bfs-explained.md",
     "createdAt": "2024-01-01",
     "updatedAt": "2025-09-30"
   },
   {
     "id": "dynamic-programming-intro",
-    "title": "動態規劃入門指南",
+    "title": "Dynamic Programming Introduction",
     "category": "algorithm",
-    "topics": [],
+    "topics": [
+      "DynamicProgramming",
+      "Optimization"
+    ],
     "difficulty": "intermediate",
-    "description": "暫無描述",
+    "description": "Comprehensive introduction to dynamic programming concepts and patterns",
     "contentPath": "/content/notes/algorithms/dynamic-programming-intro.md",
     "createdAt": "2024-01-01",
     "updatedAt": "2025-09-30"
   },
   {
     "id": "time-complexity-analysis",
-    "title": "時間複雜度分析",
+    "title": "Time Complexity Analysis",
     "category": "concept",
-    "topics": [],
+    "topics": [
+      "TimeComplexity",
+      "BigO",
+      "AlgorithmAnalysis"
+    ],
     "difficulty": "intermediate",
-    "description": "暫無描述",
+    "description": "Comprehensive guide to analyzing time and space complexity of algorithms",
     "contentPath": "/content/notes/concepts/time-complexity-analysis.md",
     "createdAt": "2024-01-01",
     "updatedAt": "2025-09-30"
@@ -87,11 +102,14 @@ export const NOTES: Note[] = [
   },
   {
     "id": "linked-list-intro",
-    "title": "鏈結串列入門",
+    "title": "Linked List Introduction",
     "category": "dataStructure",
-    "topics": [],
+    "topics": [
+      "LinkedList",
+      "DataStructures"
+    ],
     "difficulty": "intermediate",
-    "description": "暫無描述",
+    "description": "Comprehensive introduction to linked list data structure and common operations",
     "contentPath": "/content/notes/data-structures/linked-list-intro.md",
     "createdAt": "2024-01-01",
     "updatedAt": "2025-09-30"
@@ -109,11 +127,16 @@ export const NOTES: Note[] = [
   },
   {
     "id": "two-pointers-technique",
-    "title": "雙指標技巧詳解",
+    "title": "Two Pointers Technique",
     "category": "technique",
-    "topics": [],
+    "topics": [
+      "TwoPointers",
+      "Arrays",
+      "LinkedList",
+      "SlidingWindow"
+    ],
     "difficulty": "intermediate",
-    "description": "暫無描述",
+    "description": "Comprehensive guide to two pointers technique patterns and applications",
     "contentPath": "/content/notes/techniques/two-pointers-technique.md",
     "createdAt": "2024-01-01",
     "updatedAt": "2025-09-30"

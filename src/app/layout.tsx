@@ -14,9 +14,14 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "LeetCode 刷題記錄",
-  description: "系統化的演算法學習筆記與解題紀錄",
-  keywords: "LeetCode, 演算法, 資料結構, 程式設計, 解題筆記",
+  title: "LeetCode Practice Notes",
+  description: "Systematic algorithm learning notes and problem-solving records",
+  keywords: "LeetCode, algorithms, data structures, programming, coding notes",
+  icons: {
+    icon: '/icon.jpg',
+    apple: '/icon.jpg',
+    shortcut: '/icon.jpg',
+  },
 };
 
 export default function RootLayout({
@@ -25,7 +30,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="zh-TW" suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased transition-colors duration-300`}
       >

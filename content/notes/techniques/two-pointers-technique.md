@@ -1,16 +1,66 @@
-# 雙指標技巧詳解
+---
+title: Two Pointers Technique
+category: technique
+difficulty: intermediate
+topics: TwoPointers, Arrays, LinkedList, SlidingWindow
+description: Comprehensive guide to two pointers technique patterns and applications
+---
 
-## 什麼是雙指標技巧？
+# Two Pointers Technique
 
-雙指標（Two Pointers）是一種使用兩個指標遍歷資料結構的演算法技巧。透過巧妙地移動兩個指標，可以將某些 O(n²) 的暴力解法優化到 O(n)。
+## Core Concept (What & Why)
 
-## 雙指標的類型
+**Intuitive Explanation**: Two pointers is an algorithmic technique that uses two pointers to traverse data structures. By cleverly moving these pointers, we can optimize certain O(n²) brute force solutions to O(n).
 
-### 1. 對撞指標（相向雙指標）
+**Problem Types Solved**:
+- Pair/triplet finding in sorted arrays
+- Cycle detection in linked lists
+- Sliding window problems
+- In-place array modifications
+- Palindrome checks
 
-兩個指標從兩端向中間移動。
+**Applicable Conditions**:
+- Sorted arrays (for collision pointers)
+- Need to maintain/find optimal window
+- In-place operations required
+- Linear time complexity desired
 
+**Time / Space Complexity Target**: O(n) / O(1)
+
+## Common Solution Patterns
+
+### Pattern A: Collision Pointers (Opposite Direction)
+**When to use**: Sorted arrays, finding pairs with target sum
+
+**Thought Process**:
+1. Start from both ends of array
+2. Move pointers toward each other
+3. Adjust movement based on current sum vs target
+4. Continue until pointers meet
+
+### Pattern B: Fast & Slow Pointers (Same Direction)
+**When to use**: Cycle detection, finding middle elements, removing duplicates
+
+**Thought Process**:
+1. Both pointers start at same position
+2. Move at different speeds (usually 1x and 2x)
+3. Use the speed difference to detect patterns
+4. Continue until specific condition met
+
+### Pattern C: Sliding Window (Variable Distance)
+**When to use**: Substring/subarray problems with constraints
+
+**Thought Process**:
+1. Expand right pointer to grow window
+2. Contract left pointer when constraint violated
+3. Track optimal window during process
+4. Continue until right pointer reaches end
+
+## Syntax Cheat-Sheet by Language
+
+### JavaScript
 ```javascript
+// Collision Pointers - Two Sum in Sorted Array
 function twoSumSorted(arr, target) {
     let left = 0, right = arr.length - 1;
     
@@ -19,105 +69,16 @@ function twoSumSorted(arr, target) {
         if (sum === target) {
             return [left, right];
         } else if (sum < target) {
-            left++;  // 需要更大的和
+            left++;  // need larger sum
         } else {
-            right--; // 需要更小的和
+            right--; // need smaller sum
         }
     }
     
     return [-1, -1];
 }
-```
 
-### 2. 快慢指標（同向雙指標）
-
-兩個指標同向移動，但速度不同。
-
-```javascript
-// 移除重複元素
-function removeDuplicates(arr) {
-    if (arr.length <= 1) return arr.length;
-    
-    let slow = 0;
-    
-    for (let fast = 1; fast < arr.length; fast++) {
-        if (arr[fast] !== arr[slow]) {
-            slow++;
-            arr[slow] = arr[fast];
-        }
-    }
-    
-    return slow + 1; // 新陣列長度
-}
-```
-
-### 3. 滑動視窗（區間雙指標）
-
-維護一個動態的區間 [left, right]。
-
-```javascript
-// 無重複字符的最長子串
-function lengthOfLongestSubstring(s) {
-    const set = new Set();
-    let left = 0, maxLen = 0;
-    
-    for (let right = 0; right < s.length; right++) {
-        while (set.has(s[right])) {
-            set.delete(s[left]);
-            left++;
-        }
-        set.add(s[right]);
-        maxLen = Math.max(maxLen, right - left + 1);
-    }
-    
-    return maxLen;
-}
-```
-
-## 經典應用模式
-
-### 模式一：有序陣列的配對問題
-
-```javascript
-// 三數之和
-function threeSum(nums) {
-    nums.sort((a, b) => a - b);
-    const result = [];
-    
-    for (let i = 0; i < nums.length - 2; i++) {
-        // 跳過重複元素
-        if (i > 0 && nums[i] === nums[i - 1]) continue;
-        
-        let left = i + 1, right = nums.length - 1;
-        
-        while (left < right) {
-            const sum = nums[i] + nums[left] + nums[right];
-            
-            if (sum === 0) {
-                result.push([nums[i], nums[left], nums[right]]);
-                
-                // 跳過重複元素
-                while (left < right && nums[left] === nums[left + 1]) left++;
-                while (left < right && nums[right] === nums[right - 1]) right--;
-                
-                left++;
-                right--;
-            } else if (sum < 0) {
-                left++;
-            } else {
-                right--;
-            }
-        }
-    }
-    
-    return result;
-}
-```
-
-### 模式二：鏈表中的快慢指標
-
-```javascript
-// 檢測環
+// Fast & Slow Pointers - Cycle Detection
 function hasCycle(head) {
     let slow = head, fast = head;
     
@@ -131,115 +92,30 @@ function hasCycle(head) {
     return false;
 }
 
-// 找到環的起點
-function detectCycle(head) {
-    let slow = head, fast = head;
+// Sliding Window - Longest Substring Without Repeating
+function lengthOfLongestSubstring(s) {
+    const seen = new Set();
+    let left = 0, maxLen = 0;
     
-    // 階段1：檢測是否有環
-    while (fast && fast.next) {
-        slow = slow.next;
-        fast = fast.next.next;
-        
-        if (slow === fast) {
-            // 階段2：找到環的起點
-            slow = head;
-            while (slow !== fast) {
-                slow = slow.next;
-                fast = fast.next;
-            }
-            return slow;
-        }
-    }
-    
-    return null;
-}
-```
-
-### 模式三：滑動視窗變體
-
-```javascript
-// 最小覆蓋子串
-function minWindow(s, t) {
-    const need = new Map();
-    const window = new Map();
-    
-    // 統計 t 中的字符
-    for (const c of t) {
-        need.set(c, (need.get(c) || 0) + 1);
-    }
-    
-    let left = 0, right = 0;
-    let valid = 0;
-    let start = 0, len = Infinity;
-    
-    while (right < s.length) {
-        // 擴大視窗
-        const c = s[right];
-        right++;
-        
-        if (need.has(c)) {
-            window.set(c, (window.get(c) || 0) + 1);
-            if (window.get(c) === need.get(c)) {
-                valid++;
-            }
-        }
-        
-        // 收縮視窗
-        while (valid === need.size) {
-            // 更新答案
-            if (right - left < len) {
-                start = left;
-                len = right - left;
-            }
-            
-            const d = s[left];
+    for (let right = 0; right < s.length; right++) {
+        while (seen.has(s[right])) {
+            seen.delete(s[left]);
             left++;
-            
-            if (need.has(d)) {
-                if (window.get(d) === need.get(d)) {
-                    valid--;
-                }
-                window.set(d, window.get(d) - 1);
-            }
         }
+        seen.add(s[right]);
+        maxLen = Math.max(maxLen, right - left + 1);
     }
     
-    return len === Infinity ? "" : s.substr(start, len);
+    return maxLen;
 }
 ```
 
-### 模式四：分隔陣列
-
-```javascript
-// 荷蘭國旗問題（三向切分）
-function sortColors(nums) {
-    let left = 0, right = nums.length - 1;
-    let i = 0;
-    
-    while (i <= right) {
-        if (nums[i] === 0) {
-            [nums[i], nums[left]] = [nums[left], nums[i]];
-            left++;
-            i++;
-        } else if (nums[i] === 2) {
-            [nums[i], nums[right]] = [nums[right], nums[i]];
-            right--;
-            // 注意：i 不增加，因為交換來的元素還沒檢查
-        } else {
-            i++;
-        }
-    }
-}
-```
-
-## C++ 實作範例
-
+### C++
 ```cpp
 #include <vector>
 #include <unordered_set>
-using namespace std;
 
-// 對撞指標：兩數之和
+// Collision Pointers
 vector<int> twoSum(vector<int>& nums, int target) {
     int left = 0, right = nums.size() - 1;
     
@@ -257,65 +133,167 @@ vector<int> twoSum(vector<int>& nums, int target) {
     return {};
 }
 
-// 滑動視窗：最長無重複子串
-int lengthOfLongestSubstring(string s) {
-    unordered_set<char> window;
-    int left = 0, maxLen = 0;
+// Fast & Slow Pointers
+bool hasCycle(ListNode *head) {
+    ListNode *slow = head, *fast = head;
     
-    for (int right = 0; right < s.length(); right++) {
-        while (window.count(s[right])) {
-            window.erase(s[left++]);
-        }
-        window.insert(s[right]);
-        maxLen = max(maxLen, right - left + 1);
+    while (fast && fast->next) {
+        slow = slow->next;
+        fast = fast->next->next;
+        
+        if (slow == fast) return true;
     }
     
-    return maxLen;
+    return false;
 }
 ```
 
-## 雙指標技巧總結
+## Common Applications
 
-### 適用場景
+### 1. Sorted Array Problems
+```javascript
+// Three Sum
+function threeSum(nums) {
+    nums.sort((a, b) => a - b);
+    const result = [];
+    
+    for (let i = 0; i < nums.length - 2; i++) {
+        if (i > 0 && nums[i] === nums[i - 1]) continue; // skip duplicates
+        
+        let left = i + 1, right = nums.length - 1;
+        
+        while (left < right) {
+            const sum = nums[i] + nums[left] + nums[right];
+            
+            if (sum === 0) {
+                result.push([nums[i], nums[left], nums[right]]);
+                
+                // skip duplicates
+                while (left < right && nums[left] === nums[left + 1]) left++;
+                while (left < right && nums[right] === nums[right - 1]) right--;
+                
+                left++;
+                right--;
+            } else if (sum < 0) {
+                left++;
+            } else {
+                right--;
+            }
+        }
+    }
+    
+    return result;
+}
+```
 
-1. **有序陣列**：利用有序性質移動指標
-2. **鏈表操作**：快慢指標找中點、檢測環
-3. **子串/子陣列**：滑動視窗維護區間性質
-4. **原地操作**：空間複雜度 O(1) 的要求
+### 2. In-Place Array Modification
+```javascript
+// Remove Duplicates from Sorted Array
+function removeDuplicates(nums) {
+    if (nums.length <= 1) return nums.length;
+    
+    let slow = 0;
+    
+    for (let fast = 1; fast < nums.length; fast++) {
+        if (nums[fast] !== nums[slow]) {
+            slow++;
+            nums[slow] = nums[fast];
+        }
+    }
+    
+    return slow + 1;
+}
 
-### 移動策略
+// Move Zeros to End
+function moveZeroes(nums) {
+    let slow = 0;
+    
+    // Move non-zero elements to front
+    for (let fast = 0; fast < nums.length; fast++) {
+        if (nums[fast] !== 0) {
+            nums[slow] = nums[fast];
+            slow++;
+        }
+    }
+    
+    // Fill remaining with zeros
+    while (slow < nums.length) {
+        nums[slow] = 0;
+        slow++;
+    }
+}
+```
 
-1. **對撞指標**：根據當前和與目標的關係決定移動
-2. **快慢指標**：固定速度差，通常是 2:1
-3. **滑動視窗**：右指標擴展，左指標收縮
+### 3. Linked List Problems
+```javascript
+// Find Middle of Linked List
+function findMiddle(head) {
+    let slow = head, fast = head;
+    
+    while (fast && fast.next) {
+        slow = slow.next;
+        fast = fast.next.next;
+    }
+    
+    return slow;
+}
 
-### 常見陷阱
+// Remove Nth Node from End
+function removeNthFromEnd(head, n) {
+    const dummy = new ListNode(0);
+    dummy.next = head;
+    let slow = dummy, fast = dummy;
+    
+    // Move fast n+1 steps ahead
+    for (let i = 0; i <= n; i++) {
+        fast = fast.next;
+    }
+    
+    // Move both until fast reaches end
+    while (fast) {
+        slow = slow.next;
+        fast = fast.next;
+    }
+    
+    // Remove the node
+    slow.next = slow.next.next;
+    return dummy.next;
+}
+```
 
-1. **邊界條件**：確保不越界
-2. **重複元素**：需要跳過重複元素時的處理
-3. **初始化**：指標的初始位置很重要
-4. **更新順序**：先更新狀態還是先移動指標
+## Edge Cases & Tests
+```
+Case1: Empty array/list => handle null cases
+Case2: Single element => ensure pointers don't conflict
+Case3: All same elements => handle duplicate logic
+Case4: No valid solution => return appropriate default
+Case5: Large input => verify O(n) complexity
+```
 
-## 經典題目
+## Common Problems by Pattern
 
-### 基礎雙指標
-- [167. Two Sum II](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/)
+### Collision Pointers
+- [167. Two Sum II - Input array is sorted](https://leetcode.com/problems/two-sum-ii-input-array-is-sorted/)
 - [15. 3Sum](https://leetcode.com/problems/3sum/)
-- [18. 4Sum](https://leetcode.com/problems/4sum/)
+- [11. Container With Most Water](https://leetcode.com/problems/container-with-most-water/)
 
-### 快慢指標
+### Fast & Slow Pointers
 - [141. Linked List Cycle](https://leetcode.com/problems/linked-list-cycle/)
 - [142. Linked List Cycle II](https://leetcode.com/problems/linked-list-cycle-ii/)
 - [876. Middle of the Linked List](https://leetcode.com/problems/middle-of-the-linked-list/)
 
-### 滑動視窗
-- [3. Longest Substring Without Repeating](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
+### Sliding Window
+- [3. Longest Substring Without Repeating Characters](https://leetcode.com/problems/longest-substring-without-repeating-characters/)
 - [76. Minimum Window Substring](https://leetcode.com/problems/minimum-window-substring/)
-- [438. Find All Anagrams](https://leetcode.com/problems/find-all-anagrams-in-a-string/)
+- [209. Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/)
 
-### 陣列操作
+### In-Place Modification
 - [26. Remove Duplicates from Sorted Array](https://leetcode.com/problems/remove-duplicates-from-sorted-array/)
-- [75. Sort Colors](https://leetcode.com/problems/sort-colors/)
 - [283. Move Zeroes](https://leetcode.com/problems/move-zeroes/)
+- [75. Sort Colors](https://leetcode.com/problems/sort-colors/)
 
-掌握雙指標技巧，能夠優雅地解決許多陣列和鏈表問題！
+## Personal Notes
+- **Choose the right pattern**: Collision for sorted arrays, fast/slow for cycles, sliding window for subarrays
+- **Handle duplicates carefully**: Skip them appropriately in sorted array problems
+- **Boundary checks**: Ensure pointers don't go out of bounds
+- **Initialization matters**: Starting positions affect the algorithm correctness

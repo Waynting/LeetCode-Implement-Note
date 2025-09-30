@@ -1,102 +1,116 @@
-# 陣列基礎概念
+# Array Fundamentals
 
-## 什麼是陣列？
+## Core Concept (What & Why)
 
-陣列是最基本的資料結構之一，它是一種線性資料結構，用於儲存相同類型的元素集合。陣列中的每個元素都可以通過索引（index）來訪問。
+**Intuitive Explanation**: An array is one of the most fundamental data structures - a linear collection that stores elements of the same type in contiguous memory locations, accessible by index.
 
-## 陣列的特點
+**Problem Types Solved**:
+- Random access to elements by position
+- Sequential data processing
+- Implementation base for other data structures
+- Cache-friendly iteration patterns
 
-- **固定大小**：在大多數程式語言中，陣列的大小在創建時就固定了
-- **連續記憶體**：陣列元素在記憶體中是連續儲存的
-- **隨機存取**：可以在 O(1) 時間內訪問任何元素
-- **相同類型**：陣列中的所有元素必須是相同的資料類型
+**Applicable Conditions**:
+- When you need O(1) random access by index
+- When memory locality is important for performance
+- When the size is known or bounded
+- When implementing stacks, queues, or other structures
 
-## 時間複雜度
+**Time / Space Complexity Target**: Access O(1), Search O(n) / Space O(n)
 
-| 操作 | 時間複雜度 | 說明 |
-|------|-----------|------|
-| 訪問元素 `arr[i]` | O(1) | 透過索引直接訪問 |
-| 搜尋元素 | O(n) | 需要遍歷整個陣列 |
-| 插入元素（末尾）| O(1) | 動態陣列平均情況 |
-| 插入元素（中間）| O(n) | 需要移動後續元素 |
-| 刪除元素（末尾）| O(1) | 直接刪除 |
-| 刪除元素（中間）| O(n) | 需要移動後續元素 |
+## Array Properties
 
-## JavaScript 實作範例
+- **Fixed Size**: In most languages, array size is determined at creation time
+- **Contiguous Memory**: Elements are stored sequentially in memory
+- **Random Access**: Any element can be accessed in O(1) time via index
+- **Homogeneous**: All elements must be of the same data type
+
+## Time Complexity Analysis
+
+| Operation | Time Complexity | Notes |
+|-----------|----------------|-------|
+| Access `arr[i]` | O(1) | Direct index access |
+| Search element | O(n) | May need to traverse entire array |
+| Insert at end | O(1) | Dynamic arrays (amortized) |
+| Insert at middle | O(n) | Need to shift subsequent elements |
+| Delete from end | O(1) | Direct removal |
+| Delete from middle | O(n) | Need to shift subsequent elements |
+
+## JavaScript Implementation Examples
 
 ```javascript
-// 創建陣列
+// Array creation
 const arr = [1, 2, 3, 4, 5];
-const arr2 = new Array(10); // 創建長度為 10 的陣列
+const arr2 = new Array(10); // Create array with length 10
 
-// 訪問元素
+// Element access
 console.log(arr[0]); // 1
-console.log(arr[arr.length - 1]); // 5 (最後一個元素)
+console.log(arr[arr.length - 1]); // 5 (last element)
 
-// 修改元素
+// Element modification
 arr[2] = 10;
 
-// 新增元素
-arr.push(6);       // 在末尾新增，O(1)
-arr.unshift(0);    // 在開頭新增，O(n)
-arr.splice(2, 0, 100); // 在索引 2 插入 100，O(n)
+// Adding elements
+arr.push(6);       // Add at end, O(1)
+arr.unshift(0);    // Add at beginning, O(n)
+arr.splice(2, 0, 100); // Insert 100 at index 2, O(n)
 
-// 刪除元素
-arr.pop();         // 刪除最後一個元素，O(1)
-arr.shift();       // 刪除第一個元素，O(n)
-arr.splice(2, 1);  // 刪除索引 2 的元素，O(n)
+// Removing elements
+arr.pop();         // Remove last element, O(1)
+arr.shift();       // Remove first element, O(n)
+arr.splice(2, 1);  // Remove element at index 2, O(n)
 
-// 遍歷陣列
-// 方法 1：傳統 for 迴圈
+// Array iteration
+// Method 1: Traditional for loop
 for (let i = 0; i < arr.length; i++) {
     console.log(arr[i]);
 }
 
-// 方法 2：for...of
+// Method 2: for...of
 for (const element of arr) {
     console.log(element);
 }
 
-// 方法 3：forEach
+// Method 3: forEach
 arr.forEach((element, index) => {
     console.log(index, element);
 });
 
-// 常用方法
-const doubled = arr.map(x => x * 2);         // 映射
-const evens = arr.filter(x => x % 2 === 0);  // 過濾
-const sum = arr.reduce((a, b) => a + b, 0);  // 累積
-const found = arr.find(x => x > 3);          // 尋找
-const index = arr.indexOf(5);                // 查找索引
+// Common array methods
+const doubled = arr.map(x => x * 2);         // Transform
+const evens = arr.filter(x => x % 2 === 0);  // Filter
+const sum = arr.reduce((a, b) => a + b, 0);  // Accumulate
+const found = arr.find(x => x > 3);          // Find first match
+const index = arr.indexOf(5);                // Find index
 ```
 
-## C++ 實作範例
+## C++ Implementation Examples
 
 ```cpp
 #include <vector>
 #include <array>
 using namespace std;
 
-// 靜態陣列
+// Static arrays
 int arr[5] = {1, 2, 3, 4, 5};
 array<int, 5> stlArr = {1, 2, 3, 4, 5};
 
-// 動態陣列 (vector)
+// Dynamic array (vector)
 vector<int> vec = {1, 2, 3, 4, 5};
 
-// 訪問元素
+// Element access
 int first = vec[0];
 int last = vec.back();
 
-// 新增元素
-vec.push_back(6);              // O(1) 平均
+// Adding elements
+vec.push_back(6);              // O(1) amortized
 vec.insert(vec.begin() + 2, 100); // O(n)
 
-// 刪除元素
+// Removing elements
 vec.pop_back();                // O(1)
 vec.erase(vec.begin() + 2);    // O(n)
 
-// 遍歷
+// Iteration
 for (int i = 0; i < vec.size(); i++) {
     cout << vec[i] << " ";
 }
@@ -106,9 +120,9 @@ for (int x : vec) {
 }
 ```
 
-## 常見技巧與模板
+## Common Patterns & Techniques
 
-### 1. 雙指標遍歷
+### 1. Two Pointers Traversal
 ```javascript
 function twoSum(arr, target) {
     let left = 0, right = arr.length - 1;
@@ -123,19 +137,19 @@ function twoSum(arr, target) {
 }
 ```
 
-### 2. 滑動視窗
+### 2. Sliding Window
 ```javascript
 function maxSubarraySum(arr, k) {
     let maxSum = 0;
     let windowSum = 0;
     
-    // 初始視窗
+    // Initialize window
     for (let i = 0; i < k; i++) {
         windowSum += arr[i];
     }
     maxSum = windowSum;
     
-    // 滑動視窗
+    // Slide window
     for (let i = k; i < arr.length; i++) {
         windowSum = windowSum - arr[i - k] + arr[i];
         maxSum = Math.max(maxSum, windowSum);
@@ -145,18 +159,18 @@ function maxSubarraySum(arr, k) {
 }
 ```
 
-### 3. 前綴和
+### 3. Prefix Sum
 ```javascript
 function rangeSum(arr) {
     const n = arr.length;
     const prefix = new Array(n + 1).fill(0);
     
-    // 建立前綴和
+    // Build prefix sum
     for (let i = 0; i < n; i++) {
         prefix[i + 1] = prefix[i] + arr[i];
     }
     
-    // 查詢 [left, right] 區間和
+    // Query range [left, right] sum
     function query(left, right) {
         return prefix[right + 1] - prefix[left];
     }
@@ -165,36 +179,41 @@ function rangeSum(arr) {
 }
 ```
 
-## 陣列 vs 其他資料結構
+## Arrays vs Other Data Structures
 
-| 特性 | 陣列 | 鏈結串列 | 動態陣列(Vector) |
-|------|------|---------|-----------------|
-| 隨機存取 | O(1) | O(n) | O(1) |
-| 插入/刪除（頭部）| O(n) | O(1) | O(n) |
-| 插入/刪除（尾部）| O(1) | O(n) | O(1) |
-| 記憶體連續 | 是 | 否 | 是 |
-| 記憶體開銷 | 低 | 高（指標）| 中 |
-| 快取友好 | 是 | 否 | 是 |
+| Feature | Array | Linked List | Dynamic Array (Vector) |
+|---------|-------|-------------|----------------------|
+| Random Access | O(1) | O(n) | O(1) |
+| Insert/Delete (Head) | O(n) | O(1) | O(n) |
+| Insert/Delete (Tail) | O(1) | O(n) | O(1) |
+| Memory Contiguous | Yes | No | Yes |
+| Memory Overhead | Low | High (pointers) | Medium |
+| Cache Friendly | Yes | No | Yes |
 
-## 常見應用場景
+## Common Use Cases
 
-1. **儲存有序資料**：如學生成績列表、商品清單等
-2. **實現其他資料結構**：堆疊、佇列、雜湊表等都可以用陣列實現
-3. **動態規劃**：儲存子問題的解
-4. **圖的鄰接矩陣表示**
-5. **快取實現**：如 LRU Cache 的底層儲存
+1. **Storing Ordered Data**: Student grades, product lists, etc.
+2. **Implementing Other Data Structures**: Stacks, queues, hash tables
+3. **Dynamic Programming**: Storing subproblem solutions
+4. **Graph Adjacency Matrix**: Representing graph connections
+5. **Cache Implementation**: Base storage for LRU Cache
 
-## 注意事項
+## Important Considerations
 
-1. **邊界檢查**：訪問陣列時要確保索引在有效範圍內
-2. **動態擴容**：動態陣列擴容時會複製所有元素，成本較高
-3. **記憶體局部性**：連續訪問陣列元素比隨機訪問更快（快取優化）
-4. **初始化**：注意區分語言中陣列的默認初始值
+1. **Bounds Checking**: Ensure indices are within valid range
+2. **Dynamic Resizing**: Vector expansion copies all elements (expensive)
+3. **Memory Locality**: Sequential access is faster than random access (cache optimization)
+4. **Initialization**: Be aware of default values in different languages
 
-## 相關 LeetCode 題目
+## Related LeetCode Problems
 
-- [1. Two Sum](https://leetcode.com/problems/two-sum/) - 雜湊表應用
-- [15. 3Sum](https://leetcode.com/problems/3sum/) - 雙指標
-- [53. Maximum Subarray](https://leetcode.com/problems/maximum-subarray/) - 動態規劃/分治
-- [121. Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/) - 單次遍歷
-- [238. Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) - 前後綴積
+- [1. Two Sum](https://leetcode.com/problems/two-sum/) - Hash table application
+- [15. 3Sum](https://leetcode.com/problems/3sum/) - Two pointers technique
+- [53. Maximum Subarray](https://leetcode.com/problems/maximum-subarray/) - Dynamic programming/divide & conquer
+- [121. Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/) - Single pass
+- [238. Product of Array Except Self](https://leetcode.com/problems/product-of-array-except-self/) - Prefix/suffix products
+
+## Personal Notes
+- **Common Mistakes**: Off-by-one errors, array bounds violations
+- **Debugging Tips**: Always check array indices and null/empty cases
+- **Performance**: Prefer sequential access patterns for better cache performance

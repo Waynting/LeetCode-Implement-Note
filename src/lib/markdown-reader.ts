@@ -5,7 +5,7 @@ import path from 'path';
 export async function getProblemMarkdownContent(problemId: number): Promise<string | null> {
   try {
     // Look for the markdown file in all topic directories
-    const contentDir = path.join(process.cwd(), '..', 'content', 'problems');
+    const contentDir = path.join(process.cwd(), 'content', 'problems');
     
     if (!fs.existsSync(contentDir)) {
       console.warn('Content directory does not exist:', contentDir);

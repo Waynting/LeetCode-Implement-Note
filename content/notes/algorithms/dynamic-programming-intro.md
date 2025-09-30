@@ -1,66 +1,212 @@
-# 動態規劃入門指南
+---
+title: Dynamic Programming Introduction
+category: algorithm
+difficulty: intermediate
+topics: DynamicProgramming, Optimization
+description: Comprehensive introduction to dynamic programming concepts and patterns
+---
 
-## 什麼是動態規劃？
+# Dynamic Programming Introduction
 
-[描述動態規劃的核心思想]
+## Core Concept (What & Why)
 
-## 動態規劃的特徵
+**Intuitive Explanation**: Dynamic Programming (DP) is an algorithmic paradigm that solves complex problems by breaking them down into simpler subproblems and storing their results to avoid redundant calculations.
 
-1. **重疊子問題**
-2. **最優子結構**
-3. **狀態轉移**
+**Problem Types Solved**:
+- Optimization problems (minimum/maximum)
+- Counting problems
+- Decision problems
+- Sequence problems
+- Game theory problems
 
-## 動態規劃的步驟
+**Applicable Conditions**:
+1. **Overlapping Subproblems**: Same subproblems are solved multiple times
+2. **Optimal Substructure**: Optimal solution contains optimal solutions of subproblems
 
-### 1. 定義狀態
+**Time / Space Complexity Target**: Often O(n²) or O(n×m) / O(n) or O(n×m)
 
-### 2. 狀態轉移方程
+## Common Solution Patterns
 
-### 3. 初始化
+### Pattern A: Top-Down (Memoization)
+**When to use**: When recursive solution is intuitive but inefficient
 
-### 4. 計算順序
+**Thought Process**:
+1. Write recursive solution
+2. Identify overlapping subproblems
+3. Add memoization to cache results
+4. Return cached result if available
 
-### 5. 返回結果
+**Complexity**: Depends on number of unique subproblems
 
-## 經典範例
+### Pattern B: Bottom-Up (Tabulation)
+**When to use**: When you can identify the optimal order to solve subproblems
 
-### 範例一：費波那契數列
+**Thought Process**:
+1. Define DP table/array
+2. Initialize base cases
+3. Fill table in optimal order
+4. Use recurrence relation
+5. Return final result
 
+**Complexity**: Usually more space-efficient than memoization
+
+## The 5-Step DP Process
+
+### 1. Define State
+What does `dp[i]` or `dp[i][j]` represent?
+
+### 2. State Transition Equation
+How to compute current state from previous states?
+
+### 3. Base Cases
+What are the initial values?
+
+### 4. Computation Order
+In what order should we fill the DP table?
+
+### 5. Return Result
+What is the final answer?
+
+## Syntax Cheat-Sheet by Language
+
+### JavaScript
 ```javascript
-// 遞迴（會超時）
-// 記憶化搜尋
-// 動態規劃
-// 空間優化
+// Top-Down (Memoization)
+function dpMemo(n, memo = {}) {
+    if (n in memo) return memo[n];
+    if (n <= 1) return n; // base case
+    
+    memo[n] = dpMemo(n-1, memo) + dpMemo(n-2, memo);
+    return memo[n];
+}
+
+// Bottom-Up (Tabulation)
+function dpBottomUp(n) {
+    if (n <= 1) return n;
+    
+    const dp = new Array(n + 1);
+    dp[0] = 0;
+    dp[1] = 1;
+    
+    for (let i = 2; i <= n; i++) {
+        dp[i] = dp[i-1] + dp[i-2];
+    }
+    
+    return dp[n];
+}
+
+// Space Optimized
+function dpOptimized(n) {
+    if (n <= 1) return n;
+    
+    let prev2 = 0, prev1 = 1;
+    
+    for (let i = 2; i <= n; i++) {
+        const current = prev1 + prev2;
+        prev2 = prev1;
+        prev1 = current;
+    }
+    
+    return prev1;
+}
 ```
 
-### 範例二：爬樓梯
+### C++
+```cpp
+#include <vector>
+#include <unordered_map>
 
-### 範例三：背包問題
+// Top-Down
+int dpMemo(int n, unordered_map<int, int>& memo) {
+    if (memo.count(n)) return memo[n];
+    if (n <= 1) return n;
+    
+    memo[n] = dpMemo(n-1, memo) + dpMemo(n-2, memo);
+    return memo[n];
+}
 
-## 常見模式
+// Bottom-Up
+int dpBottomUp(int n) {
+    if (n <= 1) return n;
+    
+    vector<int> dp(n + 1);
+    dp[0] = 0;
+    dp[1] = 1;
+    
+    for (int i = 2; i <= n; i++) {
+        dp[i] = dp[i-1] + dp[i-2];
+    }
+    
+    return dp[n];
+}
+```
 
-### 1. 線性 DP
+## Minimal Working Example: Fibonacci
 
-### 2. 區間 DP
+**Problem**: Find the nth Fibonacci number
 
-### 3. 狀態壓縮 DP
+**Steps**:
+1. **State**: `dp[i]` = ith Fibonacci number
+2. **Transition**: `dp[i] = dp[i-1] + dp[i-2]`
+3. **Base cases**: `dp[0] = 0, dp[1] = 1`
+4. **Order**: i from 2 to n
+5. **Result**: `dp[n]`
 
-### 4. 樹形 DP
+**Trace for n=5**:
+```
+dp[0] = 0
+dp[1] = 1
+dp[2] = dp[1] + dp[0] = 1 + 0 = 1
+dp[3] = dp[2] + dp[1] = 1 + 1 = 2
+dp[4] = dp[3] + dp[2] = 2 + 1 = 3
+dp[5] = dp[4] + dp[3] = 3 + 2 = 5
+```
 
-## 優化技巧
+## Common DP Patterns
 
-### 1. 空間優化
+### 1. Linear DP
+- **Examples**: House Robber, Climbing Stairs
+- **State**: `dp[i]` represents optimal solution for first i elements
+- **Transition**: `dp[i]` depends on `dp[i-1]`, `dp[i-2]`, etc.
 
-### 2. 滾動陣列
+### 2. 2D DP
+- **Examples**: Unique Paths, Edit Distance
+- **State**: `dp[i][j]` represents solution for subproblem (i,j)
+- **Transition**: `dp[i][j]` depends on `dp[i-1][j]`, `dp[i][j-1]`, etc.
 
-## 相關題目
+### 3. Interval DP
+- **Examples**: Matrix Chain Multiplication
+- **State**: `dp[i][j]` represents optimal solution for interval [i,j]
+- **Transition**: Try all possible split points k
 
-### 基礎題目
-- [70. Climbing Stairs]
-- [198. House Robber]
-- [53. Maximum Subarray]
+## Edge Cases & Tests
+```
+Case1: n = 0 => handle base case
+Case2: n = 1 => handle base case
+Case3: Small values => verify by hand
+Case4: Large values => check for overflow
+Case5: Negative inputs => define behavior
+```
 
-### 進階題目
-- [322. Coin Change]
-- [300. Longest Increasing Subsequence]
-- [72. Edit Distance]
+## Common Problems by Category
+
+### Beginner
+- [70. Climbing Stairs](https://leetcode.com/problems/climbing-stairs/)
+- [198. House Robber](https://leetcode.com/problems/house-robber/)
+- [746. Min Cost Climbing Stairs](https://leetcode.com/problems/min-cost-climbing-stairs/)
+
+### Intermediate
+- [322. Coin Change](https://leetcode.com/problems/coin-change/)
+- [300. Longest Increasing Subsequence](https://leetcode.com/problems/longest-increasing-subsequence/)
+- [64. Minimum Path Sum](https://leetcode.com/problems/minimum-path-sum/)
+
+### Advanced
+- [72. Edit Distance](https://leetcode.com/problems/edit-distance/)
+- [312. Burst Balloons](https://leetcode.com/problems/burst-balloons/)
+- [1143. Longest Common Subsequence](https://leetcode.com/problems/longest-common-subsequence/)
+
+## Personal Notes
+- **Start with recursive solution**: Often easier to understand the problem structure
+- **Identify subproblems**: Look for repeated calculations
+- **Choose approach**: Top-down if recursion is natural, bottom-up for better space efficiency
+- **Optimize space**: Often can reduce from O(n²) to O(n) or O(1)

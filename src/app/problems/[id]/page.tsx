@@ -1,6 +1,6 @@
 import Link from 'next/link';
 import { PROBLEMS } from '@/lib/problems-static';
-import { getProblemMarkdownContent, generateLeetCodeUrl } from '@/lib/markdown-reader';
+import { generateLeetCodeUrl } from '@/lib/markdown-reader';
 import Header from '@/components/Header';
 import MarkdownRenderer from '@/components/MarkdownRenderer';
 
@@ -40,15 +40,15 @@ export default async function ProblemDetailPage({
     );
   }
 
-  // Read the markdown content
-  const markdownContent = await getProblemMarkdownContent(problemId);
+  // Use embedded markdown content
+  const markdownContent = problem.markdownContent;
   const leetcodeUrl = generateLeetCodeUrl(problem.title);
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
       <Header 
         title="LeetCode Practice Notes"
-        subtitle={`${problem.id}. ${problem.title}`}
+        subtitle={problem.title}
         currentPage="problems"
       />
 
@@ -57,8 +57,7 @@ export default async function ProblemDetailPage({
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg dark:shadow-gray-900/20 p-6 mb-8 transition-colors duration-300">
           <div className="flex items-start justify-between mb-4">
             <div className="flex-1">
-              <div className="flex items-center space-x-3 mb-3">
-                <span className="text-gray-500 dark:text-gray-400 font-medium">#{problem.id}</span>
+              <div className="mb-3">
                 <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{problem.title}</h1>
               </div>
               <div className="flex items-center space-x-3 mb-4">

@@ -1,88 +1,203 @@
-# 深度優先與廣度優先搜尋
+---
+title: DFS & BFS Explained
+category: algorithm
+difficulty: intermediate
+topics: DFS, BFS, GraphTraversal, TreeTraversal
+description: Comprehensive guide to Depth-First Search and Breadth-First Search algorithms
+---
 
-## DFS（深度優先搜尋）
+# DFS & BFS Explained
 
-### 什麼是 DFS？
+## Core Concept (What & Why)
 
-[描述 DFS 的概念和特點]
+**Intuitive Explanation**: 
+- **DFS (Depth-First Search)**: Explores as far as possible along each branch before backtracking
+- **BFS (Breadth-First Search)**: Explores all neighbors at the present depth before moving to nodes at the next depth
 
-### DFS 模板
+**Problem Types Solved**:
+- Tree/graph traversal
+- Path finding
+- Connected components
+- Shortest path (BFS in unweighted graphs)
+- Topological sorting
+- Cycle detection
 
-```javascript
-// 遞迴版本
-function dfs(node) {
-    // 處理當前節點
-    // 遞迴處理子節點
-}
+**Applicable Conditions**:
+- DFS: When you need to explore all paths, backtracking problems, or when memory is limited
+- BFS: When you need shortest path in unweighted graphs, level-order processing
 
-// 迭代版本（使用堆疊）
-function dfsIterative(root) {
-    const stack = [root];
-    // ...
-}
+**Time / Space Complexity Target**: O(V + E) / O(V)
+
+## Common Solution Patterns
+
+### Pattern A: DFS (Recursive)
+**When to use**: Tree traversal, backtracking, exploring all possible paths
+
+**Thought Process**:
+1. Visit current node
+2. Mark as visited (if needed)
+3. Recursively visit all unvisited neighbors
+4. Backtrack if needed
+
+**Complexity**: O(V + E) time, O(V) space (recursion stack)
+
+### Pattern B: BFS (Iterative with Queue)
+**When to use**: Shortest path in unweighted graphs, level-order traversal
+
+**Thought Process**:
+1. Start from source, add to queue
+2. While queue is not empty:
+   - Dequeue current node
+   - Process current node
+   - Add all unvisited neighbors to queue
+3. Continue until queue is empty
+
+**Complexity**: O(V + E) time, O(V) space (queue)
+
+## Pseudocode
+
+### DFS Template
+```text
+function dfs(node, visited):
+    if node is null or visited[node]:
+        return
+    
+    visited[node] = true
+    process(node)
+    
+    for neighbor in node.neighbors:
+        dfs(neighbor, visited)
 ```
 
-### DFS 在二元樹中的應用
-
-```javascript
-// 前序遍歷
-// 中序遍歷  
-// 後序遍歷
+### BFS Template
+```text
+function bfs(start):
+    queue = [start]
+    visited = {start}
+    
+    while queue is not empty:
+        node = queue.dequeue()
+        process(node)
+        
+        for neighbor in node.neighbors:
+            if neighbor not in visited:
+                visited.add(neighbor)
+                queue.enqueue(neighbor)
 ```
 
-### DFS 在圖中的應用
+## Syntax Cheat-Sheet by Language
 
-## BFS（廣度優先搜尋）
-
-### 什麼是 BFS？
-
-[描述 BFS 的概念和特點]
-
-### BFS 模板
-
+### JavaScript
 ```javascript
-// 單源 BFS
+// DFS Recursive
+function dfs(node, visited = new Set()) {
+    if (!node || visited.has(node)) return;
+    
+    visited.add(node);
+    console.log(node.val); // process node
+    
+    for (let neighbor of node.neighbors || []) {
+        dfs(neighbor, visited);
+    }
+}
+
+// BFS Iterative
 function bfs(start) {
+    if (!start) return;
+    
     const queue = [start];
-    const visited = new Set();
-    // ...
-}
-
-// 多源 BFS
-function multiBFS(sources) {
-    const queue = [...sources];
-    // ...
+    const visited = new Set([start]);
+    
+    while (queue.length > 0) {
+        const node = queue.shift();
+        console.log(node.val); // process node
+        
+        for (let neighbor of node.neighbors || []) {
+            if (!visited.has(neighbor)) {
+                visited.add(neighbor);
+                queue.push(neighbor);
+            }
+        }
+    }
 }
 ```
 
-### BFS 在二元樹中的應用
+### C++
+```cpp
+#include <vector>
+#include <queue>
+#include <unordered_set>
 
-### BFS 在圖中的應用
+// DFS Recursive
+void dfs(int node, vector<vector<int>>& adj, vector<bool>& visited) {
+    visited[node] = true;
+    // process node
+    
+    for (int neighbor : adj[node]) {
+        if (!visited[neighbor]) {
+            dfs(neighbor, adj, visited);
+        }
+    }
+}
 
-## DFS vs BFS
+// BFS Iterative
+void bfs(int start, vector<vector<int>>& adj) {
+    vector<bool> visited(adj.size(), false);
+    queue<int> q;
+    
+    q.push(start);
+    visited[start] = true;
+    
+    while (!q.empty()) {
+        int node = q.front();
+        q.pop();
+        // process node
+        
+        for (int neighbor : adj[node]) {
+            if (!visited[neighbor]) {
+                visited[neighbor] = true;
+                q.push(neighbor);
+            }
+        }
+    }
+}
+```
 
-| 特性 | DFS | BFS |
-|------|-----|-----|
-| 資料結構 | Stack | Queue |
-| 空間複雜度 | O(h) | O(w) |
-| 適用場景 | | |
+## Minimal Working Example
 
-## 常見應用
+**Tree Structure**: 
+```
+    1
+   / \
+  2   3
+ / \
+4   5
+```
 
-### 1. 連通性問題
+**DFS Traversal**: 1 → 2 → 4 → 5 → 3
+**BFS Traversal**: 1 → 2 → 3 → 4 → 5
 
-### 2. 最短路徑
+## Edge Cases & Tests
+```
+Case1: Empty graph => no output
+Case2: Single node => visit that node
+Case3: Disconnected graph => may need multiple starts
+Case4: Graph with cycles => need visited set
+Case5: Tree (no cycles) => visited set optional
+```
 
-### 3. 拓撲排序
+## Common Problems
+- **DFS**:
+  - [200. Number of Islands](https://leetcode.com/problems/number-of-islands/)
+  - [695. Max Area of Island](https://leetcode.com/problems/max-area-of-island/)
+  - [543. Diameter of Binary Tree](https://leetcode.com/problems/diameter-of-binary-tree/)
 
-## 相關題目
+- **BFS**:
+  - [102. Binary Tree Level Order Traversal](https://leetcode.com/problems/binary-tree-level-order-traversal/)
+  - [994. Rotting Oranges](https://leetcode.com/problems/rotting-oranges/)
+  - [127. Word Ladder](https://leetcode.com/problems/word-ladder/)
 
-### DFS 題目
-- [200. Number of Islands]
-- [695. Max Area of Island]
-- [79. Word Search]
-
-### BFS 題目
-- [102. Binary Tree Level Order Traversal]
-- [127. Word Ladder]
-- [752. Open the Lock]
+## Personal Notes
+- **DFS**: Great for exploring all possibilities, uses less memory than BFS
+- **BFS**: Guarantees shortest path in unweighted graphs, good for level-by-level processing
+- Choose based on problem requirements: shortest path (BFS) vs explore all paths (DFS)

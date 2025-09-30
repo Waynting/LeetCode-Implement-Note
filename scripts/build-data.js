@@ -93,7 +93,7 @@ function extractProblemInfo(content, filePath, topicFolder) {
   const title = metadata.title || titleMatch?.[1] || fileName;
   
   // 提取描述（第一段內容）
-  const descriptionMatch = body.match(/## 題目描述\s*\n\n([^\n]+)/);
+  const descriptionMatch = body.match(/## Problem Description\s*\n\n([^\n]+)/) || body.match(/## 題目描述\s*\n\n([^\n]+)/);
   const description = metadata.description || descriptionMatch?.[1] || '暫無描述';
   
   return {
@@ -104,7 +104,8 @@ function extractProblemInfo(content, filePath, topicFolder) {
     description,
     hasNote: true,
     noteUrl: `/content/problems/${topicFolder}/${fileName}.md`,
-    filePath
+    filePath,
+    markdownContent: content  // 嵌入完整的 markdown 內容
   };
 }
 
@@ -275,6 +276,7 @@ export interface Problem {
   noteUrl?: string;
   description?: string;
   filePath?: string;
+  markdownContent?: string;
 }
 
 export const PROBLEMS: Problem[] = ${JSON.stringify(problems, null, 2)};

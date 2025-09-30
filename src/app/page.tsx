@@ -97,7 +97,7 @@ export default function HomePage() {
                 <div className="flex items-center justify-between">
                   <div>
                     <h3 className="font-semibold text-gray-900 dark:text-white">
-                      {problem.id}. {problem.title}
+                      {problem.title}
                     </h3>
                     <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
                       {problem.description}
