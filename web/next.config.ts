@@ -1,10 +1,12 @@
 import type { NextConfig } from "next";
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 const nextConfig: NextConfig = {
   output: 'export',
   trailingSlash: true,
-  basePath: '/LeetCode-Implement-Note',
-  assetPrefix: '/LeetCode-Implement-Note',
+  basePath: isProduction ? '/LeetCode-Implement-Note' : '',
+  assetPrefix: isProduction ? '/LeetCode-Implement-Note' : '',
   images: {
     unoptimized: true
   }

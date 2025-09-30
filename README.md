@@ -32,3 +32,9 @@
 ## 線上瀏覽
 
 📱 **網站**: https://waynting.github.io/LeetCode-Implement-Note/
+
+🔗 **功能**:
+- 📊 統計總覽與進度追蹤
+- 🏷️ 主題分類瀏覽
+- 🔍 題目搜尋與篩選
+- 📱 響應式設計，支援手機瀏覽
