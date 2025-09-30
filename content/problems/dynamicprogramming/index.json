@@ -1,6 +1,11 @@
 {
   "topic": "dynamicprogramming",
   "displayName": "DynamicProgramming",
-  "problems": [],
-  "lastUpdated": "2025-09-30T08:48:28.911Z"
+  "problems": [
+    {
+      "filename": "1234-coin-change-problem.md",
+      "id": null
+    }
+  ],
+  "lastUpdated": "2025-09-30T15:53:13.717Z"
 }

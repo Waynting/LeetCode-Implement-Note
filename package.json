@@ -8,6 +8,8 @@
     "start": "next start",
     "lint": "eslint",
     "build:data": "node scripts/build-data.js",
+    "watch:content": "node scripts/watch-content.js --watch",
+    "init:indexes": "node scripts/watch-content.js --init",
     "vercel-build": "npm run build:data && next build",
     "create:problem": "node scripts/create-problem-note.js",
     "create:concept": "node scripts/create-concept-note.js"
