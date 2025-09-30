@@ -4,6 +4,7 @@
 - **Problem ID**: 543
 - **Title**: Diameter of Binary Tree
 - **Difficulty**: Easy
+- **Source**: Leetcode
 - **Link**: https://leetcode.com/problems/diameter-of-binary-tree/description/
 - **Topics**: Tree, DFS
 

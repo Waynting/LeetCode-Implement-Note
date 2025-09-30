@@ -84,7 +84,7 @@ export const NOTES: Note[] = [
     "category": "dataStructure",
     "topics": [],
     "difficulty": "intermediate",
-    "description": "No description available",
+    "description": "暫無描述",
     "contentPath": "/content/notes/data-structures/array-basics.md",
     "createdAt": "2024-01-01",
     "updatedAt": "2025-09-30"
@@ -95,7 +95,7 @@ export const NOTES: Note[] = [
     "category": "dataStructure",
     "topics": [],
     "difficulty": "intermediate",
-    "description": "No description available",
+    "description": "暫無描述",
     "contentPath": "/content/notes/data-structures/hash-table-concepts.md",
     "createdAt": "2024-01-01",
     "updatedAt": "2025-09-30"
@@ -120,7 +120,7 @@ export const NOTES: Note[] = [
     "category": "technique",
     "topics": [],
     "difficulty": "intermediate",
-    "description": "No description available",
+    "description": "暫無描述",
     "contentPath": "/content/notes/techniques/sliding-window-pattern.md",
     "createdAt": "2024-01-01",
     "updatedAt": "2025-09-30"

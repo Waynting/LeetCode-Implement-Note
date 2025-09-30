@@ -18,6 +18,11 @@ const TOPICS = [
   'stack', 'queue', 'graph', 'bitmanipulation'
 ];
 
+// Available source platforms
+const SOURCES = [
+  'Leetcode', 'Codeforces', 'Atcoder', 'CSES', 'Zerojudge', 'Other'
+];
+
 // Create readline interface
 const rl = readline.createInterface({
   input: process.stdin,
@@ -42,7 +47,7 @@ function validateNotEmpty(input, fieldName) {
 
 // Generate problem note from template
 function generateProblemNote(noteData) {
-  const templatePath = path.join(TEMPLATE_DIR, 'Leetcode_NOTE_TEMPLATE.md');
+  const templatePath = path.join(TEMPLATE_DIR, 'PROBLEM_NOTE_TEMPLATE.md');
   let template = fs.readFileSync(templatePath, 'utf-8');
   
   // Replace template placeholders
@@ -50,17 +55,13 @@ function generateProblemNote(noteData) {
     .replace(/{Problem Number}/g, noteData.problemId)
     .replace(/{Problem Title}/g, noteData.title)
     .replace(/{Easy\/Medium\/Hard}/g, noteData.difficulty)
-    .replace(/{problem-slug}/g, noteData.slug)
+    .replace(/{Leetcode\/Codeforces\/Atcoder\/CSES\/Zerojudge\/Other}/g, noteData.source)
+    .replace(/{Problem URL}/g, noteData.problemUrl)
     .replace(/{Topic1}, {Topic2}, \.\.\./g, noteData.topics.join(', '))
     .replace(/{Brief description of the problem statement}/g, noteData.description)
     .replace(/{Solution Name}/g, 'Approach Name')
     .replace(/{Alternative Solution Name}/g, 'Alternative Approach Name')
-    .replace(/{Detailed explanation of the approach and algorithm}/g, 'Explain your approach here')
-    .replace(/{Explanation of alternative approach}/g, 'Explain alternative approach here')
-    .replace(/{Important point 1}/g, 'Key insight 1')
-    .replace(/{Important point 2}/g, 'Key insight 2')
-    .replace(/{Problem Number}\. {Problem Title}/g, 'Related Problem Title')
-    .replace(/{Personal insights, lessons learned, or additional observations about the problem}/g, 'Add your personal notes, insights, and lessons learned here');
+    .replace(/{My thought process, challenges faced, insights gained, mistakes made, lessons learned}/g, 'Add your personal notes, insights, and lessons learned here');
 
   return template;
 }
@@ -93,21 +94,37 @@ function updateBuildData() {
 
 // Main function
 async function main() {
-  console.log('🚀 LeetCode Practice Notes - Create Problem Note\n');
+  console.log('🚀 ShuaShua Note - Create Problem Note\n');
   
   try {
     // Get problem details from user
     console.log('📝 Enter problem details:\n');
     
+    // Source platform
+    console.log('Available sources:');
+    SOURCES.forEach((source, index) => {
+      console.log(`  ${index + 1}. ${source}`);
+    });
+    
+    let source;
+    while (true) {
+      const sourceInput = await ask('\nSelect source (1-6): ');
+      const sourceIndex = parseInt(sourceInput) - 1;
+      
+      if (sourceIndex >= 0 && sourceIndex < SOURCES.length) {
+        source = SOURCES[sourceIndex];
+        break;
+      } else {
+        console.log('❌ Please enter a valid source number (1-6)');
+      }
+    }
+    
     // Problem ID
     let problemId;
     while (true) {
-      problemId = await ask('Problem ID (number): ');
-      if (validateNotEmpty(problemId, 'Problem ID') && !isNaN(problemId)) {
-        problemId = parseInt(problemId);
+      problemId = await ask('Problem ID (original problem number/code): ');
+      if (validateNotEmpty(problemId, 'Problem ID')) {
         break;
-      } else {
-        console.log('❌ Please enter a valid problem number');
       }
     }
     
@@ -121,24 +138,28 @@ async function main() {
     // Full title with number
     const fullTitle = `${problemId}. ${title}`;
     
-    // Difficulty
-    console.log('\nAvailable difficulties:');
-    const difficulties = ['Easy', 'Medium', 'Hard'];
-    difficulties.forEach((diff, index) => {
-      console.log(`  ${index + 1}. ${diff}`);
-    });
-    
-    let difficulty;
-    while (true) {
-      const difficultyInput = await ask('\nSelect difficulty (1-3): ');
-      const difficultyIndex = parseInt(difficultyInput) - 1;
+    // Difficulty (only for LeetCode-style platforms)
+    let difficulty = 'Medium'; // Default
+    if (['Leetcode', 'CSES'].includes(source)) {
+      console.log('\nAvailable difficulties:');
+      const difficulties = ['Easy', 'Medium', 'Hard'];
+      difficulties.forEach((diff, index) => {
+        console.log(`  ${index + 1}. ${diff}`);
+      });
       
-      if (difficultyIndex >= 0 && difficultyIndex < difficulties.length) {
-        difficulty = difficulties[difficultyIndex];
-        break;
-      } else {
-        console.log('❌ Please enter a valid difficulty number (1-3)');
+      while (true) {
+        const difficultyInput = await ask('\nSelect difficulty (1-3): ');
+        const difficultyIndex = parseInt(difficultyInput) - 1;
+        
+        if (difficultyIndex >= 0 && difficultyIndex < difficulties.length) {
+          difficulty = difficulties[difficultyIndex];
+          break;
+        } else {
+          console.log('❌ Please enter a valid difficulty number (1-3)');
+        }
       }
+    } else {
+      console.log('\n📝 Difficulty not applicable for this platform, using default.');
     }
     
     // Topics
@@ -186,6 +207,13 @@ async function main() {
       }
     }
     
+    // Problem URL
+    let problemUrl;
+    while (true) {
+      problemUrl = await ask('Problem URL: ');
+      if (validateNotEmpty(problemUrl, 'Problem URL')) break;
+    }
+    
     // Description
     let description;
     while (true) {
@@ -193,15 +221,19 @@ async function main() {
       if (validateNotEmpty(description, 'Description')) break;
     }
     
-    // Generate filename and slug
+    // Generate composite ID and filename
+    const compositeId = `${source.toLowerCase()}-${problemId}`;
     const filename = `${problemId.toString().padStart(4, '0')}-${generateSlug(title)}.md`;
     const slug = generateSlug(title);
     
     // Prepare note data
     const noteData = {
       problemId: problemId,
+      compositeId: compositeId,
       title: fullTitle,
       difficulty: difficulty,
+      source: source,
+      problemUrl: problemUrl,
       topics: selectedTopics.map(topic => 
         topic.charAt(0).toUpperCase() + topic.slice(1).replace(/([A-Z])/g, ' $1').trim()
       ),
@@ -234,9 +266,11 @@ async function main() {
     
     console.log('\n✅ Problem note created successfully!');
     console.log(`📄 File: ${notePath}`);
+    console.log(`🌐 Source: ${source}`);
+    console.log(`🆔 Composite ID: ${compositeId}`);
     console.log(`🎯 Difficulty: ${difficulty}`);
     console.log(`🏷️  Topics: ${selectedTopics.join(', ')}`);
-    console.log(`🔗 LeetCode: https://leetcode.com/problems/${slug}/description/`);
+    console.log(`🔗 Problem URL: ${problemUrl}`);
     
     // Update static data
     updateBuildData();

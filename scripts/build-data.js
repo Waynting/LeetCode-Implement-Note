@@ -86,20 +86,29 @@ function extractProblemInfo(content, filePath, topicFolder) {
   const idMatch = fileName.match(/^(\d+)/);
   if (!idMatch) return null;
   
-  const id = parseInt(idMatch[1]);
+  const originalId = parseInt(idMatch[1]);
   
   // 提取標題
   const titleMatch = body.match(/^# (.+)$/m);
   const title = metadata.title || titleMatch?.[1] || fileName;
+  
+  // 提取來源
+  const sourceMatch = body.match(/- \*\*Source\*\*: (.+)$/m);
+  const source = metadata.source || sourceMatch?.[1] || 'Leetcode';
+  
+  // 生成複合唯一ID (source-originalId)
+  const uniqueId = `${source.toLowerCase()}-${originalId}`;
   
   // 提取描述（第一段內容）
   const descriptionMatch = body.match(/## Problem Description\s*\n\n([^\n]+)/) || body.match(/## 題目描述\s*\n\n([^\n]+)/);
   const description = metadata.description || descriptionMatch?.[1] || '暫無描述';
   
   return {
-    id,
+    id: uniqueId,
+    originalId,
     title,
     difficulty: metadata.difficulty || 'Medium',
+    source,
     topics: metadata.topics ? metadata.topics.split(',').map(t => t.trim()) : [TOPIC_MAPPING[topicFolder]],
     description,
     hasNote: true,
@@ -174,7 +183,13 @@ function buildProblemsData() {
     console.error('Error reading problems:', error);
   }
   
-  return problems.sort((a, b) => a.id - b.id);
+  return problems.sort((a, b) => {
+    // Sort by source first, then by original ID
+    if (a.source !== b.source) {
+      return a.source.localeCompare(b.source);
+    }
+    return a.originalId - b.originalId;
+  });
 }
 
 // 生成筆記數據
@@ -265,12 +280,17 @@ function main() {
   // 生成所有主題列表
   const allTopics = Object.values(TOPIC_MAPPING);
   
+  // 生成來源列表
+  const allSources = ['Leetcode', 'Codeforces', 'Atcoder', 'CSES', 'Zerojudge', 'Other'];
+  
   // 寫入 problems-static.ts
   const problemsCode = `// 自動生成的題目數據文件 - 請勿手動編輯
 export interface Problem {
-  id: number;
+  id: string;  // 複合唯一ID (source-originalId)
+  originalId: number;  // 原始題目ID
   title: string;
   difficulty: 'Easy' | 'Medium' | 'Hard';
+  source: 'Leetcode' | 'Codeforces' | 'Atcoder' | 'CSES' | 'Zerojudge' | 'Other';
   topics: string[];
   hasNote: boolean;
   noteUrl?: string;
@@ -283,15 +303,21 @@ export const PROBLEMS: Problem[] = ${JSON.stringify(problems, null, 2)};
 
 export const TOPICS = ${JSON.stringify(allTopics, null, 2)};
 
+export const SOURCES = ${JSON.stringify(allSources, null, 2)};
+
 export const getTopicStats = () => ${JSON.stringify(topicStats, null, 2)};
 
 export const getDifficultyStats = () => (${JSON.stringify(difficultyStats, null, 2)});
 
 export const getAllProblems = () => PROBLEMS;
 export const getAllTopics = () => TOPICS;
-export const getProblemById = (id: number) => PROBLEMS.find(p => p.id === id);
+export const getAllSources = () => SOURCES;
+export const getProblemById = (id: string) => PROBLEMS.find(p => p.id === id);
+export const getProblemByOriginalId = (originalId: number, source: string) => PROBLEMS.find(p => p.originalId === originalId && p.source.toLowerCase() === source.toLowerCase());
 export const getProblemsByTopic = (topic: string) => 
   PROBLEMS.filter(p => p.topics.some(t => t.toLowerCase() === topic.toLowerCase()));
+export const getProblemsBySource = (source: string) =>
+  PROBLEMS.filter(p => p.source.toLowerCase() === source.toLowerCase());
 `;
 
   fs.writeFileSync(path.join(WEB_LIB_DIR, 'problems-static.ts'), problemsCode);

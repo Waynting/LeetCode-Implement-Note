@@ -2,27 +2,28 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
-import { PROBLEMS, TOPICS } from '@/lib/problems-static';
+import { PROBLEMS, TOPICS, SOURCES } from '@/lib/problems-static';
 import Header from '@/components/Header';
 
 export default function ProblemsPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTopic, setSelectedTopic] = useState('');
-  const [selectedDifficulty, setSelectedDifficulty] = useState('');
+  const [selectedSource, setSelectedSource] = useState('');
 
   const filteredProblems = PROBLEMS.filter(problem => {
     const matchesSearch = problem.title.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         problem.id.toString().includes(searchTerm);
+                         problem.originalId.toString().includes(searchTerm) ||
+                         problem.id.toLowerCase().includes(searchTerm.toLowerCase());
     const matchesTopic = !selectedTopic || problem.topics.includes(selectedTopic);
-    const matchesDifficulty = !selectedDifficulty || problem.difficulty === selectedDifficulty;
+    const matchesSource = !selectedSource || problem.source === selectedSource;
     
-    return matchesSearch && matchesTopic && matchesDifficulty;
+    return matchesSearch && matchesTopic && matchesSource;
   });
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
       <Header 
-        title="LeetCode Practice Notes"
+        title="ShuaShua Note"
         subtitle="Problems List"
         currentPage="problems"
       />
@@ -59,19 +60,20 @@ export default function ProblemsPage() {
               </select>
             </div>
             
+            
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Filter by Difficulty
+                Filter by Source
               </label>
               <select
-                value={selectedDifficulty}
-                onChange={(e) => setSelectedDifficulty(e.target.value)}
+                value={selectedSource}
+                onChange={(e) => setSelectedSource(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-colors duration-200"
               >
-                <option value="">All Difficulties</option>
-                <option value="Easy">Easy</option>
-                <option value="Medium">Medium</option>
-                <option value="Hard">Hard</option>
+                <option value="">All Sources</option>
+                {SOURCES.map(source => (
+                  <option key={source} value={source}>{source}</option>
+                ))}
               </select>
             </div>
           </div>
@@ -97,7 +99,7 @@ export default function ProblemsPage() {
                     Problem Title
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                    Difficulty
+                    Source
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                     Topics
@@ -111,7 +113,10 @@ export default function ProblemsPage() {
                 {filteredProblems.map((problem) => (
                   <tr key={problem.id} className="hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200">
                     <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900 dark:text-gray-100">
-                      {problem.id}
+                      {problem.originalId}
+                      <div className="text-xs text-gray-500 dark:text-gray-400">
+                        {problem.source}
+                      </div>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <Link
@@ -126,11 +131,14 @@ export default function ProblemsPage() {
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`px-2 py-1 text-xs rounded-full ${
-                        problem.difficulty === 'Easy' ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300' :
-                        problem.difficulty === 'Medium' ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300' :
-                        'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300'
+                        problem.source === 'Leetcode' ? 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300' :
+                        problem.source === 'Codeforces' ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300' :
+                        problem.source === 'Atcoder' ? 'bg-pink-100 dark:bg-pink-900/30 text-pink-800 dark:text-pink-300' :
+                        problem.source === 'CSES' ? 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-300' :
+                        problem.source === 'Zerojudge' ? 'bg-teal-100 dark:bg-teal-900/30 text-teal-800 dark:text-teal-300' :
+                        'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300'
                       }`}>
-                        {problem.difficulty}
+                        {problem.source}
                       </span>
                     </td>
                     <td className="px-6 py-4">

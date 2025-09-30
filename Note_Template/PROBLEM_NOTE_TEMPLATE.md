@@ -4,7 +4,8 @@
 - **Problem ID**: {Problem Number}
 - **Title**: {Problem Title}
 - **Difficulty**: {Easy/Medium/Hard}
-- **Link**: https://leetcode.com/problems/{problem-slug}/description/
+- **Source**: {Leetcode/Codeforces/Atcoder/CSES/Zerojudge/Other}
+- **Link**: {Problem URL}
 - **Topics**: {Topic1}, {Topic2}, ...
 
 ## Problem Description

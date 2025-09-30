@@ -1,262 +1,322 @@
-# LeetCode 刷題記錄 - 開發文件
+# ShuaShua Note - Development Documentation
 
-## 📁 資料夾結構重新設計
+## 📁 Project Architecture
 
-### 🎯 設計原則
-- **統一組織**: 所有內容按主題統一管理
-- **易於維護**: 清晰的層級結構
-- **靜態導出**: 支援 Next.js 靜態導出
-- **主題優先**: 以演算法主題為核心組織架構
+### 🎯 Design Principles
+- **Multi-Platform Support**: Unified management across different coding platforms
+- **Topic Organization**: Algorithm and data structure focused organization  
+- **Static Generation**: Support for Next.js static export
+- **Unique Identification**: Composite ID system to avoid conflicts
+- **Simplified Interface**: Focus on code and personal insights
 
-### 🗂️ 建議的新資料夾結構
+### 🗂️ Current Project Structure
 
 ```
-LeetCode-Implement-Note/
-├── content/                          # 所有內容統一管理
-│   ├── problems/                     # 題目解題記錄
-│   │   ├── array/                    # 陣列相關題目
+ShuaShua-Note/
+├── content/                          # All content unified management
+│   ├── problems/                     # Problem solutions by topic
+│   │   ├── array/                    # Array related problems
 │   │   │   ├── 0001-two-sum.md
 │   │   │   ├── 0004-median-of-two-sorted-arrays.md
-│   │   │   └── index.json            # 該主題題目索引
+│   │   │   └── index.json            # Topic problem index
 │   │   ├── linkedlist/
 │   │   │   ├── 0002-add-two-numbers.md
 │   │   │   ├── 0141-linked-list-cycle.md
 │   │   │   └── index.json
 │   │   ├── tree/
-│   │   ├── graph/
-│   │   └── meta.json                 # 所有題目元數據
+│   │   ├── hashtable/
+│   │   └── meta.json                 # All problem metadata
 │   │
-│   ├── notes/                        # 學習筆記
-│   │   ├── data-structures/          # 資料結構筆記
+│   ├── notes/                        # Learning notes
+│   │   ├── data-structures/          # Data structure notes
 │   │   │   ├── array-basics.md
 │   │   │   ├── linked-list-intro.md
 │   │   │   └── index.json
-│   │   ├── algorithms/               # 演算法筆記
+│   │   ├── algorithms/               # Algorithm notes
 │   │   │   ├── binary-search-explained.md
 │   │   │   ├── dfs-bfs-explained.md
 │   │   │   └── index.json
-│   │   ├── techniques/               # 解題技巧
+│   │   ├── techniques/               # Problem-solving techniques
 │   │   │   ├── two-pointers-technique.md
 │   │   │   ├── sliding-window-pattern.md
 │   │   │   └── index.json
-│   │   └── concepts/                 # 核心概念
+│   │   └── concepts/                 # Core concepts
 │   │       ├── time-complexity-analysis.md
 │   │       └── index.json
 │   │
-│   └── assets/                       # 圖片、圖表等資源
+│   └── assets/                       # Images, diagrams resources
 │       ├── images/
 │       └── diagrams/
 │
-├── web/                              # Next.js 網站
-│   ├── src/
-│   │   ├── app/                      # App Router
-│   │   │   ├── layout.tsx
-│   │   │   ├── page.tsx              # 首頁
-│   │   │   ├── problems/
-│   │   │   │   ├── page.tsx          # 題目列表
-│   │   │   │   └── [id]/
-│   │   │   │       └── page.tsx      # 題目詳情
-│   │   │   ├── notes/
-│   │   │   │   ├── page.tsx          # 筆記列表（帶篩選）
-│   │   │   │   └── [noteId]/
-│   │   │   │       └── page.tsx      # 筆記詳情
-│   │   │   └── topics/
-│   │   │       └── page.tsx          # 主題總覽
-│   │   │
-│   │   ├── components/               # 共用組件
-│   │   │   ├── Header.tsx
-│   │   │   ├── ProblemCard.tsx
-│   │   │   ├── NoteCard.tsx
-│   │   │   └── TopicFilter.tsx
-│   │   │
-│   │   ├── lib/                      # 工具函數和數據
-│   │   │   ├── content.ts            # 內容獲取函數
-│   │   │   ├── problems.ts           # 題目數據
-│   │   │   ├── notes.ts              # 筆記數據
-│   │   │   └── utils.ts              # 工具函數
-│   │   │
-│   │   └── contexts/                 # React Context
-│   │       └── ThemeContext.tsx
+├── src/                              # Next.js source code
+│   ├── app/                          # App Router
+│   │   ├── layout.tsx
+│   │   ├── page.tsx                  # Homepage
+│   │   ├── problems/
+│   │   │   ├── page.tsx              # Problem list with filters
+│   │   │   └── [id]/
+│   │   │       └── page.tsx          # Problem details
+│   │   ├── notes/
+│   │   │   ├── page.tsx              # Notes list with filters
+│   │   │   └── [noteId]/
+│   │   │       └── page.tsx          # Note details
+│   │   └── topics/
+│   │       └── page.tsx              # Topic overview
 │   │
-│   ├── public/                       # 靜態資源
-│   │   ├── icon.jpg                  # 網站圖標
-│   │   └── images/
+│   ├── components/                   # Shared components
+│   │   ├── Header.tsx
+│   │   ├── MarkdownRenderer.tsx
+│   │   └── CodeBlock.tsx
 │   │
-│   ├── tailwind.config.js
-│   ├── next.config.ts
-│   └── package.json
+│   ├── lib/                          # Utilities and data
+│   │   ├── problems-static.ts        # Problem data
+│   │   ├── notes-static.ts           # Note data
+│   │   └── markdown-reader.ts        # Content utilities
+│   │
+│   └── contexts/                     # React Context
+│       └── ThemeContext.tsx
 │
-├── scripts/                          # 建構和維護腳本
-│   ├── build-indexes.js              # 生成索引文件
-│   ├── validate-content.js           # 驗證內容格式
-│   └── generate-metadata.js          # 生成元數據
+├── scripts/                          # Build and maintenance scripts
+│   ├── build-data.js                 # Generate static data files
+│   ├── create-problem-note.js        # Create new problem notes
+│   └── create-concept-note.js        # Create new concept notes
 │
-├── docs/                             # 專案文件
-│   ├── CONTRIBUTING.md
-│   ├── DEPLOYMENT.md
-│   └── API.md
+├── Note_Template/                    # Note templates
+│   ├── PROBLEM_NOTE_TEMPLATE.md      # Problem solution template
+│   └── DSA_Concept_Template_EN.md    # Concept note template
+│
+├── public/                           # Static resources
+│   └── icon.jpg                      # Website icon
 │
 ├── README.md
-├── GUIDE.md                          # 使用指南
-└── TEMPLATE.md                       # 題目模板
+├── DEVELOPMENT.md                    # This file
+└── GUIDE.md                          # User guide
 ```
 
-## 🔧 技術架構
+## 🔧 Technical Architecture
 
-### 前端框架
+### Frontend Framework
 - **Next.js 15** with App Router
 - **React 18** with TypeScript
 - **Tailwind CSS** for styling
-- **靜態導出** for GitHub Pages
+- **Static Generation** for deployment
 
-### 核心功能
-1. **深淺色主題切換**
-2. **響應式設計**
-3. **主題篩選系統**
-4. **搜尋功能**
-5. **靜態生成 (SSG)**
+### Core Features
+1. **Multi-Platform Support** - LeetCode, Codeforces, AtCoder, CSES, ZeroJudge
+2. **Light/Dark Theme Toggle**
+3. **Responsive Design**
+4. **Source & Topic Filtering System**
+5. **Search Functionality**
+6. **Composite ID System**
+7. **Static Site Generation (SSG)**
 
-### 主題管理
+### Supported Platforms
 ```typescript
-// 支援的主題系統
+const SOURCES = [
+  'Leetcode',      // Popular algorithm practice platform
+  'Codeforces',    // Competitive programming platform
+  'Atcoder',       // Japanese competitive programming platform
+  'CSES',          // Problem Set from University of Helsinki
+  'Zerojudge',     // Taiwan's online judge system
+  'Other'          // Additional platforms
+];
+```
+
+### Topic Management
+```typescript
 const TOPICS = [
   'Array', 'LinkedList', 'Tree', 'Graph',
-  'DFS', 'BFS', 'BinarySearch', 'DynamicProgramming',
+  'DFS', 'BFS', 'BinarySearch', 'DynamicProgramming', 
   'Greedy', 'Backtracking', 'TwoPointers', 'SlidingWindow',
   'Sort', 'HashTable', 'Stack', 'Queue',
   'Math', 'String', 'BitManipulation'
 ];
 ```
 
-## 📝 內容組織策略
+## 🆔 Composite ID System
 
-### 題目記錄格式
+### Problem Identification
+- **Format**: `{source}-{originalId}`
+- **Examples**: 
+  - `leetcode-1` (LeetCode Problem 1)
+  - `codeforces-1000` (Codeforces Problem 1000)
+  - `atcoder-abc001-a` (AtCoder ABC001 Problem A)
+
+### Benefits
+- **Unique Identification**: No conflicts between platforms
+- **Platform Recognition**: Easily identify problem source
+- **URL Friendly**: Works well in routing systems
+- **Scalable**: Easy to add new platforms
+
+## 📝 Content Organization Strategy
+
+### Problem Solution Format
 ```markdown
-# 題目標題
+# {Problem Number}. {Problem Title}
 
-## 題目資訊
-- **題號**: 1
-- **題目名稱**: Two Sum
-- **難度**: Easy
-- **連結**: https://leetcode.com/problems/two-sum/
-- **主題**: Array, HashTable
+## Problem Information
+- **Problem ID**: {Problem Number}
+- **Title**: {Problem Title}
+- **Difficulty**: {Easy/Medium/Hard}
+- **Source**: {Platform Name}
+- **Link**: {Problem URL}
+- **Topics**: {Topic1}, {Topic2}, ...
 
-## 題目描述
-[題目描述]
+## Problem Description
+{Brief description of the problem statement}
 
-## 解法
+## Solutions
 
-### 解法一：暴力法
-**時間複雜度**: O(n²)
-**空間複雜度**: O(1)
+### Solution 1: {Solution Name}
+**Time Complexity**: O(...)
+**Space Complexity**: O(...)
 
-#### 思路
-[解題思路]
-
-#### 程式碼
-\`\`\`cpp
-// 程式碼實作
-\`\`\`
-
-## 相關題目
-- [其他相關題目]
-
-## 心得筆記
-[學習心得]
+#### Code
+```cpp
+// C++ solution code here
 ```
 
-### 學習筆記格式
-```markdown
-# 筆記標題
-
-## 概述
-[核心概念說明]
-
-## 基本概念
-
-### 定義
-[定義說明]
-
-### 特性
-[特性列表]
-
-## 實作要點
-
-### 關鍵操作
-[操作說明]
-
-### 時間複雜度
-[複雜度分析]
-
-## 應用場景
-[使用場景]
-
-## 相關題目
-[相關 LeetCode 題目列表]
-
-## 延伸閱讀
-[參考資料]
+## Personal Notes
+{My thought process, challenges faced, insights gained, mistakes made, lessons learned}
 ```
 
-## 🚀 開發流程
+### Learning Note Format
+```markdown
+# Note Title
 
-### 新增題目
-1. 在 `content/problems/{topic}/` 下創建 `.md` 文件
-2. 使用 `TEMPLATE.md` 格式
-3. 更新 `index.json` 文件
-4. 運行 `npm run build:indexes` 重新生成索引
+## Overview
+{Core concept explanation}
 
-### 新增筆記
-1. 在 `content/notes/{category}/` 下創建 `.md` 文件
-2. 更新對應的 `index.json`
-3. 重新建構網站
+## Basic Concepts
 
-### 本地開發
+### Definition
+{Definition explanation}
+
+### Properties
+{Property list}
+
+## Implementation Points
+
+### Key Operations
+{Operation explanation}
+
+### Time Complexity
+{Complexity analysis}
+
+## Use Cases
+{Application scenarios}
+
+## Related Problems
+{Related problem list}
+
+## Further Reading
+{Reference materials}
+```
+
+## 🚀 Development Workflow
+
+### Adding New Problems
+1. Create `.md` file in `content/problems/{topic}/`
+2. Use `Note_Template/PROBLEM_NOTE_TEMPLATE.md` format
+3. Include source information in problem metadata
+4. Run `npm run build:data` to regenerate static data
+
+### Adding New Notes  
+1. Create `.md` file in `content/notes/{category}/`
+2. Use appropriate template
+3. Update content and rebuild
+
+### Local Development
 ```bash
-cd web
+# Install dependencies
 npm install
+
+# Start development server
 npm run dev
-```
 
-### 建構部署
-```bash
+# Build static data
+npm run build:data
+
+# Build for production
 npm run build
-npm run export
 ```
 
-## 🔄 遷移計劃
+### Automated Scripts
+```bash
+# Create new problem note (interactive)
+npm run create:problem
 
-### 階段一：重組內容
-1. 將 `Topics/` 下的內容移動到 `content/problems/`
-2. 將 `web/public/notes/` 移動到 `content/notes/`
-3. 創建索引文件
+# Create new concept note (interactive) 
+npm run create:concept
 
-### 階段二：更新程式碼
-1. 修改數據獲取邏輯
-2. 更新路由結構
-3. 實現新的篩選系統
+# Generate static data files
+npm run build:data
+```
 
-### 階段三：優化部署
-1. 設定自動化建構
-2. 優化 SEO
-3. 添加分析工具
+## 🔄 Recent Updates
 
-## 📋 待辦事項
+### Major Changes
+1. **Multi-Platform Support**: Extended beyond LeetCode
+2. **Composite ID System**: Implemented unique identification
+3. **Source Filtering**: Added platform-based filtering
+4. **Simplified UI**: Removed difficulty filtering for non-LeetCode
+5. **Template Updates**: Added source field to templates
+6. **Website Rebranding**: Changed from "LeetCode Practice Notes" to "ShuaShua Note"
 
-- [ ] 重新組織內容結構
-- [ ] 實現內容索引系統
-- [ ] 創建建構腳本
-- [ ] 更新數據獲取邏輯
-- [ ] 優化搜尋功能
-- [ ] 添加內容驗證
-- [ ] 設定 CI/CD
+### Technical Improvements
+- Updated build scripts to handle multiple sources
+- Implemented composite ID generation
+- Added source extraction from markdown files
+- Updated routing to handle string IDs
+- Enhanced filtering capabilities
 
-## 🤝 貢獻指南
+## 📋 TODO List
 
-1. Fork 專案
-2. 創建功能分支
-3. 提交變更
-4. 發起 Pull Request
+### High Priority
+- [x] Update Problem interface to use composite unique ID
+- [x] Update build script to generate composite IDs  
+- [x] Update routing and URL structure for problems
+- [ ] Update note file naming convention
+- [ ] Test the new ID system thoroughly
 
-## 📄 授權
-MIT License
+### Medium Priority  
+- [ ] Add platform-specific URL generation
+- [ ] Implement advanced search functionality
+- [ ] Add content validation scripts
+- [ ] Optimize SEO for multiple platforms
+- [ ] Add analytics integration
+
+### Low Priority
+- [ ] Add more platform support
+- [ ] Implement content recommendations
+- [ ] Add progress tracking
+- [ ] Create mobile app version
+
+## 🤝 Contributing Guidelines
+
+### Code Style
+- Use TypeScript for type safety
+- Follow Next.js best practices
+- Use Tailwind CSS for styling
+- Maintain consistent file naming
+
+### Content Guidelines
+- Use English for all documentation
+- Follow template formats strictly
+- Include personal insights in notes
+- Keep solutions simple and clear
+
+### Pull Request Process
+1. Fork the repository
+2. Create a feature branch
+3. Make your changes
+4. Update documentation if needed
+5. Submit a pull request
+
+## 📄 License
+MIT License - see [LICENSE](LICENSE) file for details.
+
+## 🔗 Related Documentation
+- [README.md](README.md) - Main project documentation
+- [GUIDE.md](GUIDE.md) - User guide for creating content
+- Templates in `Note_Template/` - Content creation templates

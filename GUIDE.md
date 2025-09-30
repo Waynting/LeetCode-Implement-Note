@@ -1,136 +1,337 @@
-# LeetCode 刷題筆記系統使用指南
+# ShuaShua Note - Content Creation Guide
 
-## 系統架構說明
+## 📝 File Naming Conventions
 
-本系統採用**主題分類**的方式組織 LeetCode 題目，讓您能夠系統性地學習和複習相關題型。
+### Problem Solution Files
 
-### 目錄結構
+**Current Format**: `{originalId}-{problem-title-slug}.md`
+- Examples:
+  - `0001-two-sum.md` (LeetCode)
+  - `0004-median-of-two-sorted-arrays.md` (LeetCode)
+  - `0383-ransom-note.md` (LeetCode)
+
+**Recommended Future Format** (for multi-platform): `{source-prefix}-{originalId}-{problem-title-slug}.md`
+- Examples:
+  - `lc-0001-two-sum.md` (LeetCode)
+  - `cf-1000-a-b-problem.md` (Codeforces)
+  - `ac-abc001-a-card-game.md` (AtCoder)
+  - `cses-1001-weird-algorithm.md` (CSES)
+  - `zj-a001-hello-world.md` (ZeroJudge)
+
+### Source Prefixes
+- `lc` - LeetCode
+- `cf` - Codeforces  
+- `ac` - AtCoder
+- `cses` - CSES
+- `zj` - ZeroJudge
+- `other` - Other platforms
+
+### Concept Note Files
+
+**Format**: `{concept-name-slug}.md`
+- Examples:
+  - `binary-search-explained.md`
+  - `dfs-bfs-explained.md`
+  - `sliding-window-pattern.md`
+
+## 📁 Directory Structure
+
+### Problem Solutions
+Store problem solutions in topic-based directories:
 ```
-LeetCode-Implement-Note/
-├── INDEX.md          # 題目總索引（包含所有題目的快速查詢表）
-├── GUIDE.md          # 本使用指南
-├── TEMPLATE.md       # 題目筆記模板
-├── README.md         # 專案說明
-└── Topics/           # 主題分類資料夾
-    ├── Array/
-    ├── String/
-    ├── HashTable/
-    ├── TwoPointers/
-    ├── SlidingWindow/
-    ├── Tree/
-    ├── BinarySearchTree/
-    ├── Graph/
-    ├── DFS/
-    ├── BFS/
-    ├── DynamicProgramming/
-    ├── Greedy/
-    ├── Backtracking/
-    ├── Stack/
-    ├── Queue/
-    ├── LinkedList/
-    ├── Math/
-    ├── BitManipulation/
-    ├── Sort/
-    └── BinarySearch/
+content/problems/{topic}/{filename}.md
 ```
 
-## 使用流程
+**Topics:**
+- `array/` - Array problems
+- `linkedlist/` - Linked List problems
+- `tree/` - Tree problems
+- `hashtable/` - Hash Table problems
+- `math/` - Mathematics problems
+- `string/` - String problems
+- `dfs/` - Depth-First Search problems
+- `bfs/` - Breadth-First Search problems
+- `dynamicprogramming/` - Dynamic Programming problems
+- `greedy/` - Greedy Algorithm problems
+- `backtracking/` - Backtracking problems
+- `binarysearch/` - Binary Search problems
+- `twopointers/` - Two Pointers problems
+- `slidingwindow/` - Sliding Window problems
+- `sort/` - Sorting problems
+- `stack/` - Stack problems
+- `queue/` - Queue problems
+- `graph/` - Graph problems
+- `bitmanipulation/` - Bit Manipulation problems
 
-### 1. 新增題目
+### Learning Notes
+Store concept notes in category-based directories:
+```
+content/notes/{category}/{filename}.md
+```
 
-當您完成一道新題目時，請按照以下步驟：
+**Categories:**
+- `data-structures/` - Data structure concepts
+- `algorithms/` - Algorithm explanations
+- `techniques/` - Problem-solving techniques
+- `concepts/` - Core programming concepts
 
-1. **確定題目主題分類**
-   - 一道題可能屬於多個主題，選擇最主要的主題作為存放位置
-   - 在筆記中標註所有相關主題
+## 📋 Content Templates
 
-2. **建立題目檔案**
-   - 檔案命名格式：`[題號]-[題目名稱].md`
-   - 例如：`0001-two-sum.md`
-   - 題號請補足4位數（0001而非1）
+### Problem Solution Template
 
-3. **使用模板撰寫筆記**
-   - 複製 `TEMPLATE.md` 的內容
-   - 填入題目資訊、解法說明、程式碼等
+Use the template at `Note_Template/PROBLEM_NOTE_TEMPLATE.md`:
 
-4. **更新總索引**
-   - 在 `INDEX.md` 中新增該題目的條目
-   - 更新統計數據
-
-### 2. 查找題目
-
-您可以透過以下方式查找題目：
-
-1. **按題號查找**：在 `INDEX.md` 的題目總表中查找
-2. **按主題查找**：進入對應的 `Topics/` 子資料夾
-3. **按難度查找**：在 `INDEX.md` 中篩選難度欄位
-
-### 3. 複習計劃
-
-建議的複習策略：
-
-1. **主題專攻**：選擇一個主題，連續練習該主題下的所有題目
-2. **難度遞進**：從 Easy → Medium → Hard
-3. **相似題型**：透過筆記中的「相關題目」連結，練習類似題型
-
-## 筆記撰寫建議
-
-### 必要內容
-- 題目基本資訊（題號、名稱、難度、連結）
-- 解題思路
-- 時空間複雜度分析
-- 完整程式碼
-
-### 建議內容
-- 多種解法比較
-- 易錯點提醒
-- 相關題目連結
-- 個人心得體會
-
-### 程式碼管理
-- 如果有多個版本的解法，可在同一檔案中列出
-- 標註每個版本的優缺點
-- 保留錯誤版本並說明錯誤原因（學習價值）
-
-## 維護建議
-
-1. **定期更新索引**：每新增5-10題後，檢查並更新 `INDEX.md`
-2. **整理重複題目**：如果發現重複記錄，合併並保留最完整的版本
-3. **補充相關連結**：發現相似題目時，在筆記中互相連結
-
-## 進階功能
-
-### 標籤系統
-在每個題目筆記中，您可以加入標籤：
 ```markdown
-tags: ["Array", "Two Pointers", "Sort"]
+# {Problem Number}. {Problem Title}
+
+## Problem Information
+- **Problem ID**: {Problem Number}
+- **Title**: {Problem Title}
+- **Difficulty**: {Easy/Medium/Hard}
+- **Source**: {Leetcode/Codeforces/Atcoder/CSES/Zerojudge/Other}
+- **Link**: {Problem URL}
+- **Topics**: {Topic1}, {Topic2}, ...
+
+## Problem Description
+{Brief description of the problem statement}
+
+## Solutions
+
+### Solution 1: {Solution Name}
+**Time Complexity**: O(...)
+**Space Complexity**: O(...)
+
+#### Code
+```cpp
+// C++ solution code here
 ```
 
-### 難度標記
-除了 LeetCode 官方難度，您也可以加入個人難度評估：
+### Solution 2: {Alternative Solution Name} (Optional)
+**Time Complexity**: O(...)
+**Space Complexity**: O(...)
+
+#### Code
+```cpp
+// Alternative C++ solution code here
+```
+
+## Personal Notes
+{My thought process, challenges faced, insights gained, mistakes made, lessons learned}
+```
+
+### Concept Note Template
+
+Use the template at `Note_Template/DSA_Concept_Template_EN.md`:
+
 ```markdown
-個人難度: ⭐⭐⭐ (3/5)
+# {Concept Title}
+
+## Overview
+{Brief overview of the concept}
+
+## Basic Concepts
+
+### Definition
+{Clear definition of the concept}
+
+### Key Properties
+- Property 1
+- Property 2
+- Property 3
+
+## Implementation Details
+
+### Core Operations
+{Description of main operations}
+
+### Time & Space Complexity
+- Operation 1: O(...)
+- Operation 2: O(...)
+
+## Common Patterns
+
+### Pattern 1: {Pattern Name}
+{Description and example}
+
+### Pattern 2: {Pattern Name}
+{Description and example}
+
+## Practical Applications
+{Real-world use cases}
+
+## Related Topics
+- Related concept 1
+- Related concept 2
+
+## Practice Problems
+- Problem 1 (Easy)
+- Problem 2 (Medium)
+- Problem 3 (Hard)
+
+## Further Reading
+- [Resource 1](link)
+- [Resource 2](link)
 ```
 
-### 複習記錄
-記錄每次複習的日期和心得：
-```markdown
-## 複習記錄
-- 2025-01-30: 第一次 AC，使用暴力解
-- 2025-02-15: 優化為 O(n) 解法
+## 🚀 Creating New Content
+
+### Using Interactive Scripts
+
+**For Problem Solutions:**
+```bash
+npm run create:problem
 ```
+This script will:
+1. Ask for problem details (ID, title, source, difficulty)
+2. Select appropriate topic
+3. Create the file with proper naming
+4. Generate the template with metadata
 
-## 常見問題
+**For Concept Notes:**
+```bash
+npm run create:concept
+```
+This script will:
+1. Ask for concept title
+2. Select category
+3. Create the file with proper naming
+4. Generate the template
 
-**Q: 一道題屬於多個主題怎麼辦？**
-A: 將檔案放在最主要的主題資料夾，在筆記中標註所有相關主題。
+### Manual Creation
 
-**Q: 如何處理同一題的多個解法？**
-A: 在同一個檔案中，使用「解法一」、「解法二」等標題區分。
+1. **Choose the appropriate directory** based on content type
+2. **Follow naming conventions** for file names
+3. **Copy the relevant template** and fill in content
+4. **Run data rebuild** after creating new files:
+   ```bash
+   npm run build:data
+   ```
 
-**Q: 需要保留錯誤的解法嗎？**
-A: 建議保留，並標註錯誤原因，這有助於避免重複犯錯。
+## 📊 Content Guidelines
 
+### Problem Solutions
+- **Focus on clarity**: Write clean, readable code
+- **Include complexity analysis**: Always specify time/space complexity
+- **Add personal insights**: Share your learning experience
+- **Keep it simple**: Avoid unnecessary complexity in explanations
+- **Use consistent formatting**: Follow the template structure
+
+### Concept Notes
+- **Start with basics**: Begin with fundamental concepts
+- **Use examples**: Include practical examples
+- **Link related content**: Reference related problems and concepts
+- **Progressive difficulty**: Structure from simple to advanced
+- **Visual aids**: Use diagrams when helpful (store in `content/assets/`)
+
+### Code Style
+- **Language consistency**: Primarily use C++ for solutions
+- **Proper formatting**: Use consistent indentation and spacing
+- **Clear variable names**: Use descriptive variable names
+- **Comments when needed**: Add comments for complex logic
+
+## 🔧 Build Process
+
+After creating or modifying content:
+
+1. **Regenerate static data:**
+   ```bash
+   npm run build:data
+   ```
+
+2. **Test locally:**
+   ```bash
+   npm run dev
+   ```
+
+3. **Build for production:**
+   ```bash
+   npm run build
+   ```
+
+## 📝 Metadata Format
+
+### Problem Files
+The build system extracts metadata from markdown files:
+- **Source**: From `- **Source**: Platform` line
+- **Difficulty**: From `- **Difficulty**: Level` line  
+- **Topics**: From `- **Topics**: Topic1, Topic2` line
+- **Title**: From main heading `# Title`
+- **Description**: From Problem Description section
+
+### Note Files
+Metadata can be included in frontmatter or extracted from content:
+```yaml
 ---
+title: "Note Title"
+category: "data-structures"
+difficulty: "intermediate"
+topics: ["Array", "Sorting"]
+---
+```
 
-祝您刷題順利！持續累積，必有所成！
+## 🌐 Multi-Platform Support
+
+### Supported Platforms
+- **LeetCode**: Popular algorithm practice platform
+- **Codeforces**: Competitive programming platform
+- **AtCoder**: Japanese competitive programming platform
+- **CSES**: Problem Set from University of Helsinki
+- **ZeroJudge**: Taiwan's online judge system
+- **Other**: Additional platforms as needed
+
+### Platform-Specific Guidelines
+
+**LeetCode Problems:**
+- Include difficulty level (Easy/Medium/Hard)
+- Link to official problem page
+- Use standard LeetCode problem numbering
+
+**Codeforces Problems:**
+- Include contest and problem letter (e.g., "1000A")
+- Link to problem page
+- Note the contest type if relevant
+
+**AtCoder Problems:**
+- Include contest name and problem letter
+- Follow AtCoder's naming conventions
+- Link to official problem page
+
+**CSES Problems:**
+- Include CSES problem number
+- Link to CSES problem set
+- Note the category within CSES
+
+## 🆔 Composite ID System
+
+Problems use a composite ID format: `{source}-{originalId}`
+
+**Examples:**
+- `leetcode-1` - LeetCode problem #1
+- `codeforces-1000` - Codeforces problem #1000
+- `atcoder-abc001-a` - AtCoder ABC001 problem A
+- `cses-1001` - CSES problem #1001
+
+This ensures unique identification across all platforms.
+
+## 🤝 Best Practices
+
+### File Organization
+- **Consistent naming**: Follow the established conventions
+- **Logical grouping**: Place files in appropriate topic/category folders
+- **Clean structure**: Keep directory structure organized
+
+### Content Quality
+- **Accurate information**: Verify solution correctness
+- **Clear explanations**: Write for your future self
+- **Complete solutions**: Include all necessary components
+- **Regular updates**: Keep content current and relevant
+
+### Version Control
+- **Meaningful commits**: Use descriptive commit messages
+- **Incremental changes**: Make small, focused changes
+- **Test before committing**: Ensure builds work correctly
+
+## 🔗 Related Documentation
+- [README.md](README.md) - Project overview and setup
+- [DEVELOPMENT.md](DEVELOPMENT.md) - Technical development details
+- Templates in `Note_Template/` - Content creation templates

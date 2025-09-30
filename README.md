@@ -1,6 +1,6 @@
-# LeetCode Practice Notes
+# ShuaShua Note
 
-A systematic LeetCode practice note system organized by topics for efficient learning and review.
+A multi-platform algorithm practice note system supporting LeetCode, Codeforces, AtCoder, CSES, ZeroJudge and other coding platforms. Organize your solutions and notes efficiently for systematic learning and review.
 
 ## 🚀 Quick Start
 
@@ -20,7 +20,7 @@ npm run build:data
 ### Creating New Notes
 
 ```bash
-# Create LeetCode problem solution notes
+# Create problem solution notes
 npm run create:problem
 
 # Create DSA concept learning notes  
@@ -31,17 +31,19 @@ npm run create:concept
 
 ## ✨ Features
 
+- 🌐 **Multi-Platform Support**: Support for LeetCode, Codeforces, AtCoder, CSES, ZeroJudge and other platforms
 - 📁 **Topic Organization**: Problems and notes organized by algorithms and data structures
 - 📊 **Progress Overview**: Quick insights into your learning progress
-- 🔍 **Smart Filtering**: Filter by topic, difficulty, and category
-- 📝 **Standardized Templates**: Consistent note format with complete solution information
+- 🔍 **Smart Filtering**: Filter by topic, source platform, and category
+- 📝 **Standardized Templates**: Consistent note format with solution information and personal insights
+- 🔗 **Unique ID System**: Composite ID system (source-problemId) ensures no conflicts between platforms
 - 🌙 **Dark Mode**: Toggle between light and dark themes
 - 📱 **Responsive Design**: Works on all devices
 
 ## 📁 Project Structure
 
 ```
-LeetCode-Implement-Note/
+ShuaShua-Note/
 ├── content/                    # All content organized by type
 │   ├── problems/              # Problem solutions by topic
 │   ├── notes/                 # Learning notes by category
@@ -59,14 +61,14 @@ LeetCode-Implement-Note/
 
 Use the interactive scripts:
 
-**For LeetCode Problem Solutions:**
+**For Problem Solutions:**
 ```bash
 npm run create:problem
 ```
 
 This will guide you through:
 - Problem ID and title
-- Difficulty level (Easy/Medium/Hard)
+- Source platform (LeetCode, Codeforces, AtCoder, etc.)
 - Topic assignment (Array, LinkedList, Tree, etc.)
 - Problem description
 
@@ -83,7 +85,7 @@ This will guide you through:
 ### Manual Way
 
 1. **For Problem Solutions**: Create in `content/problems/{topic}/`
-   - Use template: `Note_Template/Leetcode_NOTE_TEMPLATE.md`
+   - Use template: `Note_Template/PROBLEM_NOTE_TEMPLATE.md`
    - Example: `content/problems/array/0001-two-sum.md`
 
 2. **For Concept Notes**: Create in `content/notes/{category}/`
@@ -96,6 +98,22 @@ This will guide you through:
    ```bash
    npm run build:data
    ```
+
+## 🌐 Supported Platforms
+
+- **LeetCode**: Popular algorithm practice platform
+- **Codeforces**: Competitive programming platform
+- **AtCoder**: Japanese competitive programming platform  
+- **CSES**: Problem Set from the University of Helsinki
+- **ZeroJudge**: Taiwan's online judge system
+- **Other**: Support for additional platforms
+
+## 🔗 Problem ID System
+
+Problems use a composite ID system to avoid conflicts:
+- Format: `{source}-{originalId}`
+- Examples: `leetcode-1`, `codeforces-1000`, `atcoder-abc001-a`
+- This ensures unique identification across all platforms
 
 ## 🎯 Topics Covered
 

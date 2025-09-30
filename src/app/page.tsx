@@ -10,8 +10,8 @@ export default function HomePage() {
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
       <Header 
-        title="LeetCode Practice Notes"
-        subtitle="Systematic Algorithm Learning Journey"
+        title="ShuaShua Note"
+        subtitle="Multi-Platform Algorithm Practice Notes"
         currentPage="home"
       />
 

@@ -7,7 +7,7 @@ import MarkdownRenderer from '@/components/MarkdownRenderer';
 // Generate static parameters
 export async function generateStaticParams() {
   return PROBLEMS.map((problem) => ({
-    id: problem.id.toString(),
+    id: problem.id,
   }));
 }
 
@@ -17,14 +17,13 @@ export default async function ProblemDetailPage({
   params: Promise<{ id: string }>;
 }) {
   const { id } = await params;
-  const problemId = parseInt(id);
-  const problem = PROBLEMS.find(p => p.id === problemId);
+  const problem = PROBLEMS.find(p => p.id === id);
 
   if (!problem) {
     return (
       <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
         <Header 
-          title="LeetCode Practice Notes"
+          title="ShuaShua Note"
           subtitle="Problem Details"
           currentPage="problems"
         />
@@ -47,7 +46,7 @@ export default async function ProblemDetailPage({
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
       <Header 
-        title="LeetCode Practice Notes"
+        title="ShuaShua Note"
         subtitle={problem.title}
         currentPage="problems"
       />
@@ -61,12 +60,18 @@ export default async function ProblemDetailPage({
                 <h1 className="text-2xl font-bold text-gray-900 dark:text-white">{problem.title}</h1>
               </div>
               <div className="flex items-center space-x-3 mb-4">
-                <span className={`px-3 py-1 text-sm rounded-full ${
-                  problem.difficulty === 'Easy' ? 'bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300' :
-                  problem.difficulty === 'Medium' ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300' :
-                  'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300'
+                <span className={`px-2 py-1 text-xs rounded-full ${
+                  problem.source === 'Leetcode' ? 'bg-orange-100 dark:bg-orange-900/30 text-orange-800 dark:text-orange-300' :
+                  problem.source === 'Codeforces' ? 'bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300' :
+                  problem.source === 'Atcoder' ? 'bg-pink-100 dark:bg-pink-900/30 text-pink-800 dark:text-pink-300' :
+                  problem.source === 'CSES' ? 'bg-indigo-100 dark:bg-indigo-900/30 text-indigo-800 dark:text-indigo-300' :
+                  problem.source === 'Zerojudge' ? 'bg-teal-100 dark:bg-teal-900/30 text-teal-800 dark:text-teal-300' :
+                  'bg-gray-100 dark:bg-gray-900/30 text-gray-800 dark:text-gray-300'
                 }`}>
-                  {problem.difficulty}
+                  {problem.source}
+                </span>
+                <span className="text-sm text-gray-600 dark:text-gray-400">
+                  #{problem.originalId}
                 </span>
                 {problem.hasNote && (
                   <span className="flex items-center text-green-600 dark:text-green-400 text-sm">
@@ -93,17 +98,19 @@ export default async function ProblemDetailPage({
 
               {/* Quick Actions */}
               <div className="flex items-center space-x-4">
-                <a
-                  href={leetcodeUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-lg transition-colors duration-200 text-sm font-medium"
-                >
-                  <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
-                  </svg>
-                  LeetCode Problem
-                </a>
+                {problem.source === 'Leetcode' && (
+                  <a
+                    href={leetcodeUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center px-4 py-2 bg-orange-600 hover:bg-orange-700 text-white rounded-lg transition-colors duration-200 text-sm font-medium"
+                  >
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                    </svg>
+                    LeetCode Problem
+                  </a>
+                )}
                 <Link
                   href="/problems"
                   className="inline-flex items-center px-4 py-2 bg-gray-600 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600 text-white rounded-lg transition-colors duration-200 text-sm font-medium"
@@ -152,9 +159,9 @@ export default async function ProblemDetailPage({
         {/* Navigation */}
         <div className="mt-8 flex justify-between items-center">
           <div className="flex space-x-4">
-            {PROBLEMS.findIndex(p => p.id === problemId) > 0 && (
+            {PROBLEMS.findIndex(p => p.id === id) > 0 && (
               <Link
-                href={`/problems/${PROBLEMS[PROBLEMS.findIndex(p => p.id === problemId) - 1].id}`}
+                href={`/problems/${PROBLEMS[PROBLEMS.findIndex(p => p.id === id) - 1].id}`}
                 className="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg shadow hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
               >
                 <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -166,9 +173,9 @@ export default async function ProblemDetailPage({
           </div>
 
           <div className="flex space-x-4">
-            {PROBLEMS.findIndex(p => p.id === problemId) < PROBLEMS.length - 1 && (
+            {PROBLEMS.findIndex(p => p.id === id) < PROBLEMS.length - 1 && (
               <Link
-                href={`/problems/${PROBLEMS[PROBLEMS.findIndex(p => p.id === problemId) + 1].id}`}
+                href={`/problems/${PROBLEMS[PROBLEMS.findIndex(p => p.id === id) + 1].id}`}
                 className="inline-flex items-center px-4 py-2 bg-white dark:bg-gray-800 text-gray-700 dark:text-gray-300 rounded-lg shadow hover:bg-gray-50 dark:hover:bg-gray-700 transition-colors duration-200"
               >
                 Next

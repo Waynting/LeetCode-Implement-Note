@@ -132,7 +132,7 @@ function updateBuildData() {
 
 // Main function
 async function main() {
-  console.log('🚀 LeetCode Practice Notes - Create DSA Concept Note\n');
+  console.log('🚀 ShuaShua Note - Create DSA Concept Note\n');
   
   try {
     // Get note details from user
