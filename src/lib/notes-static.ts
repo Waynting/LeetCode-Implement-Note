@@ -80,22 +80,22 @@ export const NOTES: Note[] = [
   },
   {
     "id": "array-basics",
-    "title": "陣列基礎概念",
+    "title": "Array Fundamentals",
     "category": "dataStructure",
     "topics": [],
     "difficulty": "intermediate",
-    "description": "暫無描述",
+    "description": "No description available",
     "contentPath": "/content/notes/data-structures/array-basics.md",
     "createdAt": "2024-01-01",
     "updatedAt": "2025-09-30"
   },
   {
     "id": "hash-table-concepts",
-    "title": "雜湊表核心概念",
+    "title": "Hash Table Core Concepts",
     "category": "dataStructure",
     "topics": [],
     "difficulty": "intermediate",
-    "description": "暫無描述",
+    "description": "No description available",
     "contentPath": "/content/notes/data-structures/hash-table-concepts.md",
     "createdAt": "2024-01-01",
     "updatedAt": "2025-09-30"
@@ -116,11 +116,11 @@ export const NOTES: Note[] = [
   },
   {
     "id": "sliding-window-pattern",
-    "title": "滑動視窗模式",
+    "title": "Sliding Window Pattern",
     "category": "technique",
     "topics": [],
     "difficulty": "intermediate",
-    "description": "暫無描述",
+    "description": "No description available",
     "contentPath": "/content/notes/techniques/sliding-window-pattern.md",
     "createdAt": "2024-01-01",
     "updatedAt": "2025-09-30"

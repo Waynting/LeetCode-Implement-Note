@@ -19,9 +19,6 @@ The overall run time complexity should be O(log (m+n)).
 **Time Complexity**: O(m+n)
 **Space Complexity**: O(m+n)
 
-#### Approach
-Use two pointers to traverse both arrays and merge elements in order into a new array, then find the median.
-
 #### Code
 ```cpp
 class Solution {
@@ -72,13 +69,5 @@ class Solution {
     };
 ```
 
-#### Key Points
-- This solution doesn't meet the required O(log(m+n)) time complexity
-- The correct approach should use binary search
-
-## Related Problems
-- 295. Find Median from Data Stream
-- 480. Sliding Window Median
-
-## Notes
-The challenge of this problem is achieving O(log(m+n)) time complexity, which requires binary search approach. While the above solution works, it has O(m+n) time complexity and doesn't meet the problem requirements.
+## Personal Notes
+This was my first attempt using merge sort approach. The solution works but I know it doesn't meet the O(log(m+n)) requirement. Need to learn binary search approach for optimal solution.

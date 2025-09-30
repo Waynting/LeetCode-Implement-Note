@@ -50,9 +50,6 @@ class Solution {
 **Time Complexity**: O(n+m)
 **Space Complexity**: O(1)
 
-#### Approach
-Use an array to count the occurrence of each character in magazine, then check if it's sufficient to construct ransomNote.
-
 #### Code
 ```cpp
 class Solution {
@@ -83,13 +80,5 @@ class Solution {
     };
 ```
 
-#### Key Points
-- The second solution uses Hash Table concept for better efficiency
-- Can further optimize the inner loop by directly using `characterList[magazine[i] - 'a']++`
-
-## Related Problems
-- 387. First Unique Character in a String
-- 242. Valid Anagram
-
-## Notes
-The progression from brute force to optimized solution demonstrates the advantage of Hash Table in character counting problems.
+## Personal Notes
+Started with brute force (removing characters one by one) then learned the character counting approach. The array indexing trick `magazine[i] - 'a'` was new to me but makes the solution much cleaner.

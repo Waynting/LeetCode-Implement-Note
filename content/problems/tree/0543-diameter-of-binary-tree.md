@@ -13,21 +13,11 @@ Given the root of a binary tree, return the length of the diameter of the tree.
 
 The diameter of a binary tree is the length of the longest path between any two nodes in a tree. This path may or may not pass through the root.
 
-## What is DFS
-**Depth First Search**, abbreviated as **DFS**.
-* DFS is an algorithm for traversing trees or graphs.
-* Starting from a node, it continuously goes deep into "child nodes" or "adjacent nodes".
-* When there's no path to continue, it "backtracks" to the previous node and tries other paths.
-* It's usually implemented using recursion or stack.
-
 ## Solutions
 
 ### Solution 1: DFS Recursion
 **Time Complexity**: O(n)
 **Space Complexity**: O(h), where h is the height of the tree
-
-#### Approach
-For each node, calculate the longest path passing through that node (left subtree depth + right subtree depth), while updating the global maximum.
 
 #### Code
 ```cpp
@@ -64,14 +54,5 @@ public:
 };
 ```
 
-#### Key Points
-- The DFS function returns the depth of the subtree rooted at that node
-- The longest path through a node = left subtree depth + right subtree depth
-- Global variable records the maximum diameter among all nodes
-
-## Related Problems
-- 104. Maximum Depth of Binary Tree
-- 124. Binary Tree Maximum Path Sum
-
-## Notes
-This is a great introductory problem for understanding DFS and tree traversal. The key insight is that the diameter doesn't necessarily pass through the root, so we need to check every node as a potential "center" of the longest path.
+## Personal Notes
+First tree DFS problem I solved. The tricky part was realizing that I need to track the maximum diameter separately while calculating depths. The global variable approach worked well here.
