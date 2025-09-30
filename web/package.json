@@ -9,8 +9,7 @@
     "lint": "eslint",
     "build:data": "node ../scripts/build-data.js",
     "create:problem": "node ../scripts/create-problem-note.js",
-    "create:concept": "node ../scripts/create-concept-note.js",
-    "export": "next build && next export"
+    "create:concept": "node ../scripts/create-concept-note.js"
   },
   "dependencies": {
     "@types/react-syntax-highlighter": "^15.5.13",

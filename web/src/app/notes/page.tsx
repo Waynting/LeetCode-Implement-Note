@@ -1,12 +1,12 @@
 'use client';
 
 import Link from 'next/link';
-import { useState, useMemo, useEffect } from 'react';
+import { useState, useMemo, useEffect, Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
-import { NOTES, NOTE_CATEGORIES, getNotesByCategory } from '@/lib/notes-static';
+import { NOTES, NOTE_CATEGORIES } from '@/lib/notes-static';
 import Header from '@/components/Header';
 
-export default function NotesPage() {
+function NotesContent() {
   const searchParams = useSearchParams();
   const [selectedCategory, setSelectedCategory] = useState<string>('all');
   const [selectedTopic, setSelectedTopic] = useState<string>('all');
@@ -273,5 +273,13 @@ export default function NotesPage() {
         </div>
       </main>
     </div>
+  );
+}
+
+export default function NotesPage() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <NotesContent />
+    </Suspense>
   );
 }

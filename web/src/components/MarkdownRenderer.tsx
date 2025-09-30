@@ -16,7 +16,7 @@ export default function MarkdownRenderer({ content, className = '' }: MarkdownRe
       <ReactMarkdown
         remarkPlugins={[remarkGfm]}
         components={{
-          code({ node, inline, className, children, ...props }) {
+          code({ inline, className, children, ...props }: any) {
             const match = /language-(\w+)/.exec(className || '');
             const language = match ? match[1] : '';
 
@@ -34,67 +34,67 @@ export default function MarkdownRenderer({ content, className = '' }: MarkdownRe
             const code = String(children).replace(/\n$/, '');
             return <CodeBlock code={code} language={language} />;
           },
-          h1({ children }) {
+          h1() {
             // Skip rendering the first h1 to avoid duplicate title
             return null;
           },
-          h2({ children }) {
+          h2({ children }: any) {
             return (
               <h2 className="text-2xl font-semibold text-gray-800 dark:text-gray-100 mt-8 mb-4">
                 {children}
               </h2>
             );
           },
-          h3({ children }) {
+          h3({ children }: any) {
             return (
               <h3 className="text-xl font-semibold text-gray-800 dark:text-gray-100 mt-6 mb-3">
                 {children}
               </h3>
             );
           },
-          h4({ children }) {
+          h4({ children }: any) {
             return (
               <h4 className="text-lg font-medium text-gray-800 dark:text-gray-100 mt-5 mb-2">
                 {children}
               </h4>
             );
           },
-          p({ children }) {
+          p({ children }: any) {
             return (
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
                 {children}
               </p>
             );
           },
-          ul({ children }) {
+          ul({ children }: any) {
             return (
               <ul className="list-disc list-inside text-gray-700 dark:text-gray-300 mb-4 space-y-2">
                 {children}
               </ul>
             );
           },
-          ol({ children }) {
+          ol({ children }: any) {
             return (
               <ol className="list-decimal list-inside text-gray-700 dark:text-gray-300 mb-4 space-y-2">
                 {children}
               </ol>
             );
           },
-          li({ children }) {
+          li({ children }: any) {
             return (
               <li className="text-gray-700 dark:text-gray-300">
                 {children}
               </li>
             );
           },
-          blockquote({ children }) {
+          blockquote({ children }: any) {
             return (
               <blockquote className="border-l-4 border-blue-500 dark:border-blue-400 pl-4 py-2 my-4 bg-blue-50 dark:bg-blue-900/20 italic">
                 {children}
               </blockquote>
             );
           },
-          table({ children }) {
+          table({ children }: any) {
             return (
               <div className="overflow-x-auto my-6">
                 <table className="min-w-full border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden">
@@ -103,35 +103,35 @@ export default function MarkdownRenderer({ content, className = '' }: MarkdownRe
               </div>
             );
           },
-          thead({ children }) {
+          thead({ children }: any) {
             return (
               <thead className="bg-gray-50 dark:bg-gray-800">
                 {children}
               </thead>
             );
           },
-          tbody({ children }) {
+          tbody({ children }: any) {
             return (
               <tbody className="bg-white dark:bg-gray-900 divide-y divide-gray-200 dark:divide-gray-700">
                 {children}
               </tbody>
             );
           },
-          th({ children }) {
+          th({ children }: any) {
             return (
               <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
                 {children}
               </th>
             );
           },
-          td({ children }) {
+          td({ children }: any) {
             return (
               <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-900 dark:text-gray-100">
                 {children}
               </td>
             );
           },
-          a({ href, children }) {
+          a({ href, children }: any) {
             return (
               <a 
                 href={href}

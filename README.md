@@ -123,12 +123,25 @@ This will guide you through:
 cd web
 npm run build:data  # Generate static data
 npm run build       # Build Next.js app
-npm run export      # Export static files
+npm run start       # Start production server
 ```
+
+### Deploy to Vercel
+
+1. **Connect to Vercel**:
+   - Visit [vercel.com](https://vercel.com)
+   - Connect your GitHub repository
+   - Vercel will auto-detect Next.js configuration
+
+2. **Build Settings** (auto-configured with vercel.json):
+   - Framework Preset: Next.js
+   - Build Command: `cd web && npm run build:data && npm run build`
+   - Output Directory: `web/.next`
+   - Install Command: `cd web && npm install`
 
 ### Live Website
 
-📱 **Website**: https://waynting.github.io/LeetCode-Implement-Note/
+📱 **Website**: Will be available on Vercel deployment URL
 
 ## 📄 License
 

@@ -1,10 +1,10 @@
 import { notFound } from 'next/navigation';
 import Link from 'next/link';
-import { getNoteById, NOTE_CATEGORIES } from '@/lib/notes';
+import { getNoteById, NOTE_CATEGORIES } from '@/lib/notes-static';
 
 // 由於是靜態導出，我們需要生成所有可能的路由
 export async function generateStaticParams() {
-  const { NOTES } = await import('@/lib/notes');
+  const { NOTES } = await import('@/lib/notes-static');
   return NOTES.map((note) => ({
     noteId: note.id,
   }));
@@ -13,9 +13,10 @@ export async function generateStaticParams() {
 export default async function NoteDetailPage({
   params,
 }: {
-  params: { noteId: string };
+  params: Promise<{ noteId: string }>;
 }) {
-  const note = getNoteById(params.noteId);
+  const { noteId } = await params;
+  const note = getNoteById(noteId);
 
   if (!note) {
     notFound();
