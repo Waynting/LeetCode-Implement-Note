@@ -27,3 +27,8 @@
   - 搜尋與遍歷：DFS, BFS, BinarySearch
   - 進階演算法：DynamicProgramming, Greedy, Backtracking
   - 技巧與其他：TwoPointers, SlidingWindow, Sort, Math, BitManipulation
+- `web/` - Next.js 前端網站
+
+## 線上瀏覽
+
+📱 **網站**: https://waynting.github.io/LeetCode-Implement-Note/

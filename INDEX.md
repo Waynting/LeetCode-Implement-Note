@@ -17,19 +17,6 @@ Web Record Link: https://docs.google.com/spreadsheets/d/1Spwx9uSLlkMD-LdN4T8x1c-
 | LinkedList | 1 | 100% |
 | HashTable | 1 | 100% |
 
-## 題目總表
-
-| 題號 | 題目名稱 | 難度 | 主題分類 | 解法數量 | 筆記 |
-|------|----------|------|----------|----------|------|
-| 2 | Add Two Numbers | Medium | LinkedList, Math | 1 | [筆記](Topics/LinkedList/0002-add-two-numbers.md) |
-| 4 | Median of Two Sorted Arrays | Hard | Array, BinarySearch | 1 | - |
-| 5 | Longest Palindromic Substring | Medium | String, DynamicProgramming | 1 | - |
-| 12 | Integer to Roman | Medium | Math, String | 1 | - |
-| 13 | Roman to Integer | Easy | Math, String | 1 | - |
-| 141 | Linked List Cycle | Easy | LinkedList, TwoPointers | 1 | - |
-| 383 | Ransom Note | Easy | HashTable, String | 2 | - |
-| 543 | Diameter of Binary Tree | Easy | Tree, DFS | 1 | [筆記](Topics/Tree/0543-diameter-of-binary-tree.md) |
-
 ## 快速導航
 
 ### 基礎資料結構
