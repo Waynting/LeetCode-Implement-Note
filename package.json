@@ -4,11 +4,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "npm run build:data && next build",
     "start": "next start",
     "lint": "eslint",
     "build:data": "node scripts/build-data.js",
-    "vercel-build": "npm run build:data && npm run build",
+    "vercel-build": "npm run build:data && next build",
     "create:problem": "node scripts/create-problem-note.js",
     "create:concept": "node scripts/create-concept-note.js"
   },
