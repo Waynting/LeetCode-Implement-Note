@@ -1,11 +1,6 @@
 {
   "topic": "bitmanipulation",
   "displayName": "BitManipulation",
-  "problems": [
-    {
-      "filename": "3333-count-set-bits.md",
-      "id": null
-    }
-  ],
-  "lastUpdated": "2025-10-02T13:23:24.965Z"
+  "problems": [],
+  "lastUpdated": "2025-10-02T15:01:11.418Z"
 }

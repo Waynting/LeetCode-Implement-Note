@@ -15,51 +15,6 @@ export interface Problem {
 
 export const PROBLEMS: Problem[] = [
   {
-    "id": "atcoder-5678",
-    "originalId": 5678,
-    "title": "5678. Shortest Path",
-    "difficulty": "Medium",
-    "source": "Atcoder",
-    "topics": [
-      "Graph"
-    ],
-    "description": "Find the shortest path between two nodes in a weighted graph.",
-    "hasNote": true,
-    "noteUrl": "/content/problems/graph/5678-shortest-path.md",
-    "filePath": "/Users/waynliu/Documents/GitHub/ShuaShua-Note/content/problems/graph/5678-shortest-path.md",
-    "markdownContent": "# 5678. Shortest Path\n\n## Problem Information\n- **Problem ID**: 5678\n- **Title**: Shortest Path\n- **Difficulty**: Hard\n- **Source**: Atcoder\n- **Link**: https://atcoder.jp/contests/abc123/tasks/abc123_d\n- **Topics**: Graph, Dijkstra\n\n## Problem Description\n\nFind the shortest path between two nodes in a weighted graph.\n\n## Solutions\n\n### Solution 1: Dijkstra's Algorithm\n**Time Complexity**: O((V + E) log V)\n**Space Complexity**: O(V)\n\n#### Code\n```cpp\n#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    // Test solution for AtCoder routing\n    return 0;\n}\n```\n\n## Personal Notes\nThis is a test file for AtCoder source routing verification."
-  },
-  {
-    "id": "codeforces-1234",
-    "originalId": 1234,
-    "title": "1234. Coin Change Problem",
-    "difficulty": "Medium",
-    "source": "Codeforces",
-    "topics": [
-      "DynamicProgramming"
-    ],
-    "description": "Given a set of coin denominations and a target amount, find the minimum number of coins needed to make the target amount.",
-    "hasNote": true,
-    "noteUrl": "/content/problems/dynamicprogramming/1234-coin-change-problem.md",
-    "filePath": "/Users/waynliu/Documents/GitHub/ShuaShua-Note/content/problems/dynamicprogramming/1234-coin-change-problem.md",
-    "markdownContent": "# 1234. Coin Change Problem\n\n## Problem Information\n- **Problem ID**: 1234\n- **Title**: Coin Change Problem\n- **Difficulty**: Medium\n- **Source**: Codeforces\n- **Link**: https://codeforces.com/contest/1234/problem/A\n- **Topics**: Dynamic Programming, Math\n\n## Problem Description\n\nGiven a set of coin denominations and a target amount, find the minimum number of coins needed to make the target amount.\n\n## Solutions\n\n### Solution 1: Dynamic Programming\n**Time Complexity**: O(n*amount)\n**Space Complexity**: O(amount)\n\n#### Code\n```cpp\n#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    // Test solution for Codeforces routing\n    return 0;\n}\n```\n\n## Personal Notes\nThis is a test file for Codeforces source routing verification."
-  },
-  {
-    "id": "cses-9999",
-    "originalId": 9999,
-    "title": "9999. Activity Selection",
-    "difficulty": "Medium",
-    "source": "CSES",
-    "topics": [
-      "Greedy"
-    ],
-    "description": "Given n activities with their start and finish times, select the maximum number of activities that can be performed by a single person.",
-    "hasNote": true,
-    "noteUrl": "/content/problems/greedy/9999-activity-selection.md",
-    "filePath": "/Users/waynliu/Documents/GitHub/ShuaShua-Note/content/problems/greedy/9999-activity-selection.md",
-    "markdownContent": "# 9999. Activity Selection\n\n## Problem Information\n- **Problem ID**: 9999\n- **Title**: Activity Selection\n- **Difficulty**: Easy\n- **Source**: CSES\n- **Link**: https://cses.fi/problemset/task/1629\n- **Topics**: Greedy, Sorting\n\n## Problem Description\n\nGiven n activities with their start and finish times, select the maximum number of activities that can be performed by a single person.\n\n## Solutions\n\n### Solution 1: Greedy Approach\n**Time Complexity**: O(n log n)\n**Space Complexity**: O(1)\n\n#### Code\n```cpp\n#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    // Test solution for CSES routing\n    return 0;\n}\n```\n\n## Personal Notes\nThis is a test file for CSES source routing verification."
-  },
-  {
     "id": "leetcode-2",
     "originalId": 2,
     "title": "2. Add Two Numbers",
@@ -188,11 +143,11 @@ export const PROBLEMS: Problem[] = [
     "topics": [
       "BinarySearch"
     ],
-    "description": "暫無描述",
+    "description": "Given an integer array nums sorted in ascending order and then rotated at an unknown pivot, and an integer target, return the index of target if it is in nums; otherwise, return -1.",
     "hasNote": true,
     "noteUrl": "/content/problems/binarysearch/33-search-in-rotated-sorted-array.md",
     "filePath": "/Users/waynliu/Documents/GitHub/ShuaShua-Note/content/problems/binarysearch/33-search-in-rotated-sorted-array.md",
-    "markdownContent": "# 33. Search in Rotated Sorted Array\n\n## Problem Information\n- **Problem ID**: 33\n- **Title**: Search in Rotated Sorted Array\n- **Difficulty**: Medium\n- **Source**: LeetCode\n- **Link**: https://leetcode.com/problems/search-in-rotated-sorted-array/\n- **Topics**: Binary Search, Array\n\n## Problem Description\nGiven an integer array `nums` sorted in ascending order and then rotated at an unknown pivot, and an integer `target`, return the index of `target` if it is in `nums`; otherwise, return `-1`.  \nYou must write an algorithm with **O(log n)** time complexity.\n\nExample:  \nInput: `nums = [4,5,6,7,0,1,2]`, `target = 0` → Output: `4`\n\n## Core Idea (Hint-First Summary)\n- The array is a rotated version of a sorted array. In any binary-search iteration, **at least one side (left or right of `mid`) is sorted**.\n- Determine which side is sorted by comparing `nums[l]` and `nums[mid]`.\n- If the **left half is sorted** (`nums[l] <= nums[mid]`), check if `target` lies in `[nums[l], nums[mid])`. If yes, shrink right; otherwise, go right.\n- If the **right half is sorted**, check if `target` lies in `(nums[mid], nums[r]]`. If yes, go right; otherwise, shrink right boundary to the left half.\n- Maintain correct **boundaries and inclusivity**. Use **inclusive bounds** (`l=0, r=n-1`) with the loop `while (l <= r)` and move pointers with `l = mid + 1` or `r = mid - 1` when excluding `mid`.\n\n## Solution 1: Binary Search on Rotated Array (Determining Sorted Half)\n**Time Complexity**: O(log n)  \n**Space Complexity**: O(1)\n\n### Pseudocode (Language-Agnostic)\n```text\nl = 0; r = n - 1\nwhile l <= r:\n    mid = (l + r) // 2\n    if nums[mid] == target: return mid\n\n    if nums[l] <= nums[mid]:            # left half is sorted\n        if nums[l] <= target < nums[mid]:\n            r = mid - 1                 # keep left half\n        else:\n            l = mid + 1                 # go right half\n    else:                               # right half is sorted\n        if nums[mid] < target <= nums[r]:\n            l = mid + 1                 # keep right half\n        else:\n            r = mid - 1                 # go left half\nreturn -1\n```\n\n### Why This Works (Invariants)\n- **Invariant 1**: On every loop, search space is within a valid index interval `[l, r]`.\n- **Invariant 2**: At least one side of `mid` is sorted. We exploit that side to decide where `target` can (or cannot) reside.\n- **Invariant 3**: Each step strictly reduces the interval size (`r - l` decreases), avoiding infinite loops.\n\n### Common Pitfalls\n- Mixing **half-open** (`[l, r)`) and **inclusive** (`[l, r]`) styles. Be consistent.\n- Accessing `nums[r]` while using a half-open interval with `r = n` → out-of-bounds.\n- Using strict `<` on both ends and accidentally excluding equality cases (`target == nums[l]` or `target == nums[r]`).\n- Not moving past `mid` (`l = mid` / `r = mid`) → potential infinite loop.\n- Edge cases: arrays of length 0 or 1, rotation at index `0` (unrotated), or target at boundaries.\n\n## My Attempt (for Reference)\n> The following is the user's working attempt (C++). It correctly adopts **inclusive bounds** and applies the sorted-half checks and boundary moves.\n\n```cpp\nclass Solution {\npublic:\n    int search(vector<int>& nums, int target) {\n        int l = 0, r = nums.size()-1;\n        while(l <= r){\n            int mid = (l+r)/2;\n            if(nums[mid] == target){\n                return mid;\n            }\n            else{\n                if(nums[l] <= nums[mid]){ \n                    // left is sorted\n                    if(nums[l] <= target && target < nums[mid]){\n                        r = mid - 1;\n                    }\n                    else{\n                        l = mid + 1;\n                    }\n                }\n                else{\n                    // right is sorted\n                    if(nums[mid] < target && target <= nums[r]){\n                        l = mid + 1;\n                    }\n                    else{\n                        r = mid - 1;\n                    }\n                }\n            }\n        }\n        return -1;\n    }\n};\n```\n\n## Targeted Test Cases\n```\n1) nums = [1], target = 1   → 0\n2) nums = [1], target = 0   → -1\n3) nums = [1,3], target = 3 → 1\n4) nums = [3,1], target = 1 → 1        # small rotated\n5) nums = [4,5,6,7,0,1,2], target = 0 → 4\n6) nums = [4,5,6,7,0,1,2], target = 4 → 0\n7) nums = [5,1,3], target = 5         → 0  # mid on left-sorted edge\n8) nums = [5,1,3], target = 2         → -1\n```\n\n## Personal Notes\n- **Heuristic**: “One side is always sorted.” First decide the sorted side with `nums[l] <= nums[mid]`.\n- **Inclusivity**: In left-sorted case, use `nums[l] <= target < nums[mid]`. In right-sorted, use `nums[mid] < target <= nums[r]`.\n- **Pointers**: Excluding `mid` must move past it: `l = mid + 1` or `r = mid - 1`.\n- **Mental model**: Think of “cutting away the impossible half” using sorted-side boundaries.\n\n## Related Problems\n- 81. Search in Rotated Sorted Array II (with duplicates)\n- 153/154. Find Minimum in Rotated Sorted Array (I/II)\n- 34. Find First and Last Position of Element in Sorted Array (classic boundary binary search)\n"
+    "markdownContent": "# 33. Search in Rotated Sorted Array\n\n## Problem Information\n- **Problem ID**: 33\n- **Title**: Search in Rotated Sorted Array\n- **Difficulty**: Medium\n- **Source**: LeetCode\n- **Link**: https://leetcode.com/problems/search-in-rotated-sorted-array/\n- **Topics**: Binary Search, Array\n\n## Problem Description\n\nGiven an integer array nums sorted in ascending order and then rotated at an unknown pivot, and an integer target, return the index of target if it is in nums; otherwise, return -1.\n\nYou must write an algorithm with O(log n) time complexity.\n\nExample: Input: nums = [4,5,6,7,0,1,2], target = 0 → Output: 4\n\n## My Solution\n\n```cpp\nclass Solution {\npublic:\n    int search(vector<int>& nums, int target) {\n        int l = 0, r = nums.size()-1;\n        while(l <= r){\n            int mid = (l+r)/2;\n            if(nums[mid] == target){\n                return mid;\n            }\n            else{\n                if(nums[l] <= nums[mid]){\n                    // left is sorted\n                    if(nums[l] <= target && target < nums[mid]){\n                        r = mid - 1;\n                    }\n                    else{\n                        l = mid + 1;\n                    }\n                }\n                else{\n                    // right is sorted\n                    if(nums[mid] < target && target <= nums[r]){\n                        l = mid + 1;\n                    }\n                    else{\n                        r = mid - 1;\n                    }\n                }\n            }\n        }\n        return -1;\n    }\n};\n```\n\n## Notes\n\nKey idea: In a rotated sorted array, at least one side of mid is always sorted. Use this to determine which half to search.\n"
   },
   {
     "id": "leetcode-2221",
@@ -208,36 +163,6 @@ export const PROBLEMS: Problem[] = [
     "noteUrl": "/content/problems/array/2221-find-triangular-sum-of-an-array.md",
     "filePath": "/Users/waynliu/Documents/GitHub/ShuaShua-Note/content/problems/array/2221-find-triangular-sum-of-an-array.md",
     "markdownContent": "# 2221. Find Triangular Sum of an Array\n\n## Problem Information\n- **Problem ID**: 2221\n- **Title**: Find Triangular Sum of an Array\n- **Difficulty**: Medium\n- **Source**: LeetCode\n- **Link**: https://leetcode.com/problems/find-triangular-sum-of-an-array/\n- **Topics**: Array, Simulation, Math, Combinatorics\n\n## Problem Description\n\nGiven an integer array `nums` of length `n` containing digits `0..9`, repeatedly generate a new array by taking the sum of adjacent values modulo `10` until only one element remains. Return that last remaining value.\n\nFormally, while the array has more than one element, replace it with an array of length `m-1` where `new[i] = (old[i] + old[i+1]) % 10`. The answer is the single value left after these reductions.\n\n## Solutions\n\n### Solution 1: Iterative Adjacent-Sum Simulation (User Implementation)\n**Idea**: Simulate the triangular reduction level by level, always taking adjacent sums mod 10 until one element remains.\n\n**Time Complexity**: O(n^2) in the worst case (n + (n-1) + ... + 1)\n**Space Complexity**: O(n)\n\n#### Code\n```cpp\nclass Solution {\npublic:\n    int triangularSum(vector<int>& nums) {\n        if(nums.size() == 1){\n            return nums[0];\n        }\n\n        vector<int> cal;\n        for(int i=0;i<nums.size();i++){\n            cal.push_back(nums[i]);\n        }\n        while(cal.size() != 1){\n            vector<int> temp;\n            for(int i=0;i < cal.size() - 1;i++){\n                int ac = (cal[i]+cal[i+1] )%10;\n                temp.push_back(ac);\n            }\n\n            cal.clear();\n            for(int i=0;i < temp.size();i++){\n                cal.push_back(temp[i]);\n            }\n        }\n        return cal[0]%10 ;\n    }\n};\n```\n\n### Solution 2 (Optional): Combinatorial Shortcut (No full code)\n**Key Fact**: The final answer equals\n\\[ \\sum_{i=0}^{n-1} \\binom{n-1}{i} \\cdot nums[i] \\pmod{10}. \\]\nThis follows from Pascal’s rule expanding each level (like repeated convolution). One can compute this efficiently by precomputing binomial coefficients modulo 2 and 5 (Lucas theorem) and combining via the Chinese Remainder Theorem, or by building a single Pascal row mod 10 in O(n^2) time (still fine for typical constraints).\n\n**Time Complexity**: O(n)–O(n^2) depending on method chosen\n**Space Complexity**: O(n)\n\n#### (Pseudocode Sketch)\n```text\nn = len(nums)\nC = array of size n initialized as [1, 0, 0, ...]  # represents row of Pascal mod 10\nfor k in 1..n-1:                 # build row n-1 using in-place update (right-to-left)\n    for i in k..1 step -1:\n        C[i] = (C[i] + C[i-1]) mod 10\nans = sum( C[i] * nums[i] ) mod 10\nreturn ans\n```\n\n## Personal Notes\n- From implementation: “Nothing special; straightforward simulation works.”\n- Minor micro-optimizations possible:\n  - Use in-place updates on a single vector to avoid extra copies.\n  - Early return when length becomes 1.\n- The combinatorial identity is a neat alternative if you want a one-pass dot product with Pascal row mod 10.\n\n"
-  },
-  {
-    "id": "other-3333",
-    "originalId": 3333,
-    "title": "3333. Count Set Bits",
-    "difficulty": "Medium",
-    "source": "Other",
-    "topics": [
-      "BitManipulation"
-    ],
-    "description": "Count the number of set bits (1s) in the binary representation of a given number.",
-    "hasNote": true,
-    "noteUrl": "/content/problems/bitmanipulation/3333-count-set-bits.md",
-    "filePath": "/Users/waynliu/Documents/GitHub/ShuaShua-Note/content/problems/bitmanipulation/3333-count-set-bits.md",
-    "markdownContent": "# 3333. Count Set Bits\n\n## Problem Information\n- **Problem ID**: 3333\n- **Title**: Count Set Bits\n- **Difficulty**: Easy\n- **Source**: Other\n- **Link**: https://example.com/problem/3333\n- **Topics**: Bit Manipulation, Math\n\n## Problem Description\n\nCount the number of set bits (1s) in the binary representation of a given number.\n\n## Solutions\n\n### Solution 1: Built-in Function\n**Time Complexity**: O(1)\n**Space Complexity**: O(1)\n\n#### Code\n```cpp\n#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    // Test solution for Other source routing\n    return 0;\n}\n```\n\n## Personal Notes\nThis is a test file for Other source routing verification."
-  },
-  {
-    "id": "zerojudge-7777",
-    "originalId": 7777,
-    "title": "7777. Search in Rotated Array",
-    "difficulty": "Medium",
-    "source": "Zerojudge",
-    "topics": [
-      "BinarySearch"
-    ],
-    "description": "Search for a target value in a rotated sorted array.",
-    "hasNote": true,
-    "noteUrl": "/content/problems/binarysearch/7777-search-in-rotated-array.md",
-    "filePath": "/Users/waynliu/Documents/GitHub/ShuaShua-Note/content/problems/binarysearch/7777-search-in-rotated-array.md",
-    "markdownContent": "# 7777. Search in Rotated Array\n\n## Problem Information\n- **Problem ID**: 7777\n- **Title**: Search in Rotated Array\n- **Difficulty**: Medium\n- **Source**: Zerojudge\n- **Link**: https://zerojudge.tw/ShowProblem?problemid=d999\n- **Topics**: Binary Search, Array\n\n## Problem Description\n\nSearch for a target value in a rotated sorted array.\n\n## Solutions\n\n### Solution 1: Modified Binary Search\n**Time Complexity**: O(log n)\n**Space Complexity**: O(1)\n\n#### Code\n```cpp\n#include <bits/stdc++.h>\nusing namespace std;\n\nint main() {\n    // Test solution for Zerojudge routing\n    return 0;\n}\n```\n\n## Personal Notes\nThis is a test file for Zerojudge source routing verification."
   }
 ];
 
@@ -274,18 +199,6 @@ export const SOURCES = [
 
 export const getTopicStats = () => [
   {
-    "topic": "Graph",
-    "count": 1
-  },
-  {
-    "topic": "DynamicProgramming",
-    "count": 1
-  },
-  {
-    "topic": "Greedy",
-    "count": 1
-  },
-  {
     "topic": "LinkedList",
     "count": 2
   },
@@ -311,17 +224,13 @@ export const getTopicStats = () => [
   },
   {
     "topic": "BinarySearch",
-    "count": 2
-  },
-  {
-    "topic": "BitManipulation",
     "count": 1
   }
 ];
 
 export const getDifficultyStats = () => ({
   "Easy": 0,
-  "Medium": 15,
+  "Medium": 10,
   "Hard": 0
 });
 

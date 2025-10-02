@@ -1,11 +1,6 @@
 {
   "topic": "greedy",
   "displayName": "Greedy",
-  "problems": [
-    {
-      "filename": "9999-activity-selection.md",
-      "id": null
-    }
-  ],
-  "lastUpdated": "2025-10-02T13:23:24.965Z"
+  "problems": [],
+  "lastUpdated": "2025-10-02T15:01:11.418Z"
 }
