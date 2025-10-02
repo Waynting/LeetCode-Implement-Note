@@ -9,7 +9,7 @@ interface HeaderProps {
   currentPage?: string;
 }
 
-export default function Header({ title = "LeetCode Practice Notes", subtitle, currentPage }: HeaderProps) {
+export default function Header({ title = "ShuaShua Note", subtitle, currentPage }: HeaderProps) {
 
   const navItems = [
     { href: "/", label: "Home", key: "home" },
@@ -28,7 +28,7 @@ export default function Header({ title = "LeetCode Practice Notes", subtitle, cu
               <div className="relative w-12 h-12 rounded-full overflow-hidden bg-gray-200 dark:bg-gray-700">
                 <Image
                   src="/icon.jpg"
-                  alt="LeetCode Practice Notes"
+                  alt="ShuaShua Note"
                   width={48}
                   height={48}
                   className="object-cover"

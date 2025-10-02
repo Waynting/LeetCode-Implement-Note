@@ -31,7 +31,7 @@ export const NOTES: Note[] = [
     "description": "A comprehensive guide to binary search algorithm patterns and implementations",
     "contentPath": "/content/notes/algorithms/binary-search-explained.md",
     "createdAt": "2024-01-01",
-    "updatedAt": "2025-09-30"
+    "updatedAt": "2025-10-02"
   },
   {
     "id": "dfs-bfs-explained",
@@ -47,7 +47,7 @@ export const NOTES: Note[] = [
     "description": "Comprehensive guide to Depth-First Search and Breadth-First Search algorithms",
     "contentPath": "/content/notes/algorithms/dfs-bfs-explained.md",
     "createdAt": "2024-01-01",
-    "updatedAt": "2025-09-30"
+    "updatedAt": "2025-10-02"
   },
   {
     "id": "dynamic-programming-intro",
@@ -61,7 +61,7 @@ export const NOTES: Note[] = [
     "description": "Comprehensive introduction to dynamic programming concepts and patterns",
     "contentPath": "/content/notes/algorithms/dynamic-programming-intro.md",
     "createdAt": "2024-01-01",
-    "updatedAt": "2025-09-30"
+    "updatedAt": "2025-10-02"
   },
   {
     "id": "time-complexity-analysis",
@@ -76,7 +76,7 @@ export const NOTES: Note[] = [
     "description": "Comprehensive guide to analyzing time and space complexity of algorithms",
     "contentPath": "/content/notes/concepts/time-complexity-analysis.md",
     "createdAt": "2024-01-01",
-    "updatedAt": "2025-09-30"
+    "updatedAt": "2025-10-02"
   },
   {
     "id": "array-basics",
@@ -87,7 +87,7 @@ export const NOTES: Note[] = [
     "description": "暫無描述",
     "contentPath": "/content/notes/data-structures/array-basics.md",
     "createdAt": "2024-01-01",
-    "updatedAt": "2025-09-30"
+    "updatedAt": "2025-10-02"
   },
   {
     "id": "hash-table-concepts",
@@ -98,7 +98,7 @@ export const NOTES: Note[] = [
     "description": "暫無描述",
     "contentPath": "/content/notes/data-structures/hash-table-concepts.md",
     "createdAt": "2024-01-01",
-    "updatedAt": "2025-09-30"
+    "updatedAt": "2025-10-02"
   },
   {
     "id": "linked-list-intro",
@@ -112,7 +112,7 @@ export const NOTES: Note[] = [
     "description": "Comprehensive introduction to linked list data structure and common operations",
     "contentPath": "/content/notes/data-structures/linked-list-intro.md",
     "createdAt": "2024-01-01",
-    "updatedAt": "2025-09-30"
+    "updatedAt": "2025-10-02"
   },
   {
     "id": "sliding-window-pattern",
@@ -123,7 +123,7 @@ export const NOTES: Note[] = [
     "description": "暫無描述",
     "contentPath": "/content/notes/techniques/sliding-window-pattern.md",
     "createdAt": "2024-01-01",
-    "updatedAt": "2025-09-30"
+    "updatedAt": "2025-10-02"
   },
   {
     "id": "two-pointers-technique",
@@ -139,7 +139,7 @@ export const NOTES: Note[] = [
     "description": "Comprehensive guide to two pointers technique patterns and applications",
     "contentPath": "/content/notes/techniques/two-pointers-technique.md",
     "createdAt": "2024-01-01",
-    "updatedAt": "2025-09-30"
+    "updatedAt": "2025-10-02"
   }
 ];
 

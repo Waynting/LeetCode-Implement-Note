@@ -1,16 +1,13 @@
 {
-  "name": "leetcode-practice-notes",
+  "name": "shuashua-note",
   "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "npm run build:data && next build",
+    "build": "node scripts/watch-content.js --init && node scripts/build-data.js && next build",
     "start": "next start",
     "lint": "eslint",
-    "build:data": "node scripts/build-data.js",
     "watch:content": "node scripts/watch-content.js --watch",
-    "init:indexes": "node scripts/watch-content.js --init",
-    "vercel-build": "npm run build:data && next build",
     "create:problem": "node scripts/create-problem-note.js",
     "create:concept": "node scripts/create-concept-note.js"
   },

@@ -37,7 +37,6 @@ npm run create:concept
 - 🔍 **Smart Filtering**: Filter by topic, source platform, and category
 - 📝 **Standardized Templates**: Consistent note format with solution information and personal insights
 - 🔗 **Unique ID System**: Composite ID system (source-problemId) ensures no conflicts between platforms
-- 🌙 **Dark Mode**: Toggle between light and dark themes
 - 📱 **Responsive Design**: Works on all devices
 
 ## 📁 Project Structure

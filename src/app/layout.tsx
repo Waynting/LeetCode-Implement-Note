@@ -14,9 +14,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "LeetCode Practice Notes",
-  description: "Systematic algorithm learning notes and problem-solving records",
-  keywords: "LeetCode, algorithms, data structures, programming, coding notes",
+  title: "ShuaShua Note",
+  description: "Multi-platform algorithm practice notes and systematic learning records",
+  keywords: "algorithms, data structures, programming, coding notes, LeetCode, Codeforces, AtCoder, CSES",
   icons: {
     icon: '/icon.jpg',
     apple: '/icon.jpg',
