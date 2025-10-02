@@ -9,7 +9,7 @@ export default function ProblemsPage() {
   const [searchTerm, setSearchTerm] = useState('');
   const [selectedTopic, setSelectedTopic] = useState('');
   const [selectedSource, setSelectedSource] = useState('');
-  const [sortBy, setSortBy] = useState('');
+  const [sortBy, setSortBy] = useState('latest');
 
   const sortedAndFilteredProblems = (() => {
     // First filter the problems
