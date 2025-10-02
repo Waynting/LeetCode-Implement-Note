@@ -3,13 +3,13 @@
   "displayName": "BinarySearch",
   "problems": [
     {
-      "filename": "7777-search-in-rotated-array.md",
+      "filename": "33-search-in-rotated-sorted-array.md",
       "id": null
     },
     {
-      "filename": "leetcode_33_search_in_rotated_sorted_array_note.md",
+      "filename": "7777-search-in-rotated-array.md",
       "id": null
     }
   ],
-  "lastUpdated": "2025-10-02T12:44:29.470Z"
+  "lastUpdated": "2025-10-02T13:23:24.965Z"
 }

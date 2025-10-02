@@ -85,17 +85,25 @@ This will guide you through:
 
 1. **For Problem Solutions**: Create in `content/problems/{topic}/`
    - Use template: `Note_Template/PROBLEM_NOTE_TEMPLATE.md`
-   - Example: `content/problems/array/0001-two-sum.md`
+   - **File naming format**: `{problemId}-{slug}.md`
+   - Examples:
+     - `33-search-in-rotated-sorted-array.md` (LeetCode #33)
+     - `1000-a-plus-b-problem.md` (Codeforces #1000)
+   - ❌ **Wrong**: `leetcode_33_note.md`, `problem-33.md`
 
 2. **For Concept Notes**: Create in `content/notes/{category}/`
    - Use template: `Note_Template/DSA_Concept_Template_EN.md`
-   - Example: `content/notes/data-structures/binary-tree.md`
+   - **File naming format**: `{slug}.md` (lowercase, hyphen-separated)
+   - Examples:
+     - `binary-tree.md`
+     - `dynamic-programming-intro.md`
+   - ❌ **Wrong**: `Binary_Tree.md`, `DP_intro.md`
 
 3. Copy the appropriate template and fill in your content
 
 4. Regenerate static data:
    ```bash
-   npm run build:data
+   npm run build
    ```
 
 ## 🌐 Supported Platforms
