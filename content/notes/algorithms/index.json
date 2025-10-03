@@ -3,17 +3,9 @@
   "displayName": "Algorithms",
   "problems": [
     {
-      "filename": "binary-search-explained.md",
-      "id": null
-    },
-    {
-      "filename": "dfs-bfs-explained.md",
-      "id": null
-    },
-    {
-      "filename": "dynamic-programming-intro.md",
+      "filename": "backtracking.md",
       "id": null
     }
   ],
-  "lastUpdated": "2025-10-02T15:01:11.419Z"
+  "lastUpdated": "2025-10-03T04:59:18.441Z"
 }

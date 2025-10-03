@@ -1,19 +1,6 @@
 {
   "topic": "data-structures",
   "displayName": "Data Structures",
-  "problems": [
-    {
-      "filename": "array-basics.md",
-      "id": null
-    },
-    {
-      "filename": "hash-table-concepts.md",
-      "id": null
-    },
-    {
-      "filename": "linked-list-intro.md",
-      "id": null
-    }
-  ],
-  "lastUpdated": "2025-10-02T15:01:11.419Z"
+  "problems": [],
+  "lastUpdated": "2025-10-03T04:59:18.441Z"
 }

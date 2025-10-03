@@ -90,6 +90,21 @@ export const PROBLEMS: Problem[] = [
     "markdownContent": "# 13. Roman to Integer\n\n## Problem Information\n- **Problem ID**: 13\n- **Title**: Roman to Integer\n- **Difficulty**: Easy\n- **Link**: https://leetcode.com/problems/roman-to-integer/description/\n- **Topics**: Math, String\n\n## Problem Description\n\nRoman numerals are represented by seven different symbols: I, V, X, L, C, D and M.\n\nGiven a roman numeral, convert it to an integer.\n\n## Solutions\n\n### Solution 1: Traverse and Process\n**Time Complexity**: O(n)\n**Space Complexity**: O(1)\n\n#### Approach\nTraverse each character to calculate corresponding values, then handle special cases (IV, IX, XL, XC, CD, CM) at the end.\n\n#### Code\n```cpp\nclass Solution {\n    public:\n        int romanToInt(string s) {\n            int ans = 0;\n            \n            for(int i=0;i<s.size();i++){\n                if(s[i] == 'M'){\n                    ans += 1000;\n                }\n                else if(s[i] == 'D'){\n                    ans += 500;\n                }\n                else if(s[i] == 'C'){\n                    ans += 100;\n                }\n                else if(s[i] == 'L'){\n                    ans += 50;\n                }\n                else if(s[i] == 'X'){\n                    ans += 10;\n                }\n                else if(s[i] == 'V'){\n                    ans += 5;\n                }\n                else if(s[i] == 'I'){\n                    ans += 1;\n                }\n    \n                \n            }\n    \n            if(s.find(\"IV\") != string::npos ){\n                ans -=2;\n            }\n    \n            if(s.find(\"IX\") != string::npos ){\n                ans -=2;\n            }\n    \n            if(s.find(\"XL\") != string::npos ){\n                ans -=20;\n            }\n    \n            if(s.find(\"XC\") != string::npos ){\n                ans -=20;\n            }\n    \n            if(s.find(\"CD\") != string::npos ){\n                ans -=200;\n            }\n    \n            if(s.find(\"CM\") != string::npos ){\n                ans -=200;\n            }\n    \n            return ans;\n        }\n    };\n```\n\n#### Key Points\n- First accumulate values of all characters\n- Then subtract the over-counted parts from special combinations\n\n## Related Problems\n- 12. Integer to Roman\n\n## Notes\nWhile this solution works, it's not efficient. A better approach is to handle special cases during traversal by comparing the current character with the next character."
   },
   {
+    "id": "leetcode-90",
+    "originalId": 90,
+    "title": "90. Subsets II",
+    "difficulty": "Medium",
+    "source": "Leetcode",
+    "topics": [
+      "Backtracking"
+    ],
+    "description": "暫無描述",
+    "hasNote": true,
+    "noteUrl": "/content/problems/backtracking/90-subsets-ii.md",
+    "filePath": "/Users/waynliu/Documents/GitHub/ShuaShua-Note/content/problems/backtracking/90-subsets-ii.md",
+    "markdownContent": "# 90. Subsets II\n\n## Problem Information\n- **Problem ID**: 90\n- **Title**: Subsets II\n- **Difficulty**: Medium\n- **Source**: Leetcode\n- **Link**: https://leetcode.com/problems/subsets-ii/\n- **Topics**: Backtracking, Array, Sorting\n\n## Problem Description\nGiven an integer array `nums` that may contain duplicates, return all possible subsets (the power set).\n\nThe solution set must not contain duplicate subsets. Return the solution in any order.\n\n**Example:**\n```\nInput: nums = [1,2,2]\nOutput: [[],[1],[1,2],[1,2,2],[2],[2,2]]\n```\n\n## Solutions\n\n### Solution 1: Backtracking with Duplicate Skipping\n**Time Complexity**: O(n * 2^n) — generate all subsets with pruning for duplicates  \n**Space Complexity**: O(n) recursion depth + output\n\n#### Code\n```cpp\nclass Solution {\npublic:\n    vector<vector<int>> subsetsWithDup(vector<int>& nums) {\n        sort(nums.begin(), nums.end());        // 1) Sort to group duplicates\n        vector<vector<int>> ans;\n        vector<int> path;\n        dfs(0, nums, path, ans);\n        return ans;\n    }\n\nprivate:\n    void dfs(int start, const vector<int>& nums,\n             vector<int>& path, vector<vector<int>>& ans) {\n\n        // record current path as a subset\n        ans.push_back(path);\n\n        for (int i = start; i < (int)nums.size(); ++i) {\n            // skip duplicates on the same depth\n            if (i > start && nums[i] == nums[i-1]) continue;\n\n            path.push_back(nums[i]);\n            dfs(i + 1, nums, path, ans);\n            path.pop_back(); // backtrack\n        }\n    }\n};\n```\n\n---\n\n## Personal Notes\n- 我的思路：先排序，確保重複元素相鄰。\n- 遞迴 (DFS) 每一層代表「決定要不要選某個元素」。\n- **關鍵技巧**：`if (i > start && nums[i] == nums[i-1]) continue;` 這行保證同一層不會重複選一樣的數字。\n- 這題幫助我理解了 backtracking 的「決策樹」概念：每條路徑都是一個子集，回退 (pop_back) 是為了恢復狀態。\n\nMistakes I almost made:\n- 忘記在每層一開始就 `ans.push_back(path)` → 會漏掉空集和中間子集。\n- 忘記 pop_back → 路徑污染，結果錯誤。\n"
+  },
+  {
     "id": "leetcode-141",
     "originalId": 141,
     "title": "141. Linked List Cycle",
@@ -158,11 +173,11 @@ export const PROBLEMS: Problem[] = [
     "topics": [
       "Array"
     ],
-    "description": "Given an integer array `nums` of length `n` containing digits `0..9`, repeatedly generate a new array by taking the sum of adjacent values modulo `10` until only one element remains. Return that last remaining value.",
+    "description": "Given an integer array nums of length n containing digits 0-9, repeatedly generate a new array by taking the sum of adjacent values modulo 10 until only one element remains. Return that last remaining value.",
     "hasNote": true,
     "noteUrl": "/content/problems/array/2221-find-triangular-sum-of-an-array.md",
     "filePath": "/Users/waynliu/Documents/GitHub/ShuaShua-Note/content/problems/array/2221-find-triangular-sum-of-an-array.md",
-    "markdownContent": "# 2221. Find Triangular Sum of an Array\n\n## Problem Information\n- **Problem ID**: 2221\n- **Title**: Find Triangular Sum of an Array\n- **Difficulty**: Medium\n- **Source**: LeetCode\n- **Link**: https://leetcode.com/problems/find-triangular-sum-of-an-array/\n- **Topics**: Array, Simulation, Math, Combinatorics\n\n## Problem Description\n\nGiven an integer array `nums` of length `n` containing digits `0..9`, repeatedly generate a new array by taking the sum of adjacent values modulo `10` until only one element remains. Return that last remaining value.\n\nFormally, while the array has more than one element, replace it with an array of length `m-1` where `new[i] = (old[i] + old[i+1]) % 10`. The answer is the single value left after these reductions.\n\n## Solutions\n\n### Solution 1: Iterative Adjacent-Sum Simulation (User Implementation)\n**Idea**: Simulate the triangular reduction level by level, always taking adjacent sums mod 10 until one element remains.\n\n**Time Complexity**: O(n^2) in the worst case (n + (n-1) + ... + 1)\n**Space Complexity**: O(n)\n\n#### Code\n```cpp\nclass Solution {\npublic:\n    int triangularSum(vector<int>& nums) {\n        if(nums.size() == 1){\n            return nums[0];\n        }\n\n        vector<int> cal;\n        for(int i=0;i<nums.size();i++){\n            cal.push_back(nums[i]);\n        }\n        while(cal.size() != 1){\n            vector<int> temp;\n            for(int i=0;i < cal.size() - 1;i++){\n                int ac = (cal[i]+cal[i+1] )%10;\n                temp.push_back(ac);\n            }\n\n            cal.clear();\n            for(int i=0;i < temp.size();i++){\n                cal.push_back(temp[i]);\n            }\n        }\n        return cal[0]%10 ;\n    }\n};\n```\n\n### Solution 2 (Optional): Combinatorial Shortcut (No full code)\n**Key Fact**: The final answer equals\n\\[ \\sum_{i=0}^{n-1} \\binom{n-1}{i} \\cdot nums[i] \\pmod{10}. \\]\nThis follows from Pascal’s rule expanding each level (like repeated convolution). One can compute this efficiently by precomputing binomial coefficients modulo 2 and 5 (Lucas theorem) and combining via the Chinese Remainder Theorem, or by building a single Pascal row mod 10 in O(n^2) time (still fine for typical constraints).\n\n**Time Complexity**: O(n)–O(n^2) depending on method chosen\n**Space Complexity**: O(n)\n\n#### (Pseudocode Sketch)\n```text\nn = len(nums)\nC = array of size n initialized as [1, 0, 0, ...]  # represents row of Pascal mod 10\nfor k in 1..n-1:                 # build row n-1 using in-place update (right-to-left)\n    for i in k..1 step -1:\n        C[i] = (C[i] + C[i-1]) mod 10\nans = sum( C[i] * nums[i] ) mod 10\nreturn ans\n```\n\n## Personal Notes\n- From implementation: “Nothing special; straightforward simulation works.”\n- Minor micro-optimizations possible:\n  - Use in-place updates on a single vector to avoid extra copies.\n  - Early return when length becomes 1.\n- The combinatorial identity is a neat alternative if you want a one-pass dot product with Pascal row mod 10.\n\n"
+    "markdownContent": "# 2221. Find Triangular Sum of an Array\n\n## Problem Information\n- **Problem ID**: 2221\n- **Title**: Find Triangular Sum of an Array\n- **Difficulty**: Medium\n- **Source**: LeetCode\n- **Link**: https://leetcode.com/problems/find-triangular-sum-of-an-array/\n- **Topics**: Array, Simulation\n\n## Problem Description\n\nGiven an integer array nums of length n containing digits 0-9, repeatedly generate a new array by taking the sum of adjacent values modulo 10 until only one element remains. Return that last remaining value.\n\nExample: nums = [1,2,3,4,5] → [3,5,7,9] → [8,2,6] → [0,8] → [8]\n\n## My Solution\n\n```cpp\nclass Solution {\npublic:\n    int triangularSum(vector<int>& nums) {\n        if(nums.size() == 1){\n            return nums[0];\n        }\n\n        vector<int> cal;\n        for(int i=0;i<nums.size();i++){\n            cal.push_back(nums[i]);\n        }\n        while(cal.size() != 1){\n            vector<int> temp;\n            for(int i=0;i < cal.size() - 1;i++){\n                int ac = (cal[i]+cal[i+1] )%10;\n                temp.push_back(ac);\n            }\n\n            cal.clear();\n            for(int i=0;i < temp.size();i++){\n                cal.push_back(temp[i]);\n            }\n        }\n        return cal[0]%10 ;\n    }\n};\n```\n\n## Notes\n\nStraightforward simulation: repeatedly reduce the array by taking adjacent sums mod 10 until one element remains."
   }
 ];
 
@@ -215,6 +230,10 @@ export const getTopicStats = () => [
     "count": 2
   },
   {
+    "topic": "Backtracking",
+    "count": 1
+  },
+  {
     "topic": "HashTable",
     "count": 1
   },
@@ -230,7 +249,7 @@ export const getTopicStats = () => [
 
 export const getDifficultyStats = () => ({
   "Easy": 0,
-  "Medium": 10,
+  "Medium": 11,
   "Hard": 0
 });
 

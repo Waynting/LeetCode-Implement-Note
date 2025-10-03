@@ -20,126 +20,23 @@ export const NOTE_CATEGORIES = {
 
 export const NOTES: Note[] = [
   {
-    "id": "binary-search-explained",
-    "title": "Binary Search Explained",
+    "id": "backtracking",
+    "title": "Backtracking",
     "category": "algorithm",
     "topics": [
-      "BinarySearch",
-      "SearchAlgorithms"
-    ],
-    "difficulty": "intermediate",
-    "description": "A comprehensive guide to binary search algorithm patterns and implementations",
-    "contentPath": "/content/notes/algorithms/binary-search-explained.md",
-    "createdAt": "2024-01-01",
-    "updatedAt": "2025-10-02"
-  },
-  {
-    "id": "dfs-bfs-explained",
-    "title": "DFS & BFS Explained",
-    "category": "algorithm",
-    "topics": [
+      "recursion",
+      "decision tree",
       "DFS",
-      "BFS",
-      "GraphTraversal",
-      "TreeTraversal"
+      "subsets",
+      "permutations",
+      "combinations",
+      "pruning"
     ],
     "difficulty": "intermediate",
-    "description": "Comprehensive guide to Depth-First Search and Breadth-First Search algorithms",
-    "contentPath": "/content/notes/algorithms/dfs-bfs-explained.md",
-    "createdAt": "2024-01-01",
-    "updatedAt": "2025-10-02"
-  },
-  {
-    "id": "dynamic-programming-intro",
-    "title": "Dynamic Programming Introduction",
-    "category": "algorithm",
-    "topics": [
-      "DynamicProgramming",
-      "Optimization"
-    ],
-    "difficulty": "intermediate",
-    "description": "Comprehensive introduction to dynamic programming concepts and patterns",
-    "contentPath": "/content/notes/algorithms/dynamic-programming-intro.md",
-    "createdAt": "2024-01-01",
-    "updatedAt": "2025-10-02"
-  },
-  {
-    "id": "time-complexity-analysis",
-    "title": "Time Complexity Analysis",
-    "category": "concept",
-    "topics": [
-      "TimeComplexity",
-      "BigO",
-      "AlgorithmAnalysis"
-    ],
-    "difficulty": "intermediate",
-    "description": "Comprehensive guide to analyzing time and space complexity of algorithms",
-    "contentPath": "/content/notes/concepts/time-complexity-analysis.md",
-    "createdAt": "2024-01-01",
-    "updatedAt": "2025-10-02"
-  },
-  {
-    "id": "array-basics",
-    "title": "Array Fundamentals",
-    "category": "dataStructure",
-    "topics": [],
-    "difficulty": "intermediate",
-    "description": "暫無描述",
-    "contentPath": "/content/notes/data-structures/array-basics.md",
-    "createdAt": "2024-01-01",
-    "updatedAt": "2025-10-02"
-  },
-  {
-    "id": "hash-table-concepts",
-    "title": "Hash Table Core Concepts",
-    "category": "dataStructure",
-    "topics": [],
-    "difficulty": "intermediate",
-    "description": "暫無描述",
-    "contentPath": "/content/notes/data-structures/hash-table-concepts.md",
-    "createdAt": "2024-01-01",
-    "updatedAt": "2025-10-02"
-  },
-  {
-    "id": "linked-list-intro",
-    "title": "Linked List Introduction",
-    "category": "dataStructure",
-    "topics": [
-      "LinkedList",
-      "DataStructures"
-    ],
-    "difficulty": "intermediate",
-    "description": "Comprehensive introduction to linked list data structure and common operations",
-    "contentPath": "/content/notes/data-structures/linked-list-intro.md",
-    "createdAt": "2024-01-01",
-    "updatedAt": "2025-10-02"
-  },
-  {
-    "id": "sliding-window-pattern",
-    "title": "Sliding Window Pattern",
-    "category": "technique",
-    "topics": [],
-    "difficulty": "intermediate",
-    "description": "暫無描述",
-    "contentPath": "/content/notes/techniques/sliding-window-pattern.md",
-    "createdAt": "2024-01-01",
-    "updatedAt": "2025-10-02"
-  },
-  {
-    "id": "two-pointers-technique",
-    "title": "Two Pointers Technique",
-    "category": "technique",
-    "topics": [
-      "TwoPointers",
-      "Arrays",
-      "LinkedList",
-      "SlidingWindow"
-    ],
-    "difficulty": "intermediate",
-    "description": "Comprehensive guide to two pointers technique patterns and applications",
-    "contentPath": "/content/notes/techniques/two-pointers-technique.md",
-    "createdAt": "2024-01-01",
-    "updatedAt": "2025-10-02"
+    "description": "Backtracking explores all possible choices step by step, forming a decision tree. If a choice leads to a dead end, it backs up and tries another path.",
+    "contentPath": "/content/notes/algorithms/backtracking.md",
+    "createdAt": "2025-10-03",
+    "updatedAt": "2025-10-03"
   }
 ];
 
