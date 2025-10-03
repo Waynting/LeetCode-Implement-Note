@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation';
 import Link from 'next/link';
 import { getNoteById, NOTE_CATEGORIES, NOTES } from '@/lib/notes-static';
 import Header from '@/components/Header';
+import MarkdownRenderer from '@/components/MarkdownRenderer';
 
 // Generate all possible routes for static export
 export async function generateStaticParams() {
@@ -22,8 +23,8 @@ export default async function NoteDetailPage({
     notFound();
   }
 
-  // For now, show a message about viewing the markdown file
-  const noteContent = `Please view ${note.contentPath} file for complete content`;
+  // Use embedded markdown content
+  const markdownContent = note.markdownContent || '';
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
@@ -73,20 +74,7 @@ export default async function NoteDetailPage({
 
         {/* Note Content */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg dark:shadow-gray-900/20 p-8 transition-colors duration-300">
-          <div className="prose prose-lg dark:prose-invert max-w-none">
-            <div className="bg-blue-50 dark:bg-blue-900/30 border border-blue-200 dark:border-blue-700 rounded-lg p-4 mb-6">
-              <p className="text-blue-800 dark:text-blue-300 text-sm mb-2">
-                📝 This is a note template, actual content is available at:
-              </p>
-              <code className="text-sm bg-blue-100 dark:bg-blue-800/30 px-2 py-1 rounded">
-                {note.contentPath}
-              </code>
-            </div>
-            <p className="text-gray-600 dark:text-gray-300">
-              You can write detailed learning notes in the corresponding Markdown file.
-              Each note contains core concepts, implementation examples, and related LeetCode problems for the topic.
-            </p>
-          </div>
+          <MarkdownRenderer content={markdownContent} />
         </div>
 
         {/* Navigation */}

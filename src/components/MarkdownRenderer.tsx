@@ -17,12 +17,10 @@ export default function MarkdownRenderer({ content, className = '' }: MarkdownRe
         remarkPlugins={[remarkGfm]}
         components={{
           code({ inline, className, children, ...props }: any) {
-            const match = /language-(\w+)/.exec(className || '');
-            const language = match ? match[1] : '';
-
+            // Inline code should just render as code element
             if (inline) {
               return (
-                <code 
+                <code
                   className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded text-sm font-mono"
                   {...props}
                 >
@@ -31,6 +29,9 @@ export default function MarkdownRenderer({ content, className = '' }: MarkdownRe
               );
             }
 
+            // Code blocks (non-inline)
+            const match = /language-(\w+)/.exec(className || '');
+            const language = match ? match[1] : '';
             const code = String(children).replace(/\n$/, '');
             return <CodeBlock code={code} language={language} />;
           },
@@ -59,7 +60,17 @@ export default function MarkdownRenderer({ content, className = '' }: MarkdownRe
               </h4>
             );
           },
-          p({ children }: any) {
+          p({ children, node }: any) {
+            // Check if paragraph contains only a code block
+            const hasCodeBlock = node?.children?.some((child: any) =>
+              child.type === 'element' && child.tagName === 'code' && !child.properties?.inline
+            );
+
+            // If it contains a code block, render as div to avoid nesting issues
+            if (hasCodeBlock) {
+              return <div className="my-4">{children}</div>;
+            }
+
             return (
               <p className="text-gray-700 dark:text-gray-300 leading-relaxed mb-4">
                 {children}

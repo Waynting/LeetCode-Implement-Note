@@ -1,7 +1,7 @@
 ---
 title: Backtracking
 description: Backtracking explores all possible choices step by step, forming a decision tree. If a choice leads to a dead end, it backs up and tries another path.
-topics: recursion, decision tree, DFS, subsets, permutations, combinations, pruning
+topics: Backtracking, DFS, Recursion
 difficulty: intermediate
 createdAt: 2025-10-03
 updatedAt: 2025-10-03

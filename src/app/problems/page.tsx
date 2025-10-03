@@ -25,9 +25,13 @@ export default function ProblemsPage() {
 
     // Then sort the filtered results
     if (sortBy === 'latest') {
-      return [...filtered].reverse(); // Show latest first (reverse array order)
+      return [...filtered].sort((a, b) =>
+        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+      ); // Show latest first (newest to oldest)
     } else if (sortBy === 'oldest') {
-      return filtered; // Show oldest first (original array order)
+      return [...filtered].sort((a, b) =>
+        new Date(a.createdAt).getTime() - new Date(b.createdAt).getTime()
+      ); // Show oldest first (oldest to newest)
     } else if (sortBy === 'title') {
       return [...filtered].sort((a, b) => a.title.localeCompare(b.title));
     } else if (sortBy === 'difficulty') {

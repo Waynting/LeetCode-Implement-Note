@@ -102,7 +102,11 @@ function extractProblemInfo(content, filePath, topicFolder) {
   // 提取描述（第一段內容）
   const descriptionMatch = body.match(/## Problem Description\s*\n\n([^\n]+)/) || body.match(/## 題目描述\s*\n\n([^\n]+)/);
   const description = metadata.description || descriptionMatch?.[1] || '暫無描述';
-  
+
+  // 獲取文件修改時間作為創建日期
+  const stats = fs.statSync(filePath);
+  const createdAt = metadata.createdAt || stats.mtime.toISOString().split('T')[0]; // YYYY-MM-DD format
+
   return {
     id: uniqueId,
     originalId,
@@ -114,7 +118,8 @@ function extractProblemInfo(content, filePath, topicFolder) {
     hasNote: true,
     noteUrl: `/content/problems/${topicFolder}/${fileName}.md`,
     filePath,
-    markdownContent: content  // 嵌入完整的 markdown 內容
+    markdownContent: body,  // 使用已去除 frontmatter 的 body
+    createdAt  // 添加創建日期
   };
 }
 
@@ -142,7 +147,8 @@ function extractNoteInfo(content, filePath, categoryFolder) {
     contentPath: `/content/notes/${categoryFolder}/${fileName}.md`,
     createdAt: metadata.createdAt || '2024-01-01',
     updatedAt: metadata.updatedAt || new Date().toISOString().split('T')[0],
-    filePath
+    filePath,
+    markdownContent: body  // 使用已去除 frontmatter 的 body
   };
 }
 
@@ -297,6 +303,7 @@ export interface Problem {
   description?: string;
   filePath?: string;
   markdownContent?: string;
+  createdAt: string;  // 創建日期 (YYYY-MM-DD)
 }
 
 export const PROBLEMS: Problem[] = ${JSON.stringify(problems, null, 2)};
@@ -348,7 +355,8 @@ export const getProblemsBySource = (source: string) =>
     description: note.description,
     contentPath: note.contentPath,
     createdAt: note.createdAt,
-    updatedAt: note.updatedAt
+    updatedAt: note.updatedAt,
+    markdownContent: note.markdownContent
   }));
   
   // 寫入 notes-static.ts
@@ -363,6 +371,7 @@ export interface Note {
   contentPath: string;
   createdAt: string;
   updatedAt: string;
+  markdownContent?: string;
 }
 
 export const NOTE_CATEGORIES = {
