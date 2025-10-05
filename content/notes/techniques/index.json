@@ -1,6 +1,11 @@
 {
   "topic": "techniques",
   "displayName": "Problem-Solving Techniques",
-  "problems": [],
-  "lastUpdated": "2025-10-03T04:59:18.441Z"
+  "problems": [
+    {
+      "filename": "prefix-suffix-precompute.md",
+      "id": null
+    }
+  ],
+  "lastUpdated": "2025-10-05T05:08:30.276Z"
 }

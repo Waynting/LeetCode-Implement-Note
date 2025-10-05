@@ -112,6 +112,22 @@ export const PROBLEMS: Problem[] = [
     "createdAt": "2025-10-03"
   },
   {
+    "id": "leetcode-120",
+    "originalId": 120,
+    "title": "120. Triangle",
+    "difficulty": "Medium",
+    "source": "Leetcode",
+    "topics": [
+      "DynamicProgramming"
+    ],
+    "description": "暫無描述",
+    "hasNote": true,
+    "noteUrl": "/content/problems/dynamicprogramming/120-triangle.md",
+    "filePath": "/Users/waynliu/Documents/GitHub/ShuaShua-Note/content/problems/dynamicprogramming/120-triangle.md",
+    "markdownContent": "# 120. Triangle\n\n## Problem Information\n- **Problem ID**: 120\n- **Title**: Triangle\n- **Difficulty**: Medium\n- **Source**: Leetcode\n- **Link**: https://leetcode.com/problems/triangle/\n- **Topics**: Dynamic Programming, Array\n\n## Problem Description\nGiven a triangle array, return the minimum path sum from top to bottom.\n\nAt each step, you may move to an adjacent number of the row below.  \nMore formally, if you are on index `j` on the current row, you may move to index `j` or `j+1` on the next row.\n\n**Example:**\n```\nInput: triangle = [[2],[3,4],[6,5,7],[4,1,8,3]]\nOutput: 11\nExplanation: The minimum path is 2 -> 3 -> 5 -> 1 = 11.\n```\n\n## Solutions\n\n### Solution 1: Bottom-Up Dynamic Programming\n**Time Complexity**: O(n^2) — where n is the number of rows.  \n**Space Complexity**: O(1) extra space (reusing the triangle).\n\n#### Code\n```cpp\nclass Solution {\npublic:\n    int minimumTotal(vector<vector<int>>& triangle) {\n        for (int i = triangle.size()-2; i >= 0; --i) {\n            for (int j = 0; j <= i; ++j) {\n                triangle[i][j] += min(triangle[i+1][j], triangle[i+1][j+1]);\n            }\n        }\n        return triangle[0][0];\n    }\n};\n```\n\n---\n\n## Personal Notes\n- 一開始單純的想說用 greedy 從上往下找最小值就好，  \n  但其實這樣會錯，因為局部最小 ≠ 全局最小。  \n- 正確解法應該要 **從底部開始加總**，每一層更新為「自己 + 下一層相鄰兩個的最小值」，最後頂端就會是答案。  \n- 這題讓我理解了「自底向上的 DP」比「局部貪心」更可靠。  \n",
+    "createdAt": "2025-10-03"
+  },
+  {
     "id": "leetcode-141",
     "originalId": 141,
     "title": "141. Linked List Cycle",
@@ -158,6 +174,22 @@ export const PROBLEMS: Problem[] = [
     "filePath": "/Users/waynliu/Documents/GitHub/ShuaShua-Note/content/problems/tree/0543-diameter-of-binary-tree.md",
     "markdownContent": "# 543. Diameter of Binary Tree\n\n## Problem Information\n- **Problem ID**: 543\n- **Title**: Diameter of Binary Tree\n- **Difficulty**: Easy\n- **Source**: Leetcode\n- **Link**: https://leetcode.com/problems/diameter-of-binary-tree/description/\n- **Topics**: Tree, DFS\n\n## Problem Description\n\nGiven the root of a binary tree, return the length of the diameter of the tree.\n\nThe diameter of a binary tree is the length of the longest path between any two nodes in a tree. This path may or may not pass through the root.\n\n## Solutions\n\n### Solution 1: DFS Recursion\n**Time Complexity**: O(n)\n**Space Complexity**: O(h), where h is the height of the tree\n\n#### Code\n```cpp\n/**\n * Definition for a binary tree node.\n * struct TreeNode {\n *     int val;\n *     TreeNode *left;\n *     TreeNode *right;\n *     TreeNode() : val(0), left(nullptr), right(nullptr) {}\n *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}\n *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}\n * };\n */\nclass Solution {\npublic:\n    int max_diameter = 0;\n\n    int dfs(TreeNode* node) {\n        if (node == nullptr) return 0;\n\n        int left = dfs(node->left);\n        int right = dfs(node->right);\n\n        max_diameter = max(max_diameter, left + right);\n\n        return max(left, right) + 1;\n    }\n\n    int diameterOfBinaryTree(TreeNode* root) {\n        dfs(root);\n        return max_diameter;\n    }\n};\n```\n\n## Personal Notes\nFirst tree DFS problem I solved. The tricky part was realizing that I need to track the maximum diameter separately while calculating depths. The global variable approach worked well here.",
     "createdAt": "2025-09-30"
+  },
+  {
+    "id": "leetcode-2353",
+    "originalId": 2353,
+    "title": "2353. Design a Food Rating System",
+    "difficulty": "Medium",
+    "source": "Leetcode",
+    "topics": [
+      "HashTable"
+    ],
+    "description": "Design a system to support:",
+    "hasNote": true,
+    "noteUrl": "/content/problems/hashtable/2353-design-a-food-rating-system.md",
+    "filePath": "/Users/waynliu/Documents/GitHub/ShuaShua-Note/content/problems/hashtable/2353-design-a-food-rating-system.md",
+    "markdownContent": "\n# 2353. Design a Food Rating System\n\n## Problem Information\n- **Problem ID**: 2353\n- **Title**: Design a Food Rating System\n- **Difficulty**: Medium\n- **Source**: Leetcode\n- **Link**: https://leetcode.com/problems/design-a-food-rating-system/\n- **Topics**: Hash Map, Ordered Set, Design\n\n## Problem Description\n\nDesign a system to support:\n1. `changeRating(food, newRating)`: update the rating of a given food.\n2. `highestRated(cuisine)`: return the name of the highest-rated food for the given cuisine; if there is a tie, return the lexicographically smaller name.\n\nYou are given arrays `foods`, `cuisines`, and `ratings` of length `n`, where `foods[i]` is the food name, `cuisines[i]` is its cuisine, and `ratings[i]` is its initial rating.\n\n## Solutions\n\n### Solution 1: HashMap + Ordered Set per Cuisine\n**Time Complexity**: \n- Initialization: O(n log n)\n- `changeRating`: O(log n) per update\n- `highestRated`: O(1) to read `begin()` (amortized; the ordered set maintains ordering)\n\n**Space Complexity**: O(n) for maps and ordered sets\n\n**Key Idea**: \n- Maintain `food -> (cuisine, rating)` in an `unordered_map` for O(1) lookups during updates.\n- For each cuisine, maintain an ordered `set` of pairs `(-rating, name)` so that the **best** item is at `begin()` (highest rating; ties broken by lexicographically smaller name).  \n- On rating change: remove the old pair, update the map, insert the new pair.\n\n#### Code\n```cpp\n#include <string>\n#include <vector>\n#include <unordered_map>\n#include <set>\nusing namespace std;\n\nclass FoodRatings {\npublic:\n    // food -> (cuisine, rating)\n    unordered_map<string, pair<string,int>> info;\n    // cuisine -> ordered set of (-rating, name)\n    unordered_map<string, set<pair<int,string>>> byCuisine;\n\n    FoodRatings(vector<string>& foods, vector<string>& cuisines, vector<int>& ratings) {\n        int n = (int)foods.size();\n        info.reserve(n * 2);\n        for (int i = 0; i < n; ++i) {\n            info[foods[i]] = {cuisines[i], ratings[i]};\n            byCuisine[cuisines[i]].insert({-ratings[i], foods[i]});\n        }\n    }\n\n    void changeRating(string food, int newRating) {\n        auto &pr = info[food];         // pr.first = cuisine, pr.second = oldRating\n        const string &c = pr.first;\n        int oldRating = pr.second;\n\n        auto &S = byCuisine[c];\n        S.erase({-oldRating, food});   // remove old record\n        pr.second = newRating;         // update rating\n        S.insert({-newRating, food});  // insert new record\n    }\n\n    string highestRated(string cuisine) {\n        const auto &S = byCuisine[cuisine];\n        // set is ordered by (-rating, name) ascending; begin() gives highest rating & lexicographically smallest name\n        return S.begin()->second;\n    }\n};\n```\n\n### Solution 2: HashMap + Priority Queue with Lazy Deletion (Optional)\n**Time Complexity**: \n- `changeRating`: O(log n) (push a new entry)\n- `highestRated`: amortized O(log n) (pop stale entries until top is valid)\n\n**Space Complexity**: O(n)\n\n**Idea**: Keep a `priority_queue` per cuisine storing `(rating, name, version)` and a hash map for current `(cuisine, rating)`; during query, pop outdated entries (lazy deletion). Slightly more code, similar complexity; ordered set is cleaner for strict ordering.\n\n## Personal Notes\n這是我第一次寫系統設計的部分。正確的做法是先確認需要的操作（初始化、更新、查詢），再決定資料結構與維護方式。這題的關鍵是把需求拆成兩個索引：\n- 以食物名稱查 `(cuisine, rating)`（用 `unordered_map`）\n- 以菜系查「最高分、同分字典序最小」（用 per-cuisine 的 ordered `set` 存 `(-rating, name)`）\n\n更新時遵守「先刪舊、後插新」的不變量，確保集合內容與當前評分同步。這題本質是把 DSA 組件（hash + ordered set + key 設計）組裝成可維護的系統。\n",
+    "createdAt": "2025-10-04"
   },
   {
     "id": "leetcode-33",
@@ -246,8 +278,12 @@ export const getTopicStats = () => [
     "count": 1
   },
   {
-    "topic": "HashTable",
+    "topic": "DynamicProgramming",
     "count": 1
+  },
+  {
+    "topic": "HashTable",
+    "count": 2
   },
   {
     "topic": "Tree",
@@ -261,7 +297,7 @@ export const getTopicStats = () => [
 
 export const getDifficultyStats = () => ({
   "Easy": 0,
-  "Medium": 11,
+  "Medium": 13,
   "Hard": 0
 });
 

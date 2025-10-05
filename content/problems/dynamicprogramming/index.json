@@ -1,6 +1,11 @@
 {
   "topic": "dynamicprogramming",
   "displayName": "DynamicProgramming",
-  "problems": [],
-  "lastUpdated": "2025-10-03T04:59:18.440Z"
+  "problems": [
+    {
+      "filename": "120-triangle.md",
+      "id": null
+    }
+  ],
+  "lastUpdated": "2025-10-05T05:08:30.275Z"
 }
