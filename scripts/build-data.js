@@ -77,35 +77,56 @@ function parseFrontmatter(content) {
   return { metadata: {}, body: content };
 }
 
+// 獲取文件的 Git 創建日期
+function getGitCreationDate(filePath) {
+  try {
+    const { execSync } = require('child_process');
+    const gitDate = execSync(
+      `git log --diff-filter=A --format="%ai" -- "${filePath}" | head -1`,
+      { encoding: 'utf-8', cwd: ROOT_DIR }
+    ).trim();
+
+    if (gitDate) {
+      // 將 Git 日期格式轉換為 YYYY-MM-DD
+      return gitDate.split(' ')[0];
+    }
+  } catch (error) {
+    // 如果 Git 命令失敗，回退到文件修改時間
+  }
+
+  // 回退方案：使用文件修改時間
+  const stats = fs.statSync(filePath);
+  return stats.mtime.toISOString().split('T')[0];
+}
+
 // 從文件內容提取題目資訊
 function extractProblemInfo(content, filePath, topicFolder) {
   const { metadata, body } = parseFrontmatter(content);
-  
+
   // 從文件名提取題號
   const fileName = path.basename(filePath, '.md');
   const idMatch = fileName.match(/^(\d+)/);
   if (!idMatch) return null;
-  
+
   const originalId = parseInt(idMatch[1]);
-  
+
   // 提取標題
   const titleMatch = body.match(/^# (.+)$/m);
   const title = metadata.title || titleMatch?.[1] || fileName;
-  
+
   // 提取來源
   const sourceMatch = body.match(/- \*\*Source\*\*: (.+)$/m);
   const source = metadata.source || sourceMatch?.[1] || 'Leetcode';
-  
+
   // 生成複合唯一ID (source-originalId)
   const uniqueId = `${source.toLowerCase()}-${originalId}`;
-  
+
   // 提取描述（第一段內容）
   const descriptionMatch = body.match(/## Problem Description\s*\n\n([^\n]+)/) || body.match(/## 題目描述\s*\n\n([^\n]+)/);
   const description = metadata.description || descriptionMatch?.[1] || '暫無描述';
 
-  // 獲取文件修改時間作為創建日期
-  const stats = fs.statSync(filePath);
-  const createdAt = metadata.createdAt || stats.mtime.toISOString().split('T')[0]; // YYYY-MM-DD format
+  // 獲取文件創建日期（優先使用 Git，其次使用 metadata）
+  const createdAt = metadata.createdAt || getGitCreationDate(filePath);
 
   return {
     id: uniqueId,

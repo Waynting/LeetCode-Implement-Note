@@ -125,7 +125,7 @@ export const PROBLEMS: Problem[] = [
     "noteUrl": "/content/problems/dynamicprogramming/120-triangle.md",
     "filePath": "/Users/waynliu/Documents/GitHub/ShuaShua-Note/content/problems/dynamicprogramming/120-triangle.md",
     "markdownContent": "# 120. Triangle\n\n## Problem Information\n- **Problem ID**: 120\n- **Title**: Triangle\n- **Difficulty**: Medium\n- **Source**: Leetcode\n- **Link**: https://leetcode.com/problems/triangle/\n- **Topics**: Dynamic Programming, Array\n\n## Problem Description\nGiven a triangle array, return the minimum path sum from top to bottom.\n\nAt each step, you may move to an adjacent number of the row below.  \nMore formally, if you are on index `j` on the current row, you may move to index `j` or `j+1` on the next row.\n\n**Example:**\n```\nInput: triangle = [[2],[3,4],[6,5,7],[4,1,8,3]]\nOutput: 11\nExplanation: The minimum path is 2 -> 3 -> 5 -> 1 = 11.\n```\n\n## Solutions\n\n### Solution 1: Bottom-Up Dynamic Programming\n**Time Complexity**: O(n^2) — where n is the number of rows.  \n**Space Complexity**: O(1) extra space (reusing the triangle).\n\n#### Code\n```cpp\nclass Solution {\npublic:\n    int minimumTotal(vector<vector<int>>& triangle) {\n        for (int i = triangle.size()-2; i >= 0; --i) {\n            for (int j = 0; j <= i; ++j) {\n                triangle[i][j] += min(triangle[i+1][j], triangle[i+1][j+1]);\n            }\n        }\n        return triangle[0][0];\n    }\n};\n```\n\n---\n\n## Personal Notes\n- 一開始單純的想說用 greedy 從上往下找最小值就好，  \n  但其實這樣會錯，因為局部最小 ≠ 全局最小。  \n- 正確解法應該要 **從底部開始加總**，每一層更新為「自己 + 下一層相鄰兩個的最小值」，最後頂端就會是答案。  \n- 這題讓我理解了「自底向上的 DP」比「局部貪心」更可靠。  \n",
-    "createdAt": "2025-10-03"
+    "createdAt": "2025-10-05"
   },
   {
     "id": "leetcode-141",
@@ -160,6 +160,22 @@ export const PROBLEMS: Problem[] = [
     "createdAt": "2025-09-30"
   },
   {
+    "id": "leetcode-469",
+    "originalId": 469,
+    "title": "leetcode-469-q2 — Split Array With Minimum Difference",
+    "difficulty": "Medium",
+    "source": "Leetcode",
+    "topics": [
+      "Array"
+    ],
+    "description": "暫無描述",
+    "hasNote": true,
+    "noteUrl": "/content/problems/array/469-split-array-min-diff.md",
+    "filePath": "/Users/waynliu/Documents/GitHub/ShuaShua-Note/content/problems/array/469-split-array-min-diff.md",
+    "markdownContent": "# leetcode-469-q2 — Split Array With Minimum Difference\n\n## Problem Information\n- **Platform**: LeetCode (Contest 469, Q2)\n- **Title**: Split Array With Minimum Difference\n- **Statement (paraphrased)**:  \n  Given an integer array `nums`, split it into exactly two non-empty subarrays `left` and `right` such that:\n  - `left` is **strictly increasing**,\n  - `right` is **strictly decreasing**.  \n  Return the **minimum possible absolute difference** between the sums of `left` and `right`. If no valid split exists, return `-1`.\n\n## Examples\n- Example (made-up):  \n  `nums = [3, 5, 7, 4, 2]`  \n  Valid split at `i = 2` (0‑based): `left = [3,5,7]` strictly increasing, `right = [4,2]` strictly decreasing.  \n  `|sum(left) - sum(right)| = |15 - 6| = 9`.\n\n## Constraints (typical/assumed)\n- `2 ≤ n = nums.length`\n- `-10^9 ≤ nums[i] ≤ 10^9`\n- Result may exceed 32-bit range → use 64-bit (`long long`) for sums.\n\n---\n\n## Approach (Hint-First → Final Plan)\n### Key Idea\nWe need a cut index `i` where:\n- Prefix `nums[0..i]` is strictly increasing, and\n- Suffix `nums[i+1..n-1]` is strictly decreasing.\n\n### Observations\n- Single-element subarray counts as strictly increasing/decreasing (vacously true).\n- We can precompute two boolean arrays:\n  - `inc[i]`: whether `nums[0..i]` is strictly increasing.\n  - `dec[i]`: whether `nums[i..n-1]` is strictly decreasing.\n- With prefix sums `pref[i]`, we can compute sums of `left` and `right` in O(1).  \n- Enumerate all cut points `i ∈ [0..n-2]` (right must be non-empty).  \n  For each valid `i` with `inc[i] && dec[i+1]`, update the best difference.\n\n### Why not Greedy?\nChoosing the locally smaller next element top‑down does **not** guarantee a globally minimal difference, and may even pick an invalid split. We must check the whole prefix/suffix monotonic condition.\n\n---\n\n## Pseudocode\n```text\nn = len(nums)\nif n < 2: return -1\n\ninc[0] = true\nfor i in 1..n-1:\n    inc[i] = inc[i-1] && (nums[i-1] < nums[i])\n\ndec[n-1] = true\nfor i in n-2..0:\n    dec[i] = dec[i+1] && (nums[i] > nums[i+1])\n\npref[0] = nums[0]\nfor i in 1..n-1:\n    pref[i] = pref[i-1] + nums[i]\ntotal = pref[n-1]\n\nans = +INF\nfor i in 0..n-2:           # cut after i\n    if inc[i] && dec[i+1]:\n        left  = pref[i]\n        right = total - left\n        ans = min(ans, abs(left - right))\n\nreturn (ans == +INF ? -1 : ans)\n```\n\n---\n\n## Correctness Argument (Sketch)\n- `inc[i]` and `dec[i+1]` exactly encode the feasibility constraints for a cut after `i`.\n- We check **all** feasible cuts; if none, return `-1`.\n- For each feasible cut, we compute the exact difference using prefix sums, so the minimum over all feasible cuts is correct.\n\n---\n\n## Complexity\n- Time: `O(n)` to build `inc`, `dec`, `pref` and to scan all cuts.\n- Space: `O(n)` for `inc`, `dec`, `pref`. (Can be reduced with some in‑place tricks, but `O(n)` is clean.)\n\n---\n\n## C++17 Reference Implementation\n```cpp\n#include <bits/stdc++.h>\nusing namespace std;\n\nclass Solution {\npublic:\n    long long splitArray(vector<int>& nums) {\n        int n = (int)nums.size();\n        if (n < 2) return -1; // two non-empty subarrays required\n\n        // inc[i]: nums[0..i] is strictly increasing\n        vector<char> inc(n, 0);\n        inc[0] = 1;\n        for (int i = 1; i < n; ++i) {\n            inc[i] = inc[i-1] && (nums[i-1] < nums[i]);\n        }\n\n        // dec[i]: nums[i..n-1] is strictly decreasing\n        vector<char> dec(n, 0);\n        dec[n-1] = 1;\n        for (int i = n-2; i >= 0; --i) {\n            dec[i] = dec[i+1] && (nums[i] > nums[i+1]);\n        }\n\n        // prefix sums (64-bit)\n        vector<long long> pref(n);\n        pref[0] = nums[0];\n        for (int i = 1; i < n; ++i) pref[i] = pref[i-1] + (long long)nums[i];\n        long long total = pref[n-1];\n\n        long long best = LLONG_MAX;\n        for (int i = 0; i <= n-2; ++i) { // cut after i\n            if (inc[i] && dec[i+1]) {\n                long long leftSum  = pref[i];\n                long long rightSum = total - leftSum;\n                long long diff = leftSum - rightSum;\n                if (diff < 0) diff = -diff;\n                best = min(best, diff);\n            }\n        }\n        return (best == LLONG_MAX ? -1 : best);\n    }\n};\n```\n\n---\n\n## Edge Cases & Tests\n1. `nums = [3,2,1]` → cut at `i=0`, left `[3]` inc, right `[2,1]` dec → `|3 - 3| = 0`  \n2. `nums = [1,2]` → cut at `i=0`, left `[1]` inc, right `[2]` dec (single element ok) → `|1-2|=1`  \n3. `nums = [1,1,1]` → no strict inc/dec split → `-1`  \n4. `nums = [2,4,6,3,1]` → valid at `i=2` → diff `|12 - 4| = 8`  \n5. Large positives/negatives → verify 64-bit sums.\n\n---\n\n## Personal Notes\n原本想說找到那個分界的Peak的位置和個數（因為不可能會有兩個Peak，除非Peak就是第一個數字）就可以比較大小，但後來發現應該要改用 `inc/dec` 單調性判定 + 前綴和後，僅需 O(n) 就能枚舉所有合法切點並取得最小差值。\n",
+    "createdAt": "2025-10-05"
+  },
+  {
     "id": "leetcode-543",
     "originalId": 543,
     "title": "543. Diameter of Binary Tree",
@@ -189,7 +205,7 @@ export const PROBLEMS: Problem[] = [
     "noteUrl": "/content/problems/hashtable/2353-design-a-food-rating-system.md",
     "filePath": "/Users/waynliu/Documents/GitHub/ShuaShua-Note/content/problems/hashtable/2353-design-a-food-rating-system.md",
     "markdownContent": "\n# 2353. Design a Food Rating System\n\n## Problem Information\n- **Problem ID**: 2353\n- **Title**: Design a Food Rating System\n- **Difficulty**: Medium\n- **Source**: Leetcode\n- **Link**: https://leetcode.com/problems/design-a-food-rating-system/\n- **Topics**: Hash Map, Ordered Set, Design\n\n## Problem Description\n\nDesign a system to support:\n1. `changeRating(food, newRating)`: update the rating of a given food.\n2. `highestRated(cuisine)`: return the name of the highest-rated food for the given cuisine; if there is a tie, return the lexicographically smaller name.\n\nYou are given arrays `foods`, `cuisines`, and `ratings` of length `n`, where `foods[i]` is the food name, `cuisines[i]` is its cuisine, and `ratings[i]` is its initial rating.\n\n## Solutions\n\n### Solution 1: HashMap + Ordered Set per Cuisine\n**Time Complexity**: \n- Initialization: O(n log n)\n- `changeRating`: O(log n) per update\n- `highestRated`: O(1) to read `begin()` (amortized; the ordered set maintains ordering)\n\n**Space Complexity**: O(n) for maps and ordered sets\n\n**Key Idea**: \n- Maintain `food -> (cuisine, rating)` in an `unordered_map` for O(1) lookups during updates.\n- For each cuisine, maintain an ordered `set` of pairs `(-rating, name)` so that the **best** item is at `begin()` (highest rating; ties broken by lexicographically smaller name).  \n- On rating change: remove the old pair, update the map, insert the new pair.\n\n#### Code\n```cpp\n#include <string>\n#include <vector>\n#include <unordered_map>\n#include <set>\nusing namespace std;\n\nclass FoodRatings {\npublic:\n    // food -> (cuisine, rating)\n    unordered_map<string, pair<string,int>> info;\n    // cuisine -> ordered set of (-rating, name)\n    unordered_map<string, set<pair<int,string>>> byCuisine;\n\n    FoodRatings(vector<string>& foods, vector<string>& cuisines, vector<int>& ratings) {\n        int n = (int)foods.size();\n        info.reserve(n * 2);\n        for (int i = 0; i < n; ++i) {\n            info[foods[i]] = {cuisines[i], ratings[i]};\n            byCuisine[cuisines[i]].insert({-ratings[i], foods[i]});\n        }\n    }\n\n    void changeRating(string food, int newRating) {\n        auto &pr = info[food];         // pr.first = cuisine, pr.second = oldRating\n        const string &c = pr.first;\n        int oldRating = pr.second;\n\n        auto &S = byCuisine[c];\n        S.erase({-oldRating, food});   // remove old record\n        pr.second = newRating;         // update rating\n        S.insert({-newRating, food});  // insert new record\n    }\n\n    string highestRated(string cuisine) {\n        const auto &S = byCuisine[cuisine];\n        // set is ordered by (-rating, name) ascending; begin() gives highest rating & lexicographically smallest name\n        return S.begin()->second;\n    }\n};\n```\n\n### Solution 2: HashMap + Priority Queue with Lazy Deletion (Optional)\n**Time Complexity**: \n- `changeRating`: O(log n) (push a new entry)\n- `highestRated`: amortized O(log n) (pop stale entries until top is valid)\n\n**Space Complexity**: O(n)\n\n**Idea**: Keep a `priority_queue` per cuisine storing `(rating, name, version)` and a hash map for current `(cuisine, rating)`; during query, pop outdated entries (lazy deletion). Slightly more code, similar complexity; ordered set is cleaner for strict ordering.\n\n## Personal Notes\n這是我第一次寫系統設計的部分。正確的做法是先確認需要的操作（初始化、更新、查詢），再決定資料結構與維護方式。這題的關鍵是把需求拆成兩個索引：\n- 以食物名稱查 `(cuisine, rating)`（用 `unordered_map`）\n- 以菜系查「最高分、同分字典序最小」（用 per-cuisine 的 ordered `set` 存 `(-rating, name)`）\n\n更新時遵守「先刪舊、後插新」的不變量，確保集合內容與當前評分同步。這題本質是把 DSA 組件（hash + ordered set + key 設計）組裝成可維護的系統。\n",
-    "createdAt": "2025-10-04"
+    "createdAt": "2025-10-05"
   },
   {
     "id": "leetcode-33",
@@ -263,7 +279,7 @@ export const getTopicStats = () => [
   },
   {
     "topic": "Array",
-    "count": 2
+    "count": 3
   },
   {
     "topic": "String",
@@ -297,7 +313,7 @@ export const getTopicStats = () => [
 
 export const getDifficultyStats = () => ({
   "Easy": 0,
-  "Medium": 13,
+  "Medium": 14,
   "Hard": 0
 });
 

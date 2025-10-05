@@ -1,204 +1,187 @@
-# Prefix / Suffix 預處理技巧
+# DSA Concept Note — Prefix / Suffix Precomputation & Applications
 
-## 核心概念
-
-**用 O(n) 時間預處理一次，之後可以用 O(1) 時間回答很多查詢。**
-
-簡單來說：
-- **Prefix（前綴）**: 儲存從開頭到某個位置的累積資訊（如總和、最小值、最大值）
-- **Suffix（後綴）**: 儲存從某個位置到結尾的累積資訊
-
-透過組合前綴和後綴，可以快速檢查區間、分割點、可行性等條件。
-
-## 什麼時候用？
-
-- 需要多次查詢區間和、區間最小/最大值
-- 需要檢查每個分割點的可行性（例如：左邊嚴格遞增 且 右邊嚴格遞減）
-- 想把原本每次 O(n) 的查詢，變成預處理後 O(1) 的查詢
+## 0. Metadata
+- **Concept Name**: Prefix / Suffix Precomputation (Sums, Min/Max, Monotonicity, etc.)
+- **Category**: Algorithmic Preprocessing
+- **Tags**: prefix sum, suffix sum, prefix min/max, inc/dec flags, feasibility checks, difference array, 2D prefix sum, XOR prefix
+- **Prerequisites**: Arrays, basic math, time/space trade‑offs
+- **Familiarity (1–5)**: 3
+- **Last Updated**: 2025-10-05 (UTC+8)
 
 ---
 
-## 常見用法
+## 1) Core Idea (What & Why)
+**Precompute cumulative information once → answer many queries or validate constraints in O(1)/O(log n).**
+- **Prefix** at index `i` summarizes data from the start up to `i` (e.g., sum/min/max/inc‑valid).
+- **Suffix** at index `i` summarizes data from `i` to the end.
+- Combine them to evaluate splits/cuts, ranges, and feasibility fast.
 
-### 1. Prefix Sum（前綴和）
+**When to use**
+- Many **range** queries.
+- Need to check **feasibility at every cut** (e.g., prefix strictly increasing **and** suffix strictly decreasing).
+- Transform expensive per‑query cost → cheap constant time after O(n) preprocessing.
 
-最常見的應用，用來快速算區間和。
+---
 
+## 2) Canonical Constructions
+
+### 2.1 Prefix Sum (1D)
+- `pref[i] = a[0] + ... + a[i]` (64‑bit to avoid overflow)
+- Range sum `[l..r] = pref[r] − (l>0 ? pref[l‑1] : 0)`
+
+**C++ snippet**
 ```cpp
-// 建立前綴和陣列
 vector<long long> pref(n);
 pref[0] = a[0];
-for (int i = 1; i < n; ++i) {
-    pref[i] = pref[i-1] + a[i];
-}
+for (int i = 1; i < n; ++i) pref[i] = pref[i-1] + a[i];
 
-// 計算區間 [l, r] 的總和
-long long rangeSum(int l, int r) {
-    if (l == 0) return pref[r];
-    return pref[r] - pref[l-1];
-}
+auto range_sum = [&](int l, int r) -> long long {
+    return pref[r] - (l ? pref[l-1] : 0LL);
+};
 ```
 
-**範例**：
-```
-陣列: [3, 1, 4, 2, 5]
-前綴和: [3, 4, 8, 10, 15]
-
-區間 [1, 3] 的總和 = pref[3] - pref[0] = 10 - 3 = 7
-（就是 1 + 4 + 2）
-```
-
-### 2. Suffix Sum（後綴和）
-
-從後面往前累加。
-
+### 2.2 Suffix Sum
 ```cpp
 vector<long long> suff(n);
 suff[n-1] = a[n-1];
-for (int i = n-2; i >= 0; --i) {
-    suff[i] = suff[i+1] + a[i];
-}
+for (int i = n-2; i >= 0; --i) suff[i] = suff[i+1] + a[i];
 ```
 
-### 3. Prefix Min/Max（前綴最小/最大值）
+### 2.3 Prefix Min / Max & Suffix Min / Max
+- `pmin[i] = min(a[0..i])`, `pmax[i] = max(a[0..i])`
+- `smin[i] = min(a[i..n-1])`, `smax[i] = max(a[i..n-1])`
 
-記錄從開頭到某個位置的最小或最大值。
+### 2.4 Monotonicity Flags (inc/dec feasibility)
+- `inc[i] = inc[i-1] && (a[i-1] < a[i])` (strictly increasing prefix)
+- `dec[i] = dec[i+1] && (a[i] > a[i+1])` (strictly decreasing suffix)
 
-```cpp
-// 前綴最小值
-vector<int> pmin(n);
-pmin[0] = a[0];
-for (int i = 1; i < n; ++i) {
-    pmin[i] = min(pmin[i-1], a[i]);
-}
+### 2.5 Prefix XOR / AND / OR / GCD
+- XOR: `px[i] = px[i-1] ^ a[i]` → range XOR in O(1).
+- GCD: `pg[i] = gcd(pg[i-1], a[i])`, `sg[i] = gcd(a[i], sg[i+1])` → range gcd via `gcd(pg[l-1], sg[r+1])`.
 
-// 前綴最大值
-vector<int> pmax(n);
-pmax[0] = a[0];
-for (int i = 1; i < n; ++i) {
-    pmax[i] = max(pmax[i-1], a[i]);
-}
-```
+### 2.6 Difference Array (range add in O(1), finalize by prefix)
+- To add `+v` on `[l..r]`: `diff[l] += v; diff[r+1] -= v;`
+- Recover: `arr = prefix(diff)`.
 
-### 4. 單調性檢查（Monotonicity Flags）
+### 2.7 2D Prefix Sum (Integral Image)
+- `P[i][j] = sum of A[0..i][0..j]`
+- Rectangle sum `(r1..r2, c1..c2)` via inclusion‑exclusion.
 
-檢查前綴是否嚴格遞增/遞減。
+---
 
-```cpp
-// inc[i] = 前 i+1 個元素是否嚴格遞增
-vector<bool> inc(n);
-inc[0] = true;  // 單一元素算是遞增
-for (int i = 1; i < n; ++i) {
-    inc[i] = inc[i-1] && (a[i-1] < a[i]);
-}
+## 3) Typical Applications
 
-// dec[i] = 從 i 到結尾是否嚴格遞減
-vector<bool> dec(n);
-dec[n-1] = true;
-for (int i = n-2; i >= 0; --i) {
-    dec[i] = dec[i+1] && (a[i] > a[i+1]);
-}
-```
+1. **Range Sum / XOR Queries**: RMQ alternative when only sums/XOR needed.
+2. **Balance / Split Problems**: minimize `|sum(left) − sum(right)|` subject to constraints.
+3. **Feasibility at a Cut**: e.g., `inc[i] && dec[i+1]` to ensure left is strictly increasing & right strictly decreasing.
+4. **Exclude‑one GCD**: `gcd of all except a[k] = gcd(pg[k-1], sg[k+1])`.
+5. **Threshold / Boundary Tests**: prefix min vs current, or suffix max vs current.
+6. **Difference Array**: many range updates + one pass to finalize.
+7. **2D Range Sums**: submatrix queries in O(1).
 
-**應用**：找出所有合法的分割點
-```cpp
-// 檢查在位置 i 切開，左邊遞增、右邊遞減
-for (int i = 0; i < n-1; ++i) {
-    if (inc[i] && dec[i+1]) {
-        // 這是一個合法的分割點
-    }
-}
-```
+---
 
-### 5. Difference Array（差分陣列）
+## 4) Pattern — "Enumerate Cut with Feasibility Precompute"
+**Goal**: Check quickly if a cut after `i` is valid, then evaluate a metric (e.g., sum difference).
 
-用於多次區間更新，最後一次性計算結果。
+**Steps**
+1. Build `inc[0..i]` and `dec[i+1..]` flags.
+2. Build `pref` for O(1) left/right sums.
+3. Loop all `i` (0..n‑2), if feasible: compute metric and take min/max.
 
-```cpp
-vector<long long> diff(n+1, 0);
-
-// 對區間 [l, r] 全部加上 v
-auto rangeAdd = [&](int l, int r, long long v) {
-    diff[l] += v;
-    if (r+1 <= n) diff[r+1] -= v;
-};
-
-// 執行多次更新
-rangeAdd(1, 3, 5);
-rangeAdd(2, 4, 3);
-
-// 最後還原成實際陣列
-vector<long long> result(n);
-long long sum = 0;
-for (int i = 0; i < n; ++i) {
-    sum += diff[i];
-    result[i] = sum;
-}
+**Pseudocode**
+```text
+build inc[], dec[], pref[]
+best = +INF
+for i in 0..n-2:
+    if inc[i] && dec[i+1]:
+        left  = pref[i]
+        right = pref[n-1] - pref[i]
+        best = min(best, |left - right|)
+return best or -1 if no feasible
 ```
 
 ---
 
-## 經典題型：找最佳分割點
+## 5) Edge Cases & Pitfalls
+- **Strict vs Non‑strict**: use `<` / `>` vs `<=` / `>=` correctly.
+- **Single‑element subarray**: often counts as strictly mono; confirm problem statement.
+- **Overflow**: use `long long` for sums; watch 2D sums.
+- **Indexing**: `pref[r] − pref[l-1]` pattern; guard `l=0`.
+- **Empty side**: when enumerating cuts, ensure both sides are non‑empty (`i ≤ n‑2`).
+- **2D boundaries**: inclusion‑exclusion off‑by‑one.
+- **Difference array finalize**: don't forget the final prefix pass.
 
-**問題**：給定陣列，找一個分割點 i，使得：
-- 左半部分嚴格遞增
-- 右半部分嚴格遞減
-- 兩部分總和差值最小
+---
 
-**解法模板**：
+## 6) Micro‑Exercises
+1. Build `inc[]` / `dec[]` for an array and count how many feasible cuts exist.
+2. Given `queries [l,r]`, answer `sum(l,r)` with `pref[]` and with `suff[]` (just to practice both).
+3. Implement "range add updates + point queries" with a 1D difference array.
+4. Implement 2D prefix sum and query a rectangle sum.
+5. Exclude‑one GCD with prefix/suffix GCD arrays.
+
+---
+
+## 7) Minimal C++ Skeletons
+
+**Prefix/Suffix sums & feasibility**
 ```cpp
-int n = nums.size();
-
-// 1. 建立單調性檢查
-vector<bool> inc(n), dec(n);
-inc[0] = true;
-for (int i = 1; i < n; ++i) {
-    inc[i] = inc[i-1] && (nums[i-1] < nums[i]);
-}
-dec[n-1] = true;
-for (int i = n-2; i >= 0; --i) {
-    dec[i] = dec[i+1] && (nums[i] > nums[i+1]);
-}
-
-// 2. 建立前綴和
 vector<long long> pref(n);
-pref[0] = nums[0];
-for (int i = 1; i < n; ++i) {
-    pref[i] = pref[i-1] + nums[i];
-}
+pref[0] = a[0];
+for (int i = 1; i < n; ++i) pref[i] = pref[i-1] + a[i];
 
-// 3. 枚舉所有分割點
-long long minDiff = LLONG_MAX;
-for (int i = 0; i < n-1; ++i) {
-    if (inc[i] && dec[i+1]) {
-        long long leftSum = pref[i];
-        long long rightSum = pref[n-1] - pref[i];
-        minDiff = min(minDiff, abs(leftSum - rightSum));
-    }
-}
+vector<char> inc(n, 0), dec(n, 0);
+inc[0] = 1;
+for (int i = 1; i < n; ++i) inc[i] = inc[i-1] && (a[i-1] < a[i]);
+dec[n-1] = 1;
+for (int i = n-2; i >= 0; --i) dec[i] = dec[i+1] && (a[i] > a[i+1]);
+```
+
+**Difference array**
+```cpp
+vector<long long> diff(n+1);
+auto add = [&](int l, int r, long long v){
+    diff[l] += v;
+    if (r+1 < (int)diff.size()) diff[r+1] -= v;
+};
+vector<long long> arr(n);
+long long run = 0;
+for (int i = 0; i < n; ++i) { run += diff[i]; arr[i] = run; }
+```
+
+**2D prefix (brief)**
+```cpp
+vector<vector<long long>> P(n+1, vector<long long>(m+1));
+for (int i = 1; i <= n; ++i)
+  for (int j = 1; j <= m; ++j)
+    P[i][j] = A[i][j] + P[i-1][j] + P[i][j-1] - P[i-1][j-1];
+
+auto rect = [&](int r1,int c1,int r2,int c2){
+  return P[r2][c2]-P[r1-1][c2]-P[r2][c1-1]+P[r1-1][c1-1];
+};
 ```
 
 ---
 
-## 常見陷阱
-
-1. **索引問題**：計算區間 `[l, r]` 時，記得處理 `l = 0` 的情況
-2. **溢位問題**：總和可能很大，記得用 `long long`
-3. **空陣列**：確保分割後兩邊都不是空的（通常 `i` 範圍是 `0` 到 `n-2`）
-4. **嚴格 vs 非嚴格**：確認題目要求的是 `<` 還是 `<=`
-
----
-
-## 相關技巧
-
-- **Sliding Window**（滑動視窗）：當區間連續移動時使用
-- **Segment Tree / Fenwick Tree**：需要動態更新時使用
-- **Monotonic Stack/Queue**（單調堆疊/佇列）：維護區間最值
+## 8) Related Concepts
+- Sliding window (when ranges are contiguous and move by 1).
+- Fenwick Tree / Segment Tree (range queries/updates with log factors).
+- Monotonic stack/queue (different "monotonic" but often paired with prefix info).
+- Sparse table (idempotent range queries like min/max).
 
 ---
 
-## 個人筆記
+## 9) Quick Checklist (Before Coding)
+- Decide strict vs non‑strict.
+- Choose 64‑bit sum if values can be large or many.
+- Confirm cut range (ensure both sides non‑empty).
+- Precompute only what you need (sum? min? flags? gcd?).
+- Add tests for `n=1/2`, equal elements, negatives, large values.
 
-- 遇到「分割陣列並滿足條件」的題目，優先想到 prefix/suffix + 單調性檢查
-- Difference Array 適合「多次區間更新，一次查詢」的情況
-- 記得先確認是否需要嚴格遞增/遞減，這會影響比較符號的選擇
+---
+
+## 10) Personal Notes
+- For split‑array‑with‑constraints problems, **inc/dec + prefix sums** is a powerful O(n) pattern.
+- Difference arrays are great when there are **many range updates** but only one final read.
+- 2D prefix sum is often the fastest path for submatrix queries without updates.
