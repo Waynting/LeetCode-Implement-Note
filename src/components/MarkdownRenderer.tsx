@@ -17,8 +17,16 @@ export default function MarkdownRenderer({ content, className = '' }: MarkdownRe
         remarkPlugins={[remarkGfm]}
         components={{
           code({ inline, className, children, ...props }: any) {
-            // Inline code should just render as code element
-            if (inline) {
+            const codeString = String(children).replace(/\n$/, '');
+            const hasNewline = String(children).includes('\n');
+            const hasLanguage = /language-(\w+)/.test(className || '');
+
+            // 判斷是否為 inline code：
+            // 1. inline 屬性為 true，或
+            // 2. 沒有換行符且沒有語言標記（說明不是 code block）
+            const isInlineCode = inline === true || (inline !== false && !hasNewline && !hasLanguage);
+
+            if (isInlineCode) {
               return (
                 <code
                   className="px-1.5 py-0.5 bg-gray-100 dark:bg-gray-800 text-gray-800 dark:text-gray-200 rounded text-sm font-mono"
@@ -32,8 +40,7 @@ export default function MarkdownRenderer({ content, className = '' }: MarkdownRe
             // Code blocks (non-inline)
             const match = /language-(\w+)/.exec(className || '');
             const language = match ? match[1] : '';
-            const code = String(children).replace(/\n$/, '');
-            return <CodeBlock code={code} language={language} />;
+            return <CodeBlock code={codeString} language={language} />;
           },
           h1() {
             // Skip rendering the first h1 to avoid duplicate title
