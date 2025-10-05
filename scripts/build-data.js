@@ -116,7 +116,7 @@ function extractProblemInfo(content, filePath, topicFolder) {
 
   // 提取來源
   const sourceMatch = body.match(/- \*\*Source\*\*: (.+)$/m);
-  const source = metadata.source || sourceMatch?.[1] || 'Leetcode';
+  const source = metadata.source || sourceMatch?.[1] || 'LeetCode';
 
   // 生成複合唯一ID (source-originalId)
   const uniqueId = `${source.toLowerCase()}-${originalId}`;
@@ -308,7 +308,7 @@ function main() {
   const allTopics = Object.values(TOPIC_MAPPING);
   
   // 生成來源列表
-  const allSources = ['Leetcode', 'Codeforces', 'Atcoder', 'CSES', 'Zerojudge', 'Other'];
+  const allSources = ['LeetCode', 'Codeforces', 'Atcoder', 'CSES', 'Zerojudge', 'Other'];
   
   // 寫入 problems-static.ts
   const problemsCode = `// 自動生成的題目數據文件 - 請勿手動編輯
@@ -317,7 +317,7 @@ export interface Problem {
   originalId: number;  // 原始題目ID
   title: string;
   difficulty: 'Easy' | 'Medium' | 'Hard';
-  source: 'Leetcode' | 'Codeforces' | 'Atcoder' | 'CSES' | 'Zerojudge' | 'Other';
+  source: 'LeetCode' | 'Codeforces' | 'Atcoder' | 'CSES' | 'Zerojudge' | 'Other';
   topics: string[];
   hasNote: boolean;
   noteUrl?: string;

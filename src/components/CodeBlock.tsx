@@ -24,52 +24,6 @@ export default function CodeBlock({ code, language }: CodeBlockProps) {
     }
   };
 
-  // 自定義的行渲染器，用於添加縮排視覺化
-  const lineProps = (lineNumber: number) => {
-    const lines = code.split('\n');
-    const line = lines[lineNumber - 1] || '';
-    const leadingSpaces = line.match(/^(\s*)/)?.[1] || '';
-    const indentLevel = Math.floor(leadingSpaces.length / 2);
-
-    // 根據縮排層級設定背景漸層
-    const getIndentGradient = () => {
-      if (indentLevel === 0) return '';
-
-      const colors = theme === 'dark'
-        ? [
-            'rgba(59, 130, 246, 0.12)',   // blue
-            'rgba(168, 85, 247, 0.12)',   // purple
-            'rgba(236, 72, 153, 0.12)',   // pink
-            'rgba(245, 158, 11, 0.12)',   // amber
-          ]
-        : [
-            'rgba(59, 130, 246, 0.08)',
-            'rgba(168, 85, 247, 0.08)',
-            'rgba(236, 72, 153, 0.08)',
-            'rgba(245, 158, 11, 0.08)',
-          ];
-
-      // 為每個縮排層級建立漸層條紋
-      const gradients: string[] = [];
-      for (let i = 0; i < indentLevel; i++) {
-        const colorIndex = i % colors.length;
-        const start = i * 2; // 每層 2 個字符寬度
-        const end = start + 2;
-        gradients.push(`${colors[colorIndex]} ${start}ch ${end}ch`);
-      }
-
-      return `linear-gradient(90deg, ${gradients.join(', ')}, transparent ${indentLevel * 2}ch)`;
-    };
-
-    const gradient = getIndentGradient();
-
-    return {
-      style: {
-        display: 'block',
-        background: gradient || 'transparent',
-      },
-    };
-  };
 
   return (
     <div className="relative group rounded-lg overflow-hidden my-6">
@@ -104,7 +58,7 @@ export default function CodeBlock({ code, language }: CodeBlockProps) {
         </button>
       </div>
 
-      {/* Code content with indent visualization */}
+      {/* Code content */}
       <SyntaxHighlighter
         style={theme === 'dark' ? oneDark : oneLight}
         language={language}
@@ -115,8 +69,6 @@ export default function CodeBlock({ code, language }: CodeBlockProps) {
           backgroundColor: theme === 'dark' ? '#1a1b26' : '#f7f7f7',
         }}
         showLineNumbers={false}
-        wrapLines={true}
-        lineProps={lineProps}
       >
         {code}
       </SyntaxHighlighter>

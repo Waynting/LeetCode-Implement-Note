@@ -4,7 +4,7 @@
 - **Problem ID**: 202
 - **Title**: Happy Number
 - **Difficulty**: Easy
-- **Source**: Leetcode
+- **Source**: LeetCode
 - **Link**: https://leetcode.com/problems/happy-number/
 - **Topics**: Hash Table, Two Pointers, Math
 

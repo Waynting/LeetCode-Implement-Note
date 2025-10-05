@@ -5,7 +5,7 @@
 - **Problem ID**: 2353
 - **Title**: Design a Food Rating System
 - **Difficulty**: Medium
-- **Source**: Leetcode
+- **Source**: LeetCode
 - **Link**: https://leetcode.com/problems/design-a-food-rating-system/
 - **Topics**: Hash Map, Ordered Set, Design
 

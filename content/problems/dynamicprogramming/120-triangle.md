@@ -4,7 +4,7 @@
 - **Problem ID**: 120
 - **Title**: Triangle
 - **Difficulty**: Medium
-- **Source**: Leetcode
+- **Source**: LeetCode
 - **Link**: https://leetcode.com/problems/triangle/
 - **Topics**: Dynamic Programming, Array
 

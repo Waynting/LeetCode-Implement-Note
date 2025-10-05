@@ -4,7 +4,7 @@
 - **Problem ID**: 469
 - **Title**: Split Array With Minimum Difference
 - **Difficulty**: Medium
-- **Source**: Leetcode
+- **Source**: LeetCode
 - **Link**: https://leetcode.com/contest/weekly-contest-469/problems/split-array-with-minimum-difference/
 - **Topics**: Array, Prefix Sum, Greedy
 - **Statement (paraphrased)**:  

@@ -3,9 +3,25 @@
   "displayName": "Data Structures",
   "problems": [
     {
+      "filename": "cpp-stl-map.md",
+      "id": null
+    },
+    {
       "filename": "cpp-stl-set.md",
+      "id": null
+    },
+    {
+      "filename": "cpp-stl-unordered-map.md",
+      "id": null
+    },
+    {
+      "filename": "cpp-stl-unordered-set.md",
+      "id": null
+    },
+    {
+      "filename": "cpp-stl-vector.md",
       "id": null
     }
   ],
-  "lastUpdated": "2025-10-05T13:24:15.621Z"
+  "lastUpdated": "2025-10-05T16:13:30.104Z"
 }
