@@ -1,8 +1,12 @@
-# leetcode-469-q2 — Split Array With Minimum Difference
+# 469. Split Array With Minimum Difference
 
 ## Problem Information
-- **Platform**: LeetCode (Contest 469, Q2)
+- **Problem ID**: 469
 - **Title**: Split Array With Minimum Difference
+- **Difficulty**: Medium
+- **Source**: Leetcode
+- **Link**: https://leetcode.com/contest/weekly-contest-469/problems/split-array-with-minimum-difference/
+- **Topics**: Array, Prefix Sum, Greedy
 - **Statement (paraphrased)**:  
   Given an integer array `nums`, split it into exactly two non-empty subarrays `left` and `right` such that:
   - `left` is **strictly increasing**,
