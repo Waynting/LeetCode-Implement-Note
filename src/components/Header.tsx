@@ -12,10 +12,10 @@ interface HeaderProps {
 export default function Header({ title = "ShuaShua Note", subtitle, currentPage }: HeaderProps) {
 
   const navItems = [
-    { href: "/", label: "Home", key: "home" },
-    { href: "/topics", label: "Topics", key: "topics" },
-    { href: "/problems", label: "Problems", key: "problems" },
-    { href: "/notes", label: "Notes", key: "notes" },
+    { href: "/", label: "首頁", key: "home" },
+    { href: "/topics", label: "主題", key: "topics" },
+    { href: "/problems", label: "題目", key: "problems" },
+    { href: "/notes", label: "筆記", key: "notes" },
   ];
 
   return (

@@ -144,6 +144,22 @@ export const PROBLEMS: Problem[] = [
     "createdAt": "2025-09-30"
   },
   {
+    "id": "leetcode-202",
+    "originalId": 202,
+    "title": "202. Happy Number",
+    "difficulty": "Medium",
+    "source": "Leetcode",
+    "topics": [
+      "HashTable"
+    ],
+    "description": "Write an algorithm to determine if a number `n` is happy.",
+    "hasNote": true,
+    "noteUrl": "/content/problems/hashtable/202-happy-number.md",
+    "filePath": "/Users/waynliu/Documents/GitHub/ShuaShua-Note/content/problems/hashtable/202-happy-number.md",
+    "markdownContent": "# 202. Happy Number\n\n## Problem Information\n- **Problem ID**: 202\n- **Title**: Happy Number\n- **Difficulty**: Easy\n- **Source**: Leetcode\n- **Link**: https://leetcode.com/problems/happy-number/\n- **Topics**: Hash Table, Two Pointers, Math\n\n## Problem Description\n\nWrite an algorithm to determine if a number `n` is happy.\n\nA **happy number** is a number defined by the following process:\n- Starting with any positive integer, replace the number by the sum of the squares of its digits.\n- Repeat the process until the number equals 1 (where it will stay), or it loops endlessly in a cycle which does not include 1.\n- Those numbers for which this process ends in 1 are happy.\n\nReturn `true` if `n` is a happy number, and `false` if not.\n\n## Solutions\n\n### Solution 1: Hash Set Cycle Detection\n**Time Complexity**: O(log n)\n**Space Complexity**: O(log n)\n\n#### Approach\nUse a hash set to detect cycles. Store all seen numbers, and if we encounter a number we've seen before (and it's not 1), we're in a cycle.\n\n#### Key Idea\n- Define `f(x) = sum of squares of digits of x`\n- Generate the sequence `n, f(n), f(f(n)), ...`\n- If the sequence hits `1` → return `true`\n- If it cycles without reaching `1` → return `false`\n\n#### Code\n```cpp\nclass Solution {\npublic:\n    int sumSquares(int x) {\n        int sum = 0;\n        while (x > 0) {\n            int digit = x % 10;\n            sum += digit * digit;\n            x /= 10;\n        }\n        return sum;\n    }\n\n    bool isHappy(int n) {\n        unordered_set<int> seen;\n        int x = n;\n\n        while (x != 1 && seen.find(x) == seen.end()) {\n            seen.insert(x);\n            x = sumSquares(x);\n        }\n\n        return x == 1;\n    }\n};\n```\n\n### Solution 2: Floyd Cycle Detection (Two Pointers)\n**Time Complexity**: O(log n)\n**Space Complexity**: O(1)\n\n#### Approach\nUse Floyd's cycle detection algorithm (tortoise and hare) to detect cycles with O(1) space.\n\n#### Key Idea\n- `slow` pointer moves one step: `slow = f(slow)`\n- `fast` pointer moves two steps: `fast = f(f(fast))`\n- If they meet at 1, the number is happy\n- If they meet at any other number, there's a cycle (unhappy)\n\n#### Code\n```cpp\nclass Solution {\npublic:\n    int sumSquares(int x) {\n        int sum = 0;\n        while (x > 0) {\n            int digit = x % 10;\n            sum += digit * digit;\n            x /= 10;\n        }\n        return sum;\n    }\n\n    bool isHappy(int n) {\n        int slow = sumSquares(n);\n        int fast = sumSquares(sumSquares(n));\n\n        while (slow != fast) {\n            slow = sumSquares(slow);\n            fast = sumSquares(sumSquares(fast));\n        }\n\n        return slow == 1;\n    }\n};\n```\n\n## Edge Cases\n- `n = 1` → already happy, return `true`\n- Single digit numbers (2-9)\n- The sequence either reaches 1 or enters a cycle\n- Common cycle contains 4: `4 → 16 → 37 → 58 → 89 → 145 → 42 → 20 → 4`\n\n## Related Problems\n- 141. Linked List Cycle\n- 142. Linked List Cycle II\n- 287. Find the Duplicate Number\n\n## Notes\n**Hash Set approach**:\n- Intuitive and easy to debug\n- Uses O(log n) space to store seen numbers\n\n**Floyd Cycle Detection**:\n- Space-optimal O(1) solution\n- Demonstrates the \"Two Pointers\" pattern\n- Same technique used in linked list cycle detection\n\n**Key insight**: The process of repeatedly applying a function and detecting whether it reaches a fixed point or enters a cycle is a common pattern in algorithm problems.\n\n## Test Cases\n```cpp\nassert(isHappy(19) == true);   // 19 → 82 → 68 → 100 → 1\nassert(isHappy(2) == false);   // enters cycle with 4\nassert(isHappy(1) == true);    // already 1\nassert(isHappy(7) == true);    // 7 → 49 → 97 → 130 → 10 → 1\n```\n",
+    "createdAt": "2025-10-05"
+  },
+  {
     "id": "leetcode-383",
     "originalId": 383,
     "title": "383. Ransom Note",
@@ -299,7 +315,7 @@ export const getTopicStats = () => [
   },
   {
     "topic": "HashTable",
-    "count": 2
+    "count": 3
   },
   {
     "topic": "Tree",
@@ -313,7 +329,7 @@ export const getTopicStats = () => [
 
 export const getDifficultyStats = () => ({
   "Easy": 0,
-  "Medium": 14,
+  "Medium": 15,
   "Hard": 0
 });
 

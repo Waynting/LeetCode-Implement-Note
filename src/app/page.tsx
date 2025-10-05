@@ -9,9 +9,9 @@ export default function HomePage() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-      <Header 
+      <Header
         title="ShuaShua Note"
-        subtitle="Multi-Platform Algorithm Practice Notes"
+        subtitle="多平台演算法練習筆記"
         currentPage="home"
       />
 
@@ -20,40 +20,40 @@ export default function HomePage() {
         {/* Stats Overview */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg dark:shadow-gray-900/20 p-6 transition-colors duration-300">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Total Problems</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">總題數</h3>
             <p className="text-3xl font-bold text-blue-600 dark:text-blue-400">{PROBLEMS.length}</p>
           </div>
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg dark:shadow-gray-900/20 p-6 transition-colors duration-300">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Completed</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">已完成</h3>
             <p className="text-3xl font-bold text-green-600 dark:text-green-400">{completedProblems}</p>
           </div>
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg dark:shadow-gray-900/20 p-6 transition-colors duration-300">
-            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">Topics</h3>
+            <h3 className="text-lg font-semibold text-gray-900 dark:text-white mb-2">主題數</h3>
             <p className="text-3xl font-bold text-purple-600 dark:text-purple-400">{topicStats.length}</p>
           </div>
         </div>
 
         {/* Difficulty Distribution */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg dark:shadow-gray-900/20 p-6 mb-12 transition-colors duration-300">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Difficulty Distribution</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">難度分布</h2>
           <div className="grid grid-cols-3 gap-4">
             <div className="text-center">
               <div className="text-2xl font-bold text-green-600 dark:text-green-400">
                 {difficultyStats.Easy}
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Easy</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">簡單</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-yellow-600 dark:text-yellow-400">
                 {difficultyStats.Medium}
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Medium</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">中等</div>
             </div>
             <div className="text-center">
               <div className="text-2xl font-bold text-red-600 dark:text-red-400">
                 {difficultyStats.Hard}
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-400">Hard</div>
+              <div className="text-sm text-gray-600 dark:text-gray-400">困難</div>
             </div>
           </div>
         </div>
@@ -61,12 +61,12 @@ export default function HomePage() {
         {/* Topics Grid */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg dark:shadow-gray-900/20 p-6 mb-12 transition-colors duration-300">
           <div className="flex justify-between items-center mb-6">
-            <h2 className="text-xl font-bold text-gray-900 dark:text-white">Topics</h2>
-            <Link 
-              href="/notes" 
+            <h2 className="text-xl font-bold text-gray-900 dark:text-white">主題</h2>
+            <Link
+              href="/notes"
               className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 font-medium transition-colors duration-200"
             >
-              View All Notes →
+              查看所有筆記 →
             </Link>
           </div>
           <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-5 gap-4">
@@ -77,8 +77,8 @@ export default function HomePage() {
                 className="block p-4 bg-gray-50 dark:bg-gray-700 rounded-lg hover:bg-blue-50 dark:hover:bg-blue-900/20 hover:border-blue-200 dark:hover:border-blue-600 border border-gray-200 dark:border-gray-600 transition-colors duration-200"
               >
                 <div className="font-medium text-gray-900 dark:text-white">{topic}</div>
-                <div className="text-sm text-gray-600 dark:text-gray-300">{count} problems</div>
-                <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">Click to view related notes</div>
+                <div className="text-sm text-gray-600 dark:text-gray-300">{count} 題</div>
+                <div className="text-xs text-gray-500 dark:text-gray-400 mt-1">點擊查看相關筆記</div>
               </Link>
             ))}
           </div>
@@ -86,7 +86,7 @@ export default function HomePage() {
 
         {/* Recent Problems */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg dark:shadow-gray-900/20 p-6 transition-colors duration-300">
-          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">Recent Problems</h2>
+          <h2 className="text-xl font-bold text-gray-900 dark:text-white mb-6">最近題目</h2>
           <div className="space-y-4">
             {PROBLEMS.slice(-5).reverse().map((problem) => (
               <Link

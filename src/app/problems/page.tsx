@@ -43,9 +43,9 @@ export default function ProblemsPage() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-      <Header 
+      <Header
         title="ShuaShua Note"
-        subtitle="Problems List"
+        subtitle="題目列表"
         currentPage="problems"
       />
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -54,43 +54,43 @@ export default function ProblemsPage() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Search Problems
+                搜尋題目
               </label>
               <input
                 type="text"
-                placeholder="Enter problem ID or title..."
+                placeholder="輸入題目 ID 或標題..."
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-colors duration-200"
               />
             </div>
-            
+
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Filter by Topic
+                按主題篩選
               </label>
               <select
                 value={selectedTopic}
                 onChange={(e) => setSelectedTopic(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-colors duration-200"
               >
-                <option value="">All Topics</option>
+                <option value="">所有主題</option>
                 {TOPICS.map(topic => (
                   <option key={topic} value={topic}>{topic}</option>
                 ))}
               </select>
             </div>
-            
+
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Filter by Source
+                按來源篩選
               </label>
               <select
                 value={selectedSource}
                 onChange={(e) => setSelectedSource(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-colors duration-200"
               >
-                <option value="">All Sources</option>
+                <option value="">所有來源</option>
                 {SOURCES.map(source => (
                   <option key={source} value={source}>{source}</option>
                 ))}
@@ -99,17 +99,17 @@ export default function ProblemsPage() {
 
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Sort by
+                排序方式
               </label>
               <select
                 value={sortBy}
                 onChange={(e) => setSortBy(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-colors duration-200"
               >
-                <option value="latest">📅 Latest First</option>
-                <option value="oldest">🕐 Oldest First</option>
-                <option value="title">🔤 Title A-Z</option>
-                <option value="difficulty">⚡ Difficulty</option>
+                <option value="latest">📅 最新優先</option>
+                <option value="oldest">🕐 最舊優先</option>
+                <option value="title">🔤 標題 A-Z</option>
+                <option value="difficulty">⚡ 難度</option>
               </select>
             </div>
           </div>
@@ -118,14 +118,14 @@ export default function ProblemsPage() {
         {/* Results Count */}
         <div className="mb-6">
           <p className="text-gray-600 dark:text-gray-300">
-            Showing {sortedAndFilteredProblems.length} / {PROBLEMS.length} problems
+            顯示 {sortedAndFilteredProblems.length} / {PROBLEMS.length} 題目
             {sortBy && (
               <span className="ml-2 text-sm text-blue-600 dark:text-blue-400">
-                • Sorted by: {
-                  sortBy === 'latest' ? 'Latest First' :
-                  sortBy === 'oldest' ? 'Oldest First' :
-                  sortBy === 'title' ? 'Title A-Z' :
-                  sortBy === 'difficulty' ? 'Difficulty' : 'Default'
+                • 排序方式：{
+                  sortBy === 'latest' ? '最新優先' :
+                  sortBy === 'oldest' ? '最舊優先' :
+                  sortBy === 'title' ? '標題 A-Z' :
+                  sortBy === 'difficulty' ? '難度' : '預設'
                 }
               </span>
             )}
@@ -142,16 +142,16 @@ export default function ProblemsPage() {
                     ID
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                    Problem Title
+                    題目標題
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                    Source
+                    來源
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                    Topics
+                    主題
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                    Notes
+                    筆記
                   </th>
                 </tr>
               </thead>
@@ -171,9 +171,6 @@ export default function ProblemsPage() {
                       >
                         {problem.title}
                       </Link>
-                      <p className="text-sm text-gray-500 dark:text-gray-400 mt-1">
-                        {problem.description}
-                      </p>
                     </td>
                     <td className="px-6 py-4 whitespace-nowrap">
                       <span className={`px-2 py-1 text-xs rounded-full ${
@@ -205,10 +202,10 @@ export default function ProblemsPage() {
                           <svg className="w-4 h-4 mr-1" fill="currentColor" viewBox="0 0 20 20">
                             <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
                           </svg>
-                          Completed
+                          已完成
                         </span>
                       ) : (
-                        <span className="text-gray-400 dark:text-gray-500">Not completed</span>
+                        <span className="text-gray-400 dark:text-gray-500">未完成</span>
                       )}
                     </td>
                   </tr>
@@ -220,7 +217,7 @@ export default function ProblemsPage() {
 
         {sortedAndFilteredProblems.length === 0 && (
           <div className="text-center py-12">
-            <p className="text-gray-500">No problems found matching the criteria</p>
+            <p className="text-gray-500 dark:text-gray-400">找不到符合條件的題目</p>
           </div>
         )}
       </main>

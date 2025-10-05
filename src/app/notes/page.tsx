@@ -78,9 +78,9 @@ function NotesContent() {
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-      <Header 
+      <Header
         title="ShuaShua Note"
-        subtitle="Learning Resources"
+        subtitle="學習資源"
         currentPage="notes"
       />
 
@@ -88,31 +88,31 @@ function NotesContent() {
         {/* Page Header */}
         <div className="mb-12">
           <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-4">
-            Learning Resources
+            學習資源
           </h1>
           <p className="text-xl text-gray-600 dark:text-gray-300">
-            Explore concept notes and problem solutions by topic
+            按主題瀏覽概念筆記和題目解答
           </p>
         </div>
 
         {/* Filters */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg dark:shadow-gray-900/20 p-6 mb-8 transition-colors duration-300">
-          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">Filter Options</h2>
+          <h2 className="text-lg font-semibold text-gray-900 dark:text-white mb-4">篩選選項</h2>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             {/* Content Type Filter */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Content Type
+                內容類型
               </label>
               <select
                 value={contentType}
                 onChange={(e) => setContentType(e.target.value as 'all' | 'notes' | 'problems')}
                 className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-colors duration-200"
               >
-                <option value="all">All Content</option>
-                <option value="notes">Concept Notes Only</option>
-                <option value="problems">Problem Solutions Only</option>
+                <option value="all">所有內容</option>
+                <option value="notes">僅概念筆記</option>
+                <option value="problems">僅題目解答</option>
               </select>
             </div>
 
@@ -120,7 +120,7 @@ function NotesContent() {
             {contentType !== 'problems' && (
               <div>
                 <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                  Note Category
+                  筆記分類
                 </label>
                 <select
                   value={selectedCategory}
@@ -128,7 +128,7 @@ function NotesContent() {
                   className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-colors duration-200"
                   disabled={contentType === 'problems'}
                 >
-                  <option value="all">All Categories</option>
+                  <option value="all">所有分類</option>
                   {categories.map(category => (
                     <option key={category} value={category}>
                       {NOTE_CATEGORIES[category]}
@@ -137,18 +137,18 @@ function NotesContent() {
                 </select>
               </div>
             )}
-            
+
             {/* Topic Filter */}
             <div>
               <label className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
-                Topic
+                主題
               </label>
               <select
                 value={selectedTopic}
                 onChange={(e) => setSelectedTopic(e.target.value)}
                 className="w-full px-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md bg-white dark:bg-gray-700 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 transition-colors duration-200"
               >
-                <option value="all">All Topics</option>
+                <option value="all">所有主題</option>
                 {allTopics.map(topic => (
                   <option key={topic} value={topic}>
                     {topic}
@@ -162,7 +162,7 @@ function NotesContent() {
           <div className="mt-4 flex flex-wrap gap-2">
             {contentType !== 'all' && (
               <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-purple-100 dark:bg-purple-900/30 text-purple-800 dark:text-purple-300">
-                Type: {contentType === 'notes' ? 'Concept Notes' : 'Problem Solutions'}
+                類型：{contentType === 'notes' ? '概念筆記' : '題目解答'}
                 <button
                   onClick={() => setContentType('all')}
                   className="ml-2 text-purple-600 dark:text-purple-400 hover:text-purple-800 dark:hover:text-purple-200 transition-colors duration-200"
@@ -173,7 +173,7 @@ function NotesContent() {
             )}
             {selectedCategory !== 'all' && contentType !== 'problems' && (
               <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-blue-100 dark:bg-blue-900/30 text-blue-800 dark:text-blue-300">
-                Category: {NOTE_CATEGORIES[selectedCategory as keyof typeof NOTE_CATEGORIES]}
+                分類：{NOTE_CATEGORIES[selectedCategory as keyof typeof NOTE_CATEGORIES]}
                 <button
                   onClick={() => setSelectedCategory('all')}
                   className="ml-2 text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-200 transition-colors duration-200"
@@ -184,7 +184,7 @@ function NotesContent() {
             )}
             {selectedTopic !== 'all' && (
               <span className="inline-flex items-center px-3 py-1 rounded-full text-sm bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300">
-                Topic: {selectedTopic}
+                主題：{selectedTopic}
                 <button
                   onClick={() => setSelectedTopic('all')}
                   className="ml-2 text-green-600 dark:text-green-400 hover:text-green-800 dark:hover:text-green-200 transition-colors duration-200"
@@ -203,26 +203,26 @@ function NotesContent() {
               {totalResults}
             </div>
             <div className="text-gray-600 dark:text-gray-300">
-              Total Results
+              總結果數
             </div>
           </div>
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg dark:shadow-gray-900/20 p-6 transition-colors duration-300">
             <div className="text-3xl font-bold text-green-600 dark:text-green-400 mb-2">
               {filteredNotes.length}
             </div>
-            <div className="text-gray-600 dark:text-gray-300">Concept Notes</div>
+            <div className="text-gray-600 dark:text-gray-300">概念筆記</div>
           </div>
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg dark:shadow-gray-900/20 p-6 transition-colors duration-300">
             <div className="text-3xl font-bold text-purple-600 dark:text-purple-400 mb-2">
               {filteredProblems.length}
             </div>
-            <div className="text-gray-600 dark:text-gray-300">Problem Solutions</div>
+            <div className="text-gray-600 dark:text-gray-300">題目解答</div>
           </div>
           <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg dark:shadow-gray-900/20 p-6 transition-colors duration-300">
             <div className="text-3xl font-bold text-orange-600 dark:text-orange-400 mb-2">
               {allTopics.length}
             </div>
-            <div className="text-gray-600 dark:text-gray-300">Total Topics</div>
+            <div className="text-gray-600 dark:text-gray-300">總主題數</div>
           </div>
         </div>
 
@@ -237,7 +237,7 @@ function NotesContent() {
               }}
               className="text-sm text-blue-600 dark:text-blue-400 hover:text-blue-800 dark:hover:text-blue-300 underline transition-colors duration-200"
             >
-              Clear All Filters
+              清除所有篩選
             </button>
           </div>
         )}
@@ -246,7 +246,7 @@ function NotesContent() {
         {filteredNotes.length > 0 && (
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-              Concept Notes {filteredNotes.length > 0 && `(${filteredNotes.length})`}
+              概念筆記 {filteredNotes.length > 0 && `(${filteredNotes.length})`}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredNotes.map(note => (
@@ -265,8 +265,8 @@ function NotesContent() {
                         note.difficulty === 'intermediate' ? 'bg-yellow-100 dark:bg-yellow-900/30 text-yellow-800 dark:text-yellow-300' :
                         'bg-red-100 dark:bg-red-900/30 text-red-800 dark:text-red-300'
                       }`}>
-                        {note.difficulty === 'beginner' ? 'Beginner' :
-                         note.difficulty === 'intermediate' ? 'Intermediate' : 'Advanced'}
+                        {note.difficulty === 'beginner' ? '初級' :
+                         note.difficulty === 'intermediate' ? '中級' : '進階'}
                       </span>
                     </div>
                     
@@ -296,7 +296,7 @@ function NotesContent() {
 
                   <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
                     <span className="text-xs text-gray-500 dark:text-gray-400">
-                      Updated on {new Date(note.updatedAt).toLocaleDateString('en-US')}
+                      更新於 {new Date(note.updatedAt).toLocaleDateString('zh-TW')}
                     </span>
                   </div>
                 </Link>
@@ -309,7 +309,7 @@ function NotesContent() {
         {filteredProblems.length > 0 && (
           <div className="mb-12">
             <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-6">
-              Problem Solutions {filteredProblems.length > 0 && `(${filteredProblems.length})`}
+              題目解答 {filteredProblems.length > 0 && `(${filteredProblems.length})`}
             </h2>
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {filteredProblems.map(problem => (
@@ -334,7 +334,7 @@ function NotesContent() {
                     
                     {problem.hasNote && (
                       <span className="text-xs px-2 py-1 bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded">
-                        Solution Available
+                        有解答
                       </span>
                     )}
                   </div>
@@ -360,7 +360,7 @@ function NotesContent() {
 
                   <div className="mt-4 pt-4 border-t border-gray-100 dark:border-gray-700">
                     <span className="text-xs text-gray-500 dark:text-gray-400">
-                      {problem.difficulty} • LeetCode Problem
+                      {problem.difficulty} • {problem.source} 題目
                     </span>
                   </div>
                 </Link>
@@ -377,11 +377,11 @@ function NotesContent() {
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
               </svg>
             </div>
-            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">No matching content found</h3>
+            <h3 className="text-lg font-medium text-gray-900 dark:text-white mb-2">找不到符合的內容</h3>
             <p className="text-gray-600 dark:text-gray-300 mb-4">
-              {selectedTopic === 'all' 
-                ? 'Please select a topic to view related content'
-                : 'Please adjust filter criteria or clear filters to see more content'}
+              {selectedTopic === 'all'
+                ? '請選擇一個主題以查看相關內容'
+                : '請調整篩選條件或清除篩選以查看更多內容'}
             </p>
             <button
               onClick={() => {
@@ -391,7 +391,7 @@ function NotesContent() {
               }}
               className="bg-blue-600 dark:bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors duration-200"
             >
-              Clear Filters
+              清除篩選
             </button>
           </div>
         )}
@@ -402,7 +402,7 @@ function NotesContent() {
 
 export default function NotesPage() {
   return (
-    <Suspense fallback={<div>Loading...</div>}>
+    <Suspense fallback={<div>載入中...</div>}>
       <NotesContent />
     </Suspense>
   );

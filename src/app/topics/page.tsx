@@ -6,49 +6,49 @@ export default function TopicsPage() {
   const topicStats = getTopicStats();
 
   const topicCategories = {
-    'Data Structures': ['Array', 'String', 'LinkedList', 'Stack', 'Queue', 'HashTable'],
-    'Trees & Graphs': ['Tree', 'BinarySearchTree', 'Graph'],
-    'Search & Traversal': ['DFS', 'BFS', 'BinarySearch'],
-    'Advanced Algorithms': ['DynamicProgramming', 'Greedy', 'Backtracking'],
-    'Techniques & Others': ['TwoPointers', 'SlidingWindow', 'Sort', 'Math', 'BitManipulation']
+    '資料結構': ['Array', 'String', 'LinkedList', 'Stack', 'Queue', 'HashTable'],
+    '樹與圖': ['Tree', 'BinarySearchTree', 'Graph'],
+    '搜尋與遍歷': ['DFS', 'BFS', 'BinarySearch'],
+    '進階演算法': ['DynamicProgramming', 'Greedy', 'Backtracking'],
+    '技巧與其他': ['TwoPointers', 'SlidingWindow', 'Sort', 'Math', 'BitManipulation']
   };
 
   return (
     <div className="min-h-screen bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
-      <Header 
+      <Header
         title="ShuaShua Note"
-        subtitle="Topic Categories"
+        subtitle="主題分類"
         currentPage="topics"
       />
 
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Overview */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg dark:shadow-gray-900/20 p-6 mb-8 transition-colors duration-300">
-          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">Topics Overview</h2>
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-white mb-4">主題概覽</h2>
           <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
             <div className="text-center">
               <div className="text-3xl font-bold text-blue-600 dark:text-blue-400">
                 {topicStats.length}
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Total Topics</div>
+              <div className="text-sm text-gray-600 dark:text-gray-300">總主題數</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-green-600 dark:text-green-400">
                 {topicStats.reduce((sum, stat) => sum + stat.count, 0)}
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Total Problems</div>
+              <div className="text-sm text-gray-600 dark:text-gray-300">總題數</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-purple-600 dark:text-purple-400">
                 {topicStats.filter(stat => stat.count > 0).length}
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Practiced Topics</div>
+              <div className="text-sm text-gray-600 dark:text-gray-300">已練習主題</div>
             </div>
             <div className="text-center">
               <div className="text-3xl font-bold text-orange-600 dark:text-orange-400">
                 {topicStats.reduce((sum, stat) => sum + (stat.count > 0 ? stat.count : 0), 0)}
               </div>
-              <div className="text-sm text-gray-600 dark:text-gray-300">Completed Problems</div>
+              <div className="text-sm text-gray-600 dark:text-gray-300">已完成題數</div>
             </div>
           </div>
         </div>
@@ -73,7 +73,7 @@ export default function TopicsPage() {
                         <div>
                           <h4 className="font-semibold text-gray-900 dark:text-white">{topic}</h4>
                           <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
-                            {count} problems
+                            {count} 題
                           </p>
                         </div>
                         <div className={`w-3 h-3 rounded-full ${
@@ -84,8 +84,8 @@ export default function TopicsPage() {
                       {/* Topic Summary */}
                       <div className="mt-3">
                         <div className="flex justify-between text-xs text-gray-500 dark:text-gray-400 mb-1">
-                          <span>Problems</span>
-                          <span>{count} problems</span>
+                          <span>題目數量</span>
+                          <span>{count} 題</span>
                         </div>
                         <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
                           <div 
@@ -106,19 +106,19 @@ export default function TopicsPage() {
 
         {/* All Topics List */}
         <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg dark:shadow-gray-900/20 p-6 mt-8 transition-colors duration-300">
-          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">All Topics Statistics</h3>
+          <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-6">所有主題統計</h3>
           <div className="overflow-x-auto">
             <table className="w-full">
               <thead className="bg-gray-50 dark:bg-gray-700">
                 <tr>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                    Topic
+                    主題
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                    Problem Count
+                    題目數量
                   </th>
                   <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 dark:text-gray-300 uppercase tracking-wider">
-                    Status
+                    狀態
                   </th>
                 </tr>
               </thead>
@@ -141,11 +141,11 @@ export default function TopicsPage() {
                       <td className="px-6 py-4 whitespace-nowrap">
                         {stat.count > 0 ? (
                           <span className="px-2 py-1 text-xs bg-green-100 dark:bg-green-900/30 text-green-800 dark:text-green-300 rounded-full">
-                            Practiced
+                            已練習
                           </span>
                         ) : (
                           <span className="px-2 py-1 text-xs bg-gray-100 dark:bg-gray-700 text-gray-800 dark:text-gray-300 rounded-full">
-                            Not Started
+                            未開始
                           </span>
                         )}
                       </td>
