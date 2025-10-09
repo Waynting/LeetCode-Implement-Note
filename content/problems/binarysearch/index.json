@@ -3,9 +3,17 @@
   "displayName": "BinarySearch",
   "problems": [
     {
+      "filename": "2300-successful-pairs-of-spells-and-potions.md",
+      "id": null
+    },
+    {
       "filename": "33-search-in-rotated-sorted-array.md",
+      "id": null
+    },
+    {
+      "filename": "74-search-a-2d-matrix.md",
       "id": null
     }
   ],
-  "lastUpdated": "2025-10-05T16:13:30.103Z"
+  "lastUpdated": "2025-10-09T04:21:29.544Z"
 }

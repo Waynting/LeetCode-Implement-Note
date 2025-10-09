@@ -1,6 +1,11 @@
 {
   "topic": "greedy",
   "displayName": "Greedy",
-  "problems": [],
-  "lastUpdated": "2025-10-05T16:13:30.103Z"
+  "problems": [
+    {
+      "filename": "3494-brew-potions-note.md",
+      "id": null
+    }
+  ],
+  "lastUpdated": "2025-10-09T04:21:29.545Z"
 }
